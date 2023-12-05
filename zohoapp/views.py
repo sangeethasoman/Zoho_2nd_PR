@@ -11165,56 +11165,141 @@ def add_vendor_bills(request):
 
     if request.method=='POST':
 
-        title=request.POST.get('title')
-        first_name=request.POST.get('firstname')
-        last_name=request.POST.get('lastname')
-        fullname = request.POST.get('display_name')
-        comp_name = request.POST.get('company_name')
-        email=request.POST.get('email')
-        website=request.POST.get('website')
-        w_mobile=request.POST.get('work_mobile')
-        p_mobile=request.POST.get('pers_mobile')
-        skype = request.POST.get('skype')
-        desg = request.POST.get('desg')
-        dpt = request.POST.get('dpt')
-        gsttype=request.POST.get('gsttype')
-        gstin=request.POST.get('gstin')
-        panno=request.POST.get('panno')
-        s_supply=request.POST.get('sourceofsupply')
-        currency=request.POST.get('currency')
-        balance=request.POST.get('openingbalance')
-        payment=request.POST.get('paymentterms')
-        street=request.POST.get('street')
-        city=request.POST.get('city')
-        state=request.POST.get('state')
-        pincode=request.POST.get('pincode')
-        country=request.POST.get('country')
-        fax=request.POST.get('fax')
-        phone=request.POST.get('phone')
-        shipstreet=request.POST.get('shipstreet')
-        shipcity=request.POST.get('shipcity')
-        shipstate=request.POST.get('shipstate')
-        shippincode=request.POST.get('shippincode')
-        shipcountry=request.POST.get('shipcountry')
-        shipfax=request.POST.get('shipfax')
-        shipphone=request.POST.get('shipphone')
+        # title=request.POST.get('title')
+        # first_name=request.POST.get('firstname')
+        # last_name=request.POST.get('lastname')
+        # fullname = request.POST.get('display_name')
+        # comp_name = request.POST.get('company_name')
+        # email=request.POST.get('email')
+        # website=request.POST.get('website')
+        # w_mobile=request.POST.get('work_mobile')
+        # p_mobile=request.POST.get('pers_mobile')
+        # skype = request.POST.get('skype')
+        # desg = request.POST.get('desg')
+        # dpt = request.POST.get('dpt')
+        # gsttype=request.POST.get('gsttype')
+        # gstin=request.POST.get('gstin')
+        # panno=request.POST.get('panno')
+        # s_supply=request.POST.get('sourceofsupply')
+        # currency=request.POST.get('currency')
+        # balance=request.POST.get('openingbalance')
+        # payment=request.POST.get('paymentterms')
+        # street=request.POST.get('street')
+        # city=request.POST.get('city')
+        # state=request.POST.get('state')
+        # pincode=request.POST.get('pincode')
+        # country=request.POST.get('country')
+        # fax=request.POST.get('fax')
+        # phone=request.POST.get('phone')
+        # shipstreet=request.POST.get('shipstreet')
+        # shipcity=request.POST.get('shipcity')
+        # shipstate=request.POST.get('shipstate')
+        # shippincode=request.POST.get('shippincode')
+        # shipcountry=request.POST.get('shipcountry')
+        # shipfax=request.POST.get('shipfax')
+        # shipphone=request.POST.get('shipphone')
 
-        u = User.objects.get(id = request.user.id)
+        # u = User.objects.get(id = request.user.id)
 
-        vend = vendor_table(user = u,salutation=title,first_name=first_name,last_name=last_name,company_name=comp_name,vendor_display_name=fullname,
-                            vendor_email=email,vendor_wphone=w_mobile,vendor_mphone=p_mobile,skype_number=skype,designation=desg,
-                            department=dpt,website=website,gst_treatment=gsttype,gst_number=gstin,pan_number=panno,source_supply=s_supply,
-                            currency=currency,opening_bal=balance,payment_terms=payment,bcountry=country,baddress=street,bcity=city,
-                            bstate=state,bphone=phone,bfax=fax,scountry=shipcountry,saddress=shipstreet,scity=shipcity,
-                            sstate=shipstate,sphone=shipphone,sfax=shipfax)
-        vend.save()
+        # vend = vendor_table(user = u,salutation=title,first_name=first_name,last_name=last_name,company_name=comp_name,vendor_display_name=fullname,
+        #                     vendor_email=email,vendor_wphone=w_mobile,vendor_mphone=p_mobile,skype_number=skype,designation=desg,
+        #                     department=dpt,website=website,gst_treatment=gsttype,gst_number=gstin,pan_number=panno,source_supply=s_supply,
+        #                     currency=currency,opening_bal=balance,payment_terms=payment,bcountry=country,baddress=street,bcity=city,
+        #                     bstate=state,bphone=phone,bfax=fax,scountry=shipcountry,saddress=shipstreet,scity=shipcity,
+        #                     sstate=shipstate,sphone=shipphone,sfax=shipfax)
+        # vend.save()
+
+        vendor_data=vendor_table()
+        vendor_data.salutation = request.POST.get('salutation')
+        vendor_data.first_name=request.POST['first_name']
+        vendor_data.last_name=request.POST['last_name']
+        vendor_data.company_name=request.POST['company_name']
+        vendor_data.vendor_display_name=request.POST['v_display_name']
+        vendor_data.vendor_email=request.POST['vendor_email']
+        vendor_data.vendor_wphone=request.POST['w_phone']
+        vendor_data.vendor_mphone=request.POST['m_phone']
+        vendor_data.skype_number=request.POST['skype_number']
+        vendor_data.designation=request.POST['designation']
+        vendor_data.department=request.POST['department']
+        vendor_data.website=request.POST['website']
+        vendor_data.gst_treatment=request.POST['gst']
+        vendor_data.status="Active"
+
+        x=request.POST['gst']
+        if x=="Unregistered Business-not Registered under GST":
+            vendor_data.pan_number=request.POST['pan_number']
+            vendor_data.gst_number="null"
+        else:
+            vendor_data.gst_number=request.POST['gst_number']
+            vendor_data.pan_number=request.POST['pan_number']
+
+        vendor_data.source_supply=request.POST['source_supply']
+        vendor_data.currency=request.POST['currency']
+        vendor_data.opening_bal=request.POST['opening_bal']
+        vendor_data.payment_terms=request.POST['payment_terms']
+
+        user_id=request.user.id
+        udata=User.objects.get(id=user_id)
+        vendor_data.user=udata
+        vendor_data.battention=request.POST['battention']
+        vendor_data.bcountry=request.POST['bcountry']
+        vendor_data.baddress=request.POST['baddress']
+        vendor_data.bcity=request.POST['bcity']
+        vendor_data.bstate=request.POST['bstate']
+        vendor_data.bzip=request.POST['bzip']
+        vendor_data.bphone=request.POST['bphone']
+        vendor_data.bfax=request.POST['bfax']
+
+        vendor_data.sattention=request.POST['sattention']
+        vendor_data.scountry=request.POST['scountry']
+        vendor_data.saddress=request.POST['saddress']
+        vendor_data.scity=request.POST['scity']
+        vendor_data.sstate=request.POST['sstate']
+        vendor_data.szip=request.POST['szip']
+        vendor_data.sphone=request.POST['sphone']
+        vendor_data.sfax=request.POST['sfax']
+        vendor_data.save()
+# .......................................................adding to remaks table.....................
+        vdata=vendor_table.objects.get(id=vendor_data.id)
+        vendor=vdata
+        rdata=remarks_table()
+        rdata.remarks=request.POST['remark']
+        rdata.user=udata
+        rdata.vendor=vdata
+        rdata.save()
+
+
+#  ...........................adding multiple rows of table to model  ........................................................  
+     
+        salutation =request.POST.getlist('salutation[]')
+        first_name =request.POST.getlist('first_name[]')
+        last_name =request.POST.getlist('last_name[]')
+        email =request.POST.getlist('email[]')
+        work_phone =request.POST.getlist('wphone[]')
+        mobile =request.POST.getlist('mobile[]')
+        skype_number =request.POST.getlist('skype[]')
+        designation =request.POST.getlist('designation[]')
+        department =request.POST.getlist('department[]') 
+        vdata=vendor_table.objects.get(id=vendor_data.id)
+        vendor=vdata
+        print("hi")
+        print(salutation)
+        if salutation != ['Select']:
+            if len(salutation)==len(first_name)==len(last_name)==len(email)==len(work_phone)==len(mobile)==len(skype_number)==len(designation)==len(department):
+                mapped2=zip(salutation,first_name,last_name,email,work_phone,mobile,skype_number,designation,department)
+                mapped2=list(mapped2)
+                print(mapped2)
+                for ele in mapped2:
+                    created = contact_person_table.objects.get_or_create(salutation=ele[0],first_name=ele[1],last_name=ele[2],email=ele[3],
+                            work_phone=ele[4],mobile=ele[5],skype_number=ele[6],designation=ele[7],department=ele[8],user=udata,vendor=vendor)
+            
 
         response_data = {
             "message": "success",
-            "fullname":fullname,
+            "fullname":"",
             "email": email,
-            "sos": s_supply,
-            "gstin": gstin
+            "sos": "",
+            "gstin": ""
         }
 
         return JsonResponse(response_data)
