@@ -1747,7 +1747,7 @@ debugger
                                 <th >Department</th>
                               </tr>
                               <tr>
-                                <td><select name="salutation[]" class="bg-transparent border-0 text-white"  id="PLACE" >
+                                <td><select name="salutation[]" class="bg-transparent border-0 text-white"  id="sal_utation" >
                                   <option class="text-dark"  >Select</option>
                                     <option class="text-dark" value="Mr" >Mr.</option>
                                     <option class="text-dark" value="Mrs">Mrs.</option>
@@ -1755,17 +1755,17 @@ debugger
                                     <option class="text-dark" value="Miss">Miss.</option>
                                     <option class="text-dark" value="Dr">Dr.</option>
                                   </select></td>
-                                <td><input type="text" class=" form-control border-1 bg-transparent text-white"    name="first_name[]"  ></td>
-                                <td><input type="text"class="form-control border-1 bg-transparent text-white"  name="last_name[]" /></td>
-                                <td><input type="text" class="form-control border-1 bg-transparent text-white"  name="email[]" /></td>
+                                <td><input type="text" class=" form-control border-1 bg-transparent text-white"    name="first_name[]"  id="first_name"></td>
+                                <td><input type="text"class="form-control border-1 bg-transparent text-white"  name="last_name[]" id="last_name"/></td>
+                                <td><input type="text" class="form-control border-1 bg-transparent text-white"  name="email[]" id="e_mail"/></td>
                                 <!-- <td><input type="text" style="width:8rem;" name="wphone[]" /></td>
                                 <td><input type="text" style="width:8rem;" name="mobile[]" /></td>
                                 <td><input type="text" style="width:8rem;" name="skype[]" /></td> -->
                                 <td><input type="tel" pattern="[0-9]{7}" class="form-control border-1 bg-transparent text-white"  id="twphone" name="wphone[]"/></td>
                                 <td><input type="tel" pattern="[0-9]{10}"  class="form-control border-1 bg-transparent text-white"  id="tmobile" onclick="sample1()"   name="mobile[]" /></td>
-                                <td><input type="number" class="form-control border-1 bg-transparent text-white"  onclick="sample()" name="skype[]" /></td>
-                                <td><input type="text" class="form-control border-1 bg-transparent text-white"  name="designation[]" /></td>
-                                <td><input type="text" class="form-control border-1 bg-transparent text-white"  name="department[]" /></td>
+                                <td><input type="number" class="form-control border-1 bg-transparent text-white"  onclick="sample()" name="skype[]" id="sky_pe"/></td>
+                                <td><input type="text" class="form-control border-1 bg-transparent text-white"  name="designation[]" id="desig_nation" /></td>
+                                <td><input type="text" class="form-control border-1 bg-transparent text-white"  name="department[]" id="depart_ment"/></td>
                               </tr>
                             </table>
                            
@@ -1791,7 +1791,7 @@ debugger
                   <div class="col-sm-12 col-md-8 col-lg-8">
                       <div class="form-group row mt-4">
                           <div class=" col-sm-12 col-md-6 col-lg-6">
-                              <textarea class="bg-light" style="border: none;color: rgb(5, 5, 5);" cols="70" rows="4" name="remark"></textarea>
+                              <textarea class="bg-light" style="border: none;color: rgb(5, 5, 5);" cols="70" rows="4" name="remark" id="remark"></textarea>
                           </div>
                       </div>
                   </div>
@@ -1805,26 +1805,19 @@ debugger
           
           <div class="row mt-5">
               <div class="col-sm-12 col-md-2 col-lg-2 mt-3">
-                  <input type="submit" class="btn btn-outline-warning form-control bg-warning text-dark" style="font-weight: bold;" value="save">
-                  <!-- <a href="{% url 'add_vendor' %}" role="button" class="form-control bg-light text-dark"></a> -->
-                  <!-- <button type="submit">save</button> -->
+                  <input type="submit" class="btn btn-outline-warning form-control bg-warning text-dark" data-dismiss="modal" id="vendorSave" style="font-weight: bold;" value="save">
               </div>
                
               <div class=" col-sm-12 col-md-2 col-lg-2 mt-3">
-                  <a href="{% url 'cancel_vendor' %}" role="button" class="form-control  bg-warning text-dark" style="font-weight: bold;"><center>Cancel</center></a>
+                  <a role="button" class="form-control  bg-warning text-dark"  data-dismiss="modal" aria-label="Close" style="font-weight: bold;"><center>Cancel</center></a>
 
               </div> 
 
 
           </div>
-
-         
-
-
+  
               <br><br><br><br><br><br><br><br><br><br><br><br>
-
-                     
-
+ 
             </form>
               </div>
           </div>
@@ -2710,7 +2703,7 @@ debugger
 
 <!-- create vendor -->
 <script>
-  $(document).on("click","#vendorSave",function(){
+  $(document).on("click","#vendorSave",function(){ debugger
   $.ajax({
     
     type : 'POST',
@@ -2719,12 +2712,12 @@ debugger
     data:{
         salutation : $("#select1").val(),
         first_name : $("#fname").val(),
-        last_name : $("#last_name").val(),
+        last_name : $("#lname").val(),
         company_name : $("#vcompany").val(),
         v_display_name : $('#select2').text(),
         vendor_email : $("#vemail").val(),
-        w_phone :$("#workphone_label").val(),
-        m_phone :$("#mphone_label").val(),
+        w_phone :$("#workphone").val(),
+        m_phone :$("#mphone").val(),
         skype_number :$("#vskype").val(),
         designation :$("#v_desg").val(),
         department :$("#v_dpt").val(),
@@ -2744,24 +2737,24 @@ debugger
         bzip : $("#bzp").val(),
         bphone : $("#bphone_label").val(),
         bfax : $("#fax_label").val(),
-        sattention : $("#vscity").val(),
-        scountry : $("#vsstate").val(),
-        saddress : $("#vspincode").val(),
-        scity : $("#vscountry").val(),
-        sstate : $("#vsfax").val(),
-        szip : $("#vsphone").val(),
-        sphone : $("#vsphone").val(),
-        sfax : $("#vsphone").val(),
-        remark : $("#vsphone").val(),
-        salutation : $("#vsphone").val(),
-        first_name: $("#vsphone").val(),
-        last_name: $("#vsphone").val(),
-        email : $("#vsphone").val(),
-        wphone : $("#vsphone").val(),
-        mobile : $("#vsphone").val(),
-        skype : $("#vsphone").val(),
-        designation : $("#vsphone").val(),
-        department : $("#vsphone").val(),
+        sattention : $("#satten").val(),
+        scountry : $("#sctry").val(),
+        saddress : $("#sadd1").val(),
+        scity : $("#scty").val(),
+        sstate : $("#sste").val(),
+        szip : $("#szp").val(),
+        sphone : $("#sphone_label").val(),
+        sfax : $("#sfax_label").val(),
+        remark : $("#remark").val(),
+        salutation : $("#sal_utation").val(),
+        first_name: $("input[name='first_name[]']").val(),
+        last_name: $("#last_name").val(),
+        email : $("#e_mail").val(),
+        wphone : $("#twphone").val(),
+        mobile : $("#tmobile").val(),
+        skype : $("#sky_pe").val(),
+        designation : $("#desig_nation").val(),
+        department : $("#depart_ment").val(),
         
         csrfmiddlewaretoken: '{{ csrf_token }}'
         
@@ -3143,12 +3136,12 @@ $.ajax({
     }
  
 
-    $(document).ready(function () {
-        $(".toggle1").click(function (e) {
-          e.preventDefault();
-          $("fieldset1").toggle();
-        })
-      })
+    // $(document).ready(function () {
+    //     $(".toggle1").click(function (e) {
+    //       e.preventDefault();
+    //       $("fieldset1").toggle();
+    //     })
+    //   })
     // $(document).ready(function () {
     //     $(".toggle2").click(function (e) {
     //       e.preventDefault();

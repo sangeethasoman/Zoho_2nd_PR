@@ -39,13 +39,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'zohoapp',
-    'crispy_forms',
-    'crispy_bootstrap4',
-    'django_htmx',
-    'silk',
-    'bootstrap_datepicker_plus',
-    'mathfilters',
-    'django_social_share',
 ]
 
 MIDDLEWARE = [

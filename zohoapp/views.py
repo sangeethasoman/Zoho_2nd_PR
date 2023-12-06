@@ -15,8 +15,7 @@ from .forms import EmailForm
 from django.http import JsonResponse
 from datetime import datetime,date, timedelta
 from xhtml2pdf import pisa
-from django.template.loader import get_template
-from bs4 import BeautifulSoup
+from django.template.loader import get_template 
 import io
 import os
 import json
