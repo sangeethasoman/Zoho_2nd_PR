@@ -11105,7 +11105,7 @@ def new_bill(request):
     user = request.user
     company = company_details.objects.get(user_id=user.id)
     items = AddItem.objects.filter(user_id=user.id)
-    vendors = vendor_table.objects.filter(user_id=user.id)
+    vendors = vendor_table.objects.filter(user_id=user.id,status = 'Active')
     customers = customer.objects.filter(user_id=user.id)
     terms = payment_terms.objects.exclude(Days__isnull=True).filter(user_id=user.id)
     units = Unit.objects.all()
@@ -11161,7 +11161,7 @@ def get_vendor_data_bill(request):
 @login_required(login_url='login')
 def add_vendor_bills(request):
     company = company_details.objects.get(user = request.user)
-
+    print('Hello')
     if request.method=='POST':
 
         # title=request.POST.get('title')
@@ -11296,7 +11296,7 @@ def add_vendor_bills(request):
         response_data = {
             "message": "success",
             "fullname":"",
-            "email": email,
+            "email": "",
             "sos": "",
             "gstin": ""
         }
