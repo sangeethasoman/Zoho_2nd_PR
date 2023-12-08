@@ -11310,61 +11310,117 @@ def entr_custmr_for_bills(request):
 
     if request.method=='POST':
 
-        # title=request.POST.get('title')
-        # first_name=request.POST.get('firstname')
-        # last_name=request.POST.get('lastname')
-        # comp=request.POST.get('company_name')
-        cust_type = request.POST.get('customer_type')
-        name = request.POST.get('display_name')
-        comp_name = request.POST.get('company_name')
+        cr_data=customer()
+        print('hii')
+        print(cr_data)
+        type=request.POST.get('type')
+        fname=request.POST.get('fName')
+        print(fname)
+        lname=request.POST.get('lName')
+        print(lname)
+        txtFullName=request.POST.get('txtFullName')
+        cpname=request.POST.get('cpname')           
         email=request.POST.get('email')
-        website=request.POST.get('website')
-        w_mobile=request.POST.get('work_mobile')
-        p_mobile=request.POST.get('pers_mobile')
-        fb = request.POST.get('facebook')
-        twitter = request.POST.get('twitter')
-        skype = request.POST.get('skype')
-        desg = request.POST.get('desg')
-        dpt = request.POST.get('dpt')
-        gsttype=request.POST.get('gsttype')
-        gstin=request.POST.get('gstin')
-        panno=request.POST.get('panno')
-        supply=request.POST.get('placeofsupply')
-        tax = request.POST.get('tax_preference')
-        currency=request.POST.get('currency')
-        balance=request.POST.get('openingbalance')
-        payment=request.POST.get('paymentterms')
-        street1=request.POST.get('street1')
-        street2=request.POST.get('street2')
-        city=request.POST.get('city')
-        state=request.POST.get('state')
-        pincode=request.POST.get('pincode')
-        country=request.POST.get('country')
-        fax=request.POST.get('fax')
-        phone=request.POST.get('phone')
-        # shipstreet1=request.POST.get('shipstreet1')
-        # shipstreet2=request.POST.get('shipstreet2')
-        # shipcity=request.POST.get('shipcity')
-        # shipstate=request.POST.get('shipstate')
-        # shippincode=request.POST.get('shippincode')
-        # shipcountry=request.POST.get('shipcountry')
-        # shipfax=request.POST.get('shipfax')
-        # shipphone=request.POST.get('shipphone')
+        wphone=request.POST.get('wphone')
+        mobile=request.POST.get('mobile')
+        skname=request.POST.get('skname')
+        desg=request.POST.get('desg')      
+        dept=request.POST.get('dept')
+        wbsite=request.POST.get('wbsite')
 
+        gstt=request.POST.get('v_gsttype')
+        
+        x=request.POST.get('v_gsttype')
+        if x=="Unregistered Business-not Registered under GST":
+            pan=request.POST.get('pan_number')
+            gstin="null"
+        else:
+            gstin=request.POST.get('v_gstin')
+            pan=request.POST.get('pan_number')
+        
+        posply=request.POST.get('posply')
+        tax1=request.POST.get('tax1')
+        crncy=request.POST.get('crncy')
+
+        # select=request.POST.get('pterms')
+        
+        pterms=request.POST.get('terms')
+
+        plst=request.POST.get('plst')
+        plang=request.POST.get('plang')
+        fbk=request.POST.get('fbk')
+        twtr=request.POST.get('twtr')
+    
+        atn=request.POST.get('atn')
+        ctry=request.POST.get('ctry')
+        
+        addrs=request.POST.get('addrs')
+        addrs1=request.POST.get('addrs1')
+        bct=request.POST.get('bct')
+        bst=request.POST.get('bst')
+        bzip=request.POST.get('bzip')
+        bpon=request.POST.get('bpon')
+        bfx=request.POST.get('bfx')
+        remark=request.POST.get('remark')
+        obal= float(request.POST.get('obal', 0.0))
+        crdr=request.POST.get('bal')
+        status='Active'
         u = User.objects.get(id = request.user.id)
+        if crdr == 'credit':
+            obal = -obal
+        else:
+            obal = obal
+        
+        ctmr=customer(customerName=txtFullName,
+                        Fname=fname,Lname=lname,
+                        customerType=type,
+                    companyName=cpname,
+                    customerEmail=email,
+                    customerWorkPhone=wphone,
+                        customerMobile=mobile,skype=skname,
+                        designation=desg,department=dept,
+                        website=wbsite
+                        ,GSTTreatment=gstt,
+                        GSTIN=gstin,pan_no=pan,
+                        placeofsupply=posply, Taxpreference=tax1,
+                            currency=crncy,OpeningBalance=obal,
+                            PaymentTerms=pterms,
+                            PriceList=plst,PortalLanguage=plang,
+                            Facebook=fbk,
+                            Twitter=twtr,
+                                Attention=atn,country=ctry,Address1=addrs,Address2=addrs1,
+                                city=bct,state=bst,zipcode=bzip,phone1=bpon,
+                                fax=bfx,
+                                    remark=remark,cr_dr=crdr,status=status,user=u )
+        ctmr.save() 
 
-        cust = customer(customerName = name,customerType = cust_type, companyName= comp_name, GSTTreatment=gsttype, 
-                        customerWorkPhone = w_mobile,customerMobile = p_mobile, customerEmail=email,skype = skype,Facebook = fb, 
-                        Twitter = twitter,placeofsupply=supply,Taxpreference = tax,currency=currency, website=website, 
-                        designation = desg, department = dpt,OpeningBalance=balance,Address1=street1,Address2=street2, city=city, 
-                        state=state, PaymentTerms=payment,zipcode=pincode,country=country,  fax = fax,  phone1 = phone,user = u, GSTIN=gstin,pan_no=panno)
-        cust.save()
-
+        #  ...........................adding multiple rows of table to model  ........................................................       
+        CPsalutation =request.POST.getlist('sal[]')
+        Firstname=request.POST.getlist('ftname[]')
+        Lastname =request.POST.getlist('ltname[]')
+        CPemail =request.POST.getlist('mail[]')
+        CPphone=request.POST.getlist('bworkpn[]')
+        CPmobile=request.POST.getlist('bmobile[]')
+        CPskype=request.POST.getlist('bskype[]')
+        CPdesignation=request.POST.getlist('bdesg[]')
+        CPdepartment=request.POST.getlist('bdept[]') 
+        
+        cdata=customer.objects.get(id=ctmr.id)
+        Customr=cdata 
+        
+        if len(CPsalutation)==len(Firstname)==len(Lastname)==len(CPemail)==len(CPphone)==len(CPmobile)==len(CPskype)==len(CPdesignation)==len(CPdepartment):
+            mapped2=zip(CPsalutation,Firstname,Lastname,CPemail,CPphone,CPmobile,CPskype,CPdesignation,CPdepartment)
+            mapped2=list(mapped2)
+            print(mapped2)
+            for ele in mapped2:
+                created = customer_contact_person_table.objects.get_or_create(CPsalutation=ele[0],Firstname=ele[1],Lastname=ele[2],CPemail=ele[3],
+                        CPphone=ele[4],CPmobile=ele[5],CPskype=ele[6],CPdesignation=ele[7],CPdepartment=ele[8],user=u,Customr=Customr)
+                
         response_data = {
             "message": "success",
-            "name":name,
-            "email": email,
-            "pos": supply
+            "name":"",
+            "email": "",
+            "pos": ""
         }
 
         return JsonResponse(response_data)
