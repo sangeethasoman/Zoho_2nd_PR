@@ -58,6 +58,150 @@
  
 </style>
 
+<!-- New item -->
+<style>
+  .open-button {
+    background-color: #ccc;
+    color: black;
+    padding: 5px 5px;
+    border: none;
+    cursor: pointer;
+    opacity: 0.8;
+    position: relative;
+  }
+
+  /* The popup form - hidden by default */
+  .form-popup {
+    display: none;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #f1f1f1;
+    border: 3px solid black;
+    z-index: 9999;
+    padding: 20px;
+    max-width: 300px;
+  }
+
+  /* Full-width input fields */
+  .form-popup input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0 20px 0;
+    border: none;
+    background: #f1f1f1;
+  }
+
+  /* Set a style for the submit button */
+  .form-popup .btn {
+    background-color: #04aa6d;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  /* Set a style for the close button */
+  .form-popup .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    line-height: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+
+  /* Change the color of the close button on hover */
+  .form-popup .close:hover {
+    color: black;
+  }
+
+  .openbutton {
+    background-color: #ccc;
+    color: black;
+    padding: 5px 5px;
+    border: none;
+    cursor: pointer;
+    opacity: 0.8;
+    position: relative;
+    width: 180px;
+    z-index:9;
+  }
+
+  /* The popup form - hidden by default */
+  .form-popup1 {
+    display: none;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #f1f1f1;
+    border: 3px solid black;
+    z-index: 9999;
+    padding: 20px;
+    max-width: 300px;
+  }
+
+  /* Full-width input fields */
+  .form-popup1 input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0 20px 0;
+    border: none;
+    background: #f1f1f1;
+  }
+
+  /* Set a style for the submit button */
+  .form-popup1 .btn.add-button {
+    background-color: #04aa6d;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  /* Set a style for the close button */
+  .form-popup1 .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    line-height: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+
+  .form-popup1 .close:hover {
+    color: black;
+  }
+
+  /* Style for the highlighted account type options */
+  option.highlight-account-type {
+    background-color: #f3f3f3; /* Example background color */
+    color: #666; /* Example text color */
+    font-weight: bold; /* Example font weight */
+    /* Add any other styles you want to customize the look of the highlighted account type options */
+  }
+  
+  /* Additional style for hovering over the highlighted account type options (optional) */
+  option.highlight-account-type:hover {
+    background-color: #f5f5f5; /* Example hover background color */
+    /* Add any other styles you want for the hover state */
+  }
+  .highlight-account-type {
+    text-align: left;
+    padding-left: 10px;
+  }
+ 
+
+</style>
+
 <script>
 
 
@@ -1887,228 +2031,347 @@ debugger
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-       <form action="" method="post"novalidate autocomplete="off" id="modalItem">
-        <div class="row   ">
-  
-          <div class="col-md-12 mt-3 ">
-            <fieldset class="form-group">
-              <div class="row">
-                <label class="col-form-label col-sm-2 pt-0">Type <i class="fa fa-question-circle"></i></label>
-                <div class="col-sm-10 form-inline">
-                  <div class="form-check ">
-                    <input required class="form-check-input" type="radio" name="type" id="gridRadios1" value="Goods">
-                    <label class="form-check-label" for="gridRadios1">
-                      Goods
-                    </label>
-                  </div>
-                  <div class="form-check ml-5">
-                    <input required class="form-check-input" type="radio" name="type2" id="gridRadios2" value="Services">
-                    <label class="form-check-label" for="gridRadios2">
-                      Services
-                    </label>
-                  </div>
-  
+        <form action="" method="post" id="modalItem">
+          {% csrf_token %}
+          <fieldset class="form-group">
+            <div class="row">
+              <label class="col-form-label col-sm-2 pt-3">Type <i class="fa fa-question-circle"></i></label>
+              <div class="col-sm-10 form-inline">
+                <div class="form-check ">
+                  <input required class="form-check-input " type="radio" name="type" id="gridRadios1" value="Goods" style="margin-left:5px;">
+                  <label class="form-check-label text-white" for="gridRadios1">Goods</label>
                 </div>
-              </div>
-            </fieldset>
-            <div class="form-group row">
-              <label class="col-sm-2 col-form-label">Name *</label>
-              <div class="col-sm-10 col-md-7 col-9" style="margin-left: -2.2rem;">
-                <input required type="text" class="form-control bg-light text-dark" name="name">
+                <div class="form-check ml-5">
+                  <input required class="form-check-input " type="radio" name="type" id="gridRadios2" value="Services" style="margin-left:50px;">
+                  <label class="form-check-label text-white" for="gridRadios2">Services</label>
+                </div>
+                      
               </div>
             </div>
-            <div class="form-group row">
-              <label class="col-sm-2 col-form-label">HSN</label>
-              <div class="col-sm-10 col-md-7 col-9" style="margin-left: -2.2rem;">
-                <input required type="text" class="form-control bg-light text-dark" id="HSN" name="HSN" >
-              </div>
+          </fieldset>
+          <div class="form-group row">
+            <label  class="col-sm-2 col-form-label ">Name *</label>
+            <div class="col-sm-10 col-md-7 col-9" style="margin-left: -2.2rem;">
+              <input required type="text" class="form-control text-black" name="name" id="nameInput">
             </div>
-            <div class="form-group row">
-              <label class="col-sm-2 col-form-label">Unit <i class="fa fa-question-circle"></i></label>
-              <div class="col-sm-10 col-md-7 col-9" style="margin-left: -2.2rem;">
-                <select name="unit" class="form-control bg-light text-dark ">
-  
-                  {% for u in units %}
-                  <option value="{{u.id}}">{{u.unit}}</option>
-                  {% endfor %}
-                </select>
-  
-              </div>
-  
-              <!-- <a href="" data-toggle="modal" data-target="#add_unit">
-                <div style="width: 6rem;" type="button" class="btn btn-secondary">Ad Unit</div>
-              </a> -->
-  
-            </div>
-  
-            <section>
-  
-              <div class="row">
-                <div class="col-sm-12">
-                  <label class="text-danger mb-3 mr-3" for="">Tax Preference :</label>
-                </div>
-              </div>
-              <div class="row mb-3 mr-3">
-                <div class="col-sm-12">
-  
-                  <input type="radio" name="radio1" value="tax" onclick="showAllSelect()">
-                  <label for="">Taxable</label> &nbsp;&nbsp;&nbsp;
-                  <input type="radio" name="radio2" value="none" onclick="hideAllSelect()">
-                  <label for="">None-Taxable</label>
-  
-  
-                </div>
-              </div>
-  
-              <div class="row mb-3">
-                <div class="col-md-3 ">
-  
-                  <div id="select1_div" style="display: none;">
-                    <label for="select1">Intra-State TAX</label>
-                    <select name="intra" class="form-control bg-light text-dark" id="select1">
-                      <option value="GST0[0%]">GST0[0%]</option>
-                      <option value="GST5[5%]">GST5[5%]</option>
-                      <option value="GST12[12%]">GST12[12%]</option>
-                      <option value="GST18[18%]">GST18[18%]</option>
-                      <option value="GST28[28%]">GST28[28%]</option>
-                    </select>
-                  </div>
-  
-  
-                </div>
-                <div class="col-md-3">
-                  <div id="select2_div" style="display: none;">
-                    <label for="select2">Inter-State TAX</label>
-                    <select name="inter" class="form-control bg-light text-dark" id="select2">
-                      <option value="IGST0[0%]">IGST0[0%]</option>
-                      <option value="IGST5[5%]">IGST5[5%]</option>
-                      <option value="IGST12[12%]">IGST12[12%]</option>
-                      <option value="IGST18[18%]">IGST18[18%]]</option>
-                      <option value="IGST28[28%]">IGST28[28%]</option>
-                    </select>
-                  </div>
-                </div>
-              </div>
-  
-  
-              <script>
-                function showAllSelect() {
-                  var select1_div = document.getElementById("select1_div");
-                  var select2_div = document.getElementById("select2_div");
-                  select1_div.style.display = "block";
-                  select2_div.style.display = "block";
-                }
-  
-                function hideAllSelect() {
-                  var select1_div = document.getElementById("select1_div");
-                  var select2_div = document.getElementById("select2_div");
-                  select1_div.style.display = "none";
-                  select2_div.style.display = "none";
-                }
-              </script>
-  
-  
-  
-            </section>
-  
-            <section>
-              <div class="row">
-                <div class="col-md-6">
-                  <input type="checkbox" name="selling" checked> <label>selling information</label>
-                  <div class="form-group row">
-                    <label class="col-sm-2 col-form-label">Selling price *</label>
-                    <div class="col-sm-10 col-md-7 col-9 ml-5">
-                      <div class="input-group mb-2">
-                        <div class="input-group-prepend">
-                          <div class="input-group-text">INR</div>
-                        </div>
-                        <input required type="text" name="sel_price" class="form-control bg-light text-dark">
-                      </div>
-                    </div>
-                  </div>
-                  <div class="form-group row">
-                    <label class="col-sm-2 col-form-label">Account *</label>
-                    <div class="col-sm-10 col-md-7 col-9 ml-5">
-                      <select name="sel_acc" class="form-control bg-light text-dark">
-                        
-                        {% for account in s_acc %}
-                        <option value="" disabled class="btn btn-dark text-white"><b>{{account.account_type }}</b></option>
-                        <option value="{{account.id}}">{{ account.Account_name }}</option>  
-                        {% endfor %}
-  
-                      </select>
-                    </div>
-                    <!-- <a href="" data-toggle="modal" data-target="#add_account">
-                      <div style="width: 6rem;" type="button" class="btn btn-secondary">Ad Acount</div>
-                    </a> -->
-  
-                  </div>
-                  <div class="form-group row">
-                    <label class="col-sm-2 col-form-label">Description </label>
-                    <div class="col-sm-10 col-md-7 col-9 ml-5">
-                      <input required type="text" name="sel_desc" class="form-control bg-light text-dark">
-                    </div>
-                  </div>
-  
-                </div>
-                <div class="col-md-6">
-                  <input type="checkbox" name="purchase" checked> <label for="">Purchase information</label>
-                  <div class="form-group row">
-                    <label class="col-sm-2 col-form-label">Cost Price *</label>
-                    <div class="col-sm-10 col-md-7 col-9">
-                      <div class="input-group mb-2">
-                        <div class="input-group-prepend">
-                          <div class="input-group-text">INR</div>
-                        </div>
-                        <input required type="text" class="form-control bg-light text-dark" name="cost_price">
-                      </div>
-                    </div>
-                  </div>
-                  <div class="form-group row in">
-                    <label class="col-sm-2 col-form-label">Account *</label>
-                    <div class="col-sm-10 col-md-7 col-9">
-  
-                      <script>
-  
-                      </script>
-  
-                      <select name="cost_acc" class="form-control bg-light text-dark">
-                        {% for account in p_acc %}
-                        <option value="" disabled class="btn btn-dark text-white"><b>{{account.account_type }}</b></option>
-                        <option value="{{account.id}}">{{ account.Account_name }}</option>  
-                        {% endfor %}
-  
-                      </select>
-  
-  
-                    </div>
-  
-                    <!-- <a href="" data-toggle="modal" data-target="#add_sale">
-                      <div style="width: 6rem;" type="button" class="btn btn-secondary">Ad Account</div>
-                    </a> -->
-                  </div>
-                  <div class="form-group row">
-                    <label class="col-sm-2 col-form-label">Description </label>
-                    <div class="col-sm-10 col-md-7 col-9">
-                      <input type="text" name="cost_desc" class="form-control bg-light text-dark">
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </section>
-  
-            <div class="form-inline">
-              <input type="submit" class="mr-3 btn btn-success" data-dismiss="modal" onclick="create_item()" value="Save">&nbsp;
-              <input type="submit" class="btn btn-secondary but" data-dismiss="modal" value="Cancel">
-            </div>
-  
-  
           </div>
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Unit <i class="fa fa-question-circle"></i></label>
+            <div class="col-sm-10 col-md-7 col-9" style="margin-left: -2.2rem;">
+                <div class="d-flex align-items-center">
+                    <select name="unit" class="form-control text-black" id="unit" style="width: 100%;">
+                        {% for u in unit %}
+                        <option value="{{u.id}}">{{u.unit}}</option>
+                        {% endfor %}
+                    </select>
+                    <button style="width: 2.5rem; background-color: chocolate; color: black; border-radius: 3px; margin-left: 10px;" class="open-button" onclick="openForm()">+</button>
+                </div>
+            </div>
         </div>
-        </form>
+        
+
+          <div class="form-group row">
+            <label  class="col-sm-2 col-form-label">HSN Code</label> 
+            <div class="col-sm-10 col-md-7 col-9"  style="margin-left: -2.2rem;" >
+              <input required type="number" class="form-control text-black" name="hsn" id="myInputField" oninput="validateInput()">
+              <div id="validationResult"></div>
+            </div>
+          </div>
+          <script>
+            function validateSixDigits(field) {
+              // Define the regular expression pattern for exactly six digits
+              var pattern = /^\d{6}$/;
+            
+              // Check if the field matches the pattern
+              return pattern.test(field);
+            }
+            
+            function validateInput() {
+              var inputField = document.getElementById("myInputField");
+              var inputValue = inputField.value;
+            
+              var validationResultDiv = document.getElementById("validationResult");
+            
+              if (validateSixDigits(inputValue)) {
+                validationResultDiv.textContent = "Valid: The field contains exactly six digits.";
+              } else {
+                validationResultDiv.textContent = "Invalid: The field does not contain exactly six digits.";
+              }
+            }
+          
+          </script>
+          <div class="form-inline text-white" >
+            <label class="text-danger mb-4 mr-4" for="">Tax Preference  :</label>
+            <p class="text-white  ">
+            <input type="radio"  name="radio" value="taxable" onclick="showAllSelect()" style="margin-left:95px;">  Taxable</p>
+            <p><input type="radio" name="radio" value="no-taxable" onclick="hideAllSelect()" style="margin-left:62px;"> None-Taxable </p><br><br>
+          </div>
+
+          <div class="row">
+            <div class="col-md-3">
+          
+              <div id="select1_div" style="display: none;">
+                <label for="select1">Intra-State TAX</label>
+                <select name="intra" class="form-control text-black" id="select1">
+                  <option value="GST0[0%]">GST0[0%]</option>
+                  <option value="GST3[3%]">GST3[3%]</option>
+                  <option value="GST5[5%]">GST5[5%]</option>
+                  <option value="GST12[12%]">GST12[12%]</option>
+                  <option value="GST18[18%]">GST18[18%]</option>
+                  <option value="GST28[28%]">GST28[28%]</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div id="select2_div" style="display: none;">
+                <label for="select2">Inter-State TAX</label>
+                <select name="inter" class="form-control text-black" id="select2">
+                  <option value="IGST0[0%]">IGST0[0%]</option>
+                  <option value="IGST5[5%]">IGST3[3%]</option>
+                  <option value="IGST5[5%]">IGST5[5%]</option>
+                  <option value="IGST12[12%]">IGST12[12%]</option>
+                  <option value="IGST18[18%]">IGST18[18%]]</option>
+                  <option value="IGST28[28%]">IGST28[28%]</option>
+                </select>
+              </div>
+            </div>
+          </div>
+    
+
+
+        <script>
+        function showAllSelect() {
+        var select1_div = document.getElementById("select1_div");
+        var select2_div = document.getElementById("select2_div");
+        select1_div.style.display = "block";
+        select2_div.style.display = "block";
+        }
+
+        function hideAllSelect() {
+        var select1_div = document.getElementById("select1_div");
+        var select2_div = document.getElementById("select2_div");
+        select1_div.style.display = "none";
+        select2_div.style.display = "none";
+        }
+        </script>
+        <div class="row">
+          <div class="col-md-6">
+            <input  type="checkbox" name="selling" checked> <label >selling  information</label><br><br>
+            <div class="form-group row">
+              <label class="col-sm-2 col-form-label">Selling price *</label>
+              <div class="col-sm-12 col-md-7 col-9 ml-5">
+                <div class="input-group mb-2">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text text-white">INR</div>
+                  </div>
+                  <input required type="text" name="sel_price" class="form-control text-black">
+                </div>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label  class="col-sm-2 col-form-label">Account *</label>
+              <div class="col-sm-10 col-md-7 col-9 ml-5">
+                <select name="sel_acc" class="form-control text-dark">
+                  
+                       
+                  
+                  {% for account_type in account_type %}
+                    <option value="" disabled class="btn btn-dark  highlight-account-type"><b>{{ account_type }}</b></option>
+                    {% for account in account %}
+                    {% if account.Account_type == account_type %}
+                    <option value="{{account.id}}">{{ account.Account_name }}</option>
+                    {% endif %}
+                    {% endfor %}
+                    {% endfor %}
+
+                </select>                              
+              </div>
+            </div>
+            <div class="form-group row">
+              <label  class="col-sm-2 col-form-label">Description </label>
+              <div class="col-sm-10 col-md-7 col-9 ml-5">
+                <input required  type="text" name="sel_desc" class="form-control text-black" >
+              </div>
+            </div>
+                                  
+          </div>
+          <div class="col-md-6">
+            <input type="checkbox" name="purchase" checked> <label for="">Purchase information</label><br><br>
+            <div class="form-group row">
+              <label  class="col-sm-2 col-form-label">Cost Price *</label>
+              <div class="col-sm-10 col-md-7 col-9">
+                <div class="input-group mb-2">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text text-white">INR</div>
+                  </div>
+                  <input required type="text" class="form-control text-black" name="cost_price" >
+                </div>
+              </div>
+            </div>
+            <div class="form-group row in">
+              <label class="col-sm-2 col-form-label">Account *</label>
+              <div class="col-sm-10 col-md-7 col-5">
+                  <div class="d-flex align-items-center">
+                      <select name="cost_acc" class="form-control text-black" id="myaccount" >
+                          {% for account_type in account_types %}
+                          <option value="" disabled class="btn btn-dark text-light highlight-account-type"><b>{{ account_type }}</b></option>
+                          {% for account in accounts %}
+                          {% if account.Account_type == account_type %}
+                          <option value="{{account.id}}">{{ account.Account_name }}</option>
+                          {% endif %}
+                          {% endfor %}
+                          {% endfor %}
+                      </select>
+                      <button id="showFormButton" style="width: 40px; background-color: chocolate; color: black; border-radius: 3px; margin-left: 10px;" class="openbutton" onclick="showForm()">+</button>
+                  </div>
+              </div>
+          </div>
+          
+          
+
+
+            <div class="form-group row">
+              <label  class="col-sm-2 col-form-label">Description </label>
+              <div class="col-sm-10 col-md-7 col-9">
+                <input  type="text" name="cost_desc" class="form-control text-black"  >
+              </div>
+            </div>
+          </div>
+          <div class="form-group row mt-1">
+            <label  class="col-sm-2 col-form-label">Minimum Stock to maintain </label>
+            <div class="col-sm-7 col-md-3 col-9">
+              <input  type="text" name="minimum_stock" class="form-control text-black" style="margin-left: -2.4rem;" >
+            </div>
+          </div>
+          <fieldset class="form-group">
+            <div class="row">
+              <label class="col-form-label col-sm-2 pt-3">Activation tag<i class="fa fa-question-circle"></i></label>
+              <div class="col-sm-10 form-inline">
+                <div class="form-check ">
+                  <input required class="form-check-input" type="radio" name="status" id="gridRadios1" value="Active"  style="margin-left:5px;" >
+                  <label class="form-check-label text-white" for="gridRadios1">Activate</label>
+                </div>
+                <div class="form-check ml-5">
+                  <input required class="form-check-input" type="radio" name="status" id="gridRadios2" value="Inactive" style="margin-left:50px;">
+                  <label class="form-check-label text-white" for="gridRadios2">Non-Activate</label>
+                </div>
+                  
+              </div>
+            </div>
+          </fieldset>
+            <br><br>
+            <div class="row" >
+              <div class="col-md-10">
+                {% comment %} <label><input type="checkbox" value="trackstate" name="trackstate" onclick="toggleForm()" style="display: none;">
+               Track Inventory for this item</label> {% endcomment %}
+                {% comment %} <input type="hidden" name="trackState" id="trackState" value="" unchecked> {% endcomment %}
+                <label>
+                  <input type="checkbox" name="trackstate" value="trackstate" class=" "  onclick="toggleFormFields()">
+                  Track Inventory for this item
+                </label>
+                <div id="formFields" style="display: none;"> 
+                  <div class="form-group row" >
+                    <label class="col-sm-2 col-form-label">Inventory Account *</label>
+                    <div class="col-sm-10 col-md-7 col-9" style="margin-left: -1rem;">
+                      <select class="form-select form-select-sm mt-3 text-black" name="invacc">
+                        <option>Choose..</option>
+                        <option value="inventory assets">Inventory Asset</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-group row ">
+                    <label class="col-sm-2 col-form-label">Opening Stock</label>
+                    <div class=" col-md-5">
+                      <input  type="number" class="form-control text-black"  name="openstock" value="0">
+                    </div>
+                    <div class="col-md-5  ">
+                      <div class="row align-items-center">
+                        <label class="col-sm-6 col-form-label">Opening Stock Rate per Unit</label>
+                        <div class="col-sm-6">
+                          <input type="number" class="form-control text-black" name="inventoryaccntperunit"  value="0">
+                        </div>
+
+                      </div>
+                    </div>
+                    <fieldset class="form-group">
+                      <div class="row">
+                        <label class="col-form-label col-sm-2 pt-2">Activation tag<i class="fa fa-question-circle"></i></label>
+                        <div class="col-sm-10 form-inline">
+                          <div class="form-check ">
+                            <input  class="form-check-input" type="radio" name="satus" id="gridRadios1" value="Active"  style="margin-left:5px;" >
+                            <label class="form-check-label" for="gridRadios1">Activate</label>
+                          </div>
+                          <div class="form-check ml-5">
+                            <input  class="form-check-input" type="radio" name="satus" id="gridRadios2" value="Inactive"  style="margin-left:50px;">
+                            <label class="form-check-label" for="gridRadios2">Non-Activate</label>
+                          </div>
+                                      
+                        </div>
+                      </div>
+                    </fieldset>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+            <script>
+              function toggleFormFields() {
+                var formFields = document.getElementById("formFields");
+                var checkbox = document.querySelector("input[name=trackstate]");
+          
+                if (checkbox.checked) {
+                  formFields.style.display = "block";
+                } else {
+                  formFields.style.display = "none";
+                }
+              }
+            </script>
+            <br><br> <br>
+        <div class="form-inline " style="margin-bottom: 200px;">
+          <button type="submit"  class="mr-3 btn" style="background-color: chocolate;" data-dismiss="modal" onclick="create_item()" value="Save">Save</button>
+          <button type="button" class="mr-3 btn"  data-dismiss="modal" value="Cancel" style="margin-left:10px;background-color: chocolate;">Cancel</button>
+        </div>
+      </form>
       </div>
       </div>
     </div>
+  </div>
+
+  <div class="form-popup" id="myForm">
+    <form onsubmit="event.preventDefault(); addUnit();" class="form-container" id="unitForm">
+        {% csrf_token %}
+        <span class="close" onclick="closeForm()">&times;</span><br>
+        <h1 class="text-dark">Add Unit</h1>
+  
+        <label class="text-dark" for="unit"><b>Unit</b></label>
+        <input type="text" placeholder="Enter unit" id="unitName" name="unit_name" required>
+        <p class="text-dark">eg:KL,PCS,BOX,LTR</p>
+  
+        <button type="submit" class="btn add-button">Add</button>
+    </form>
+  </div>
+
+  <div class="form-popup1" id="myForm1" >
+    <form style="margin-top: 5rem;" onsubmit="event.preventDefault(); addAccount();" class="form-container" id="accountForm">
+      {% csrf_token %}
+      <span class="close" onclick="closeForm1()">&times;</span><br>
+      <h1 class="text-dark" >Add Account</h1><br>
+      
+      <label class="text-dark"><b>Account type</b></label>
+      <select class="form-select" aria-label="Default select example" name="acc_type">
+        <option selected></option>
+        <option value="EXPENCES">EXPENCES</option>
+        <option value="Cost Of Goods Sold">Cost Of Goods Sold</option>
+        <option value="Fixed Asset">Fixed Asset</option>
+      </select>
+      <label class="text-dark"><b>Account Name</b></label>
+      
+      <input type="text" placeholder="Enter account Name" id="unit" name="acc_name" required>
+      <label class="text-dark"><b>Description</b></label>
+      <input type="text" placeholder="Description"name="acc_desc">
+      <button type="submit" class="btn add-button" >Add</button>
+    
+    </form>
   </div>
 
 <!-- Add unit --------------------------------------------------------------------------------------------------------------------------------->
@@ -3372,60 +3635,23 @@ $.ajax({
 
 <script>
   function create_item() {
-
-    if (document.getElementsByName('radio1')[0].checked) {
-      var radio = document.getElementsByName('radio1')[0].value
-    } else {
-      var radio = document.getElementsByName('radio2')[0].value
-    }
-
-    if (document.getElementsByName('type')[0].checked) {
-      var type = document.getElementsByName('type')[0].value
-    } else {
-      var type = document.getElementsByName('type2')[0].value
-    }
-
-    var inter = document.getElementsByName('inter')[0].value
-    var intra = document.getElementsByName('intra')[0].value
-
-    var name = document.getElementsByName('name')[0].value
-    var unit = document.getElementsByName('unit')[0].value
-    var sel_price = document.getElementsByName('sel_price')[0].value
-    var sel_acc = document.getElementsByName('sel_acc')[0].value
-    var sel_desc = document.getElementsByName('sel_desc')[0].value
-    var cost_price = document.getElementsByName('cost_price')[0].value
-    var cost_acc = document.getElementsByName('cost_acc')[0].value
-    var cost_desc = document.getElementsByName('cost_desc')[0].value
-    var hsn = document.getElementsByName('HSN')[0].value
+  var formData = $("#modalItem").serialize(); // Serialize the form data
+   formData += '&csrfmiddlewaretoken=' + '{{ csrf_token }}'; // Append the CSRF token
 
     $.ajax({
 
-      type: "GET",
+      type: "POST",
       url: "{% url 'additem_bills' %}",
 
-      data: {
-        radios: radio,
-        inters: inter,
-        intras: intra,
-        types: type,
-        names: name,
-        units: unit,
-        sel_prices: sel_price,
-        sel_accs: sel_acc,
-        s_descs: sel_desc,
-        cost_prices: cost_price,
-        cost_accs: cost_acc,
-        p_descs: cost_desc,
-        hsn: hsn,
-
-        csrfmiddlewaretoken: '{{ csrf_token }}'
-      },
+      data: formData,  
 
       success: function (response) {
         document.getElementById("modalItem").reset();
-         reloadItem();
-
-
+         reloadItem(); 
+      },
+      error: function(xhr, status, error) {
+        console.error(error);
+        // Handle error here
       }
 
     });
@@ -5026,5 +5252,159 @@ $.ajax({
 
 
 <!-- END of customer modal -->
+
+<!-- Add item-->
+<script>
+  function resetForm() {
+    document.getElementById("Form").reset();
+  }
+</script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+function addUnit() {
+    // Get the form and form data
+    let unitForm = document.getElementById("unitForm");
+    let formData = new FormData(unitForm);
+
+    // Send the form data through AJAX
+    $.ajax({
+        url: "{% url 'add_unit' %}",
+        type: "POST",
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function (response) {
+            const unitName = response.unit_name;
+            const unitId = response.unit_id; // Assume the server returns the unit ID
+
+            // Handle the success response
+            console.log(response);
+
+            // Get the dropdown element
+            const dropdown = document.getElementById("unit");
+
+            // Create and add the new unit option
+            const newUnitOption = document.createElement("option");
+            newUnitOption.value = unitId;
+            newUnitOption.text = unitName;
+
+            // Add the new unit option to the dropdown
+            dropdown.add(newUnitOption);
+
+            // Select the newly added unit option to display it as the current selection
+            newUnitOption.selected = true;
+
+            // Close the form and perform any other actions
+            closeForm();
+        },
+        error: function (error) {
+            // Handle the error response
+            console.log(error);
+        }
+    });
+}
+
+function openForm() {
+    let formContainer = document.getElementById("myForm");
+    formContainer.style.display = "block";
+}
+
+function closeForm() {
+    let formContainer = document.getElementById("myForm");
+    formContainer.style.display = "none";
+}
+</script>
+<script>
+  function addAccount() {
+    // Get the form and form data
+    let accountForm = document.getElementById("accountForm");
+    let formData = new FormData(accountForm);
+  
+    // Send the form data through AJAX
+    $.ajax({
+      url: "{% url 'add_account' %}",
+      type: "POST",
+      data: formData,
+      processData: false,
+      contentType: false,
+      success: function (response) {
+        const accountType = response.Account_type;
+        const accountName = response.Account_name;
+        const accountId = response.account_id; // Assume the server returns the account ID
+  
+        // Handle the success response
+        console.log(response);
+  
+        // Get the dropdown element
+        const dropdown = document.getElementById("myaccount");
+  
+        // Create and add the new account option
+        const newAccountOption = document.createElement("option");
+        newAccountOption.value = accountId;
+        newAccountOption.text = accountName;
+  
+        // Find the correct position to insert the new account option
+        let foundAccountType = false;
+        for (let i = 0; i < dropdown.options.length; i++) {
+          const option = dropdown.options[i];
+          if (option.disabled && option.innerText === accountType)   {
+            foundAccountType = true;
+            // Move to the next option to find the correct position within the account type
+            continue;
+          }
+          if (foundAccountType) {
+            if (!option.disabled) {
+              // Insert the new account option before the first non-disabled option within the account type
+              dropdown.add(newAccountOption, i);
+              break;
+            }
+          }
+        }
+  
+        // If the account type option doesn't exist, create and add it along with the new account option
+        if (!foundAccountType) {
+          const accountTypeOption = document.createElement("option");
+          accountTypeOption.text = accountType;
+          accountTypeOption.disabled = true;
+          accountTypeOption.className = "btn btn-dark text-light highlight-account-type";
+          dropdown.add(accountTypeOption);
+          dropdown.add(newAccountOption);
+        }
+  
+        // Select the newly added account option to display it as the current selection
+        newAccountOption.selected = true;
+  
+        // Close the form and perform any other actions
+        closeForm1();
+      },
+      error: function (error) {
+        // Handle the error response
+        console.log(error);
+      }
+    });
+  }
+  const dropdown = document.getElementById("myaccount");
+  dropdown.addEventListener("change", function () {
+  // Get the selected option from the dropdown
+  const selectedOption = dropdown.selectedOptions[0];
+  // Get the account ID from the selected option's value attribute
+  const selectedAccountId = selectedOption.value;
+
+  // Now you can use selectedAccountId for further processing or display
+  console.log("Selected Account ID:", selectedAccountId);
+});
+  
+function showForm() {
+  let formContainer = document.getElementById("myForm1");
+  formContainer.style.display = "block";
+}
+
+function closeForm1() {
+  let formContainer = document.getElementById("myForm1");
+  formContainer.style.display = "none";
+}
+
+</script>
+<!--END Add item-->
 
 {% endblock %}

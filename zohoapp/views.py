@@ -11213,6 +11213,15 @@ def new_bill(request):
         next_no = last_id+1
     else:
         next_no = 1
+    unit=Unit.objects.all()
+    sale=Sales.objects.all()
+    purchase=Purchase.objects.all()
+    accounts = Purchase.objects.all()
+    account_types_item = set(Purchase.objects.values_list('Account_type', flat=True))
+
+    
+    account_item = Sales.objects.all()
+    account_type = set(Sales.objects.values_list('Account_type', flat=True))
     context = {'company': company,
                'items': items,
                'vendors': vendors,
@@ -11225,6 +11234,13 @@ def new_bill(request):
                's_acc': sales_acc,
                'p_acc': pur_acc,
                'bank':bank,
+               'unit':unit,
+               'sale':sale,
+               'purchase':purchase,
+               "account":account_item,
+               "account_type":account_type,
+               "accounts":accounts,
+               "account_types":account_types_item,
                }
 
     return render(request, 'newbill.html',context)
@@ -11563,34 +11579,123 @@ def create_payment_terms_bills(request):
 
         return JsonResponse(response_data)
     
+@login_required(login_url='login')
 def additem_bills(request):
+    if request.method=='POST':
+            radio=request.POST.get('radio')
+           
+            
+            if radio =='taxable':
+                print('tax section')
+                
     
-    radio=request.GET.get('radios')
-    inter=request.GET.get('inters')
-    intra=request.GET.get('intras')
-    type=request.GET.get('types')
-    name=request.GET.get('names')
-    unit=request.GET.get('units')
-    sel_price=request.GET.get('sel_prices')
-    sel_acc=request.GET.get('sel_accs')
-    s_desc=request.GET.get('s_descs')
-    cost_price=request.GET.get('cost_prices')
-    cost_acc=request.GET.get('cost_accs')      
-    p_desc=request.GET.get('p_descs')
-    hsn=request.GET.get('hsn')
-    u=request.user.id
-    us=request.user
-    history="Created by" + str(us)
-    user=User.objects.get(id=u)
-    unit=Unit.objects.get(id=unit)
-    sel=Sales.objects.get(id=sel_acc)
-    cost=Purchase.objects.get(id=cost_acc)
-    ad_item=AddItem(type=type,Name=name,p_desc=p_desc,s_desc=s_desc,s_price=sel_price,p_price=cost_price,unit=unit,
-                sales=sel,purchase=cost,user=user,creat=history,interstate=inter,intrastate=intra, hsn = hsn
-                    )
-    ad_item.save()
+                
+                inter=request.POST['inter']
+                intra=request.POST['intra']
+                type=request.POST.get('type')
+                name=request.POST['name']
+                unit=request.POST['unit']
+                hsn=request.POST['hsn']
+                status=request.POST.get('status')
+                sel_price=request.POST.get('sel_price')
+                sel_acc=request.POST.get('sel_acc')
+                s_desc=request.POST.get('sel_desc')
+                cost_price=request.POST.get('cost_price')
+                cost_acc=request.POST.get('cost_acc')      
+                p_desc=request.POST.get('cost_desc')
+                min_stock=request.POST.get('minimum_stock')
+                tax=request.POST.get('radio')
+                u=request.user.id
+                us=request.user
+                history="Created by" + str(us)
+                user=User.objects.get(id=u)
+                unit=Unit.objects.get(id=unit)
+                sel=Sales.objects.get(id=sel_acc)
+                cost=Purchase.objects.get(id=cost_acc)
+                invacc=request.POST.get('invacc')
+                stock=request.POST.get('openstock')
+                stock_per_unit = request.POST.get('inventoryaccntperunit')
+           
+                print('satus')
+                
+                ad_item=AddItem(type=type,
+                                Name=name,
+                                p_desc=p_desc,
+                                s_desc=s_desc,
+                                minimum_stock=min_stock,
+                                s_price=sel_price,
+                                p_price=cost_price,
+                                tax=tax,
+                                hsn=hsn,
+                                unit=unit,
+                                sales=sel,
+                                purchase=cost,
+                                satus=status,
+                                user=user,
+                                creat=history,
+                                interstate=inter,
+                                intrastate=intra,
+                                invacc=invacc,
+                                stock=stock,
+                                rate=stock_per_unit
+                                )
+                ad_item.save()
+                
+            else:
+                print('nontaxsection')
+                                                  
+                type=request.POST.get('type')
+                name=request.POST['name']
+                unit=request.POST['unit']
+                hsn=request.POST['hsn']
+                sel_price=request.POST.get('sel_price')
+                sel_acc=request.POST.get('sel_acc')
+                s_desc=request.POST.get('sel_desc')
+                cost_price=request.POST.get('cost_price')
+                cost_acc=request.POST.get('cost_acc')      
+                p_desc=request.POST.get('cost_desc')
+                min_stock=request.POST.get('minimum_stock')
+                tax=request.POST.get('radio')
+                status=request.POST.get('status')
+                u=request.user.id
+                us=request.user
+                history="Created by" + str(us)
+                user=User.objects.get(id=u)
+                unit=Unit.objects.get(id=unit)
+                sel=Sales.objects.get(id=sel_acc)
+                cost=Purchase.objects.get(id=cost_acc)
+                istock = request.POST['openstock']
+                invacc=request.POST.get('invacc')
+                stock_per_unit = request.POST.get('inventoryaccntperunit')
 
-    return JsonResponse({"status": " not", 'name': name})
+                ad_item=AddItem(type=type,
+                                Name=name,
+                                hsn=hsn,
+                                p_desc=p_desc,
+                                s_desc=s_desc,
+                                minimum_stock=min_stock,
+                                s_price=sel_price,
+                                p_price=cost_price,
+                                unit=unit,
+                                sales=sel,
+                                tax=tax,
+                                purchase=cost,
+                                satus = status,
+                                user=user,
+                                creat=history,
+                                interstate='none',
+                                intrastate='none',
+                                invacc=invacc,
+                                stock=istock,
+                                rate=stock_per_unit
+                            
+                               
+                                )
+                
+                ad_item.save()
+
+    return JsonResponse({"status": " not", 'name': ""})
+
 
 def itemdata_bills(request):
     cur_user = request.user
