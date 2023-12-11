@@ -5522,6 +5522,13 @@ def add_recurring_bills(request):
     else:
          next_no = 1
 
+    unit=Unit.objects.all()
+    sale=Sales.objects.all()
+    purchase=Purchase.objects.all()
+    accounts = Purchase.objects.all()
+    account_types_item = set(Purchase.objects.values_list('Account_type', flat=True))
+    account_item = Sales.objects.all()
+    account_type = set(Sales.objects.values_list('Account_type', flat=True))
     context = {
         'company': company,
         'vendor': vendor,
@@ -5537,7 +5544,13 @@ def add_recurring_bills(request):
         'purchase_type': purchase_type,
         'b_no': next_no,
         'bank':bank,
-
+        'unit':unit,
+        'sale':sale,
+        'purchase':purchase,
+        "account":account_item,
+        "account_type":account_type,
+        "accounts":accounts,
+        "account_types":account_types_item,
     }
 
     return render(request, 'add_recurring_bills.html', context)
@@ -5662,7 +5675,13 @@ def edit_recurring_bills(request,id):
     c = customer.objects.filter(user = request.user).get(id = recur_bills.customer_name.split(' ')[0])
     v = vendor_table.objects.filter(user = request.user).get(id = recur_bills.vendor_name.split(" ")[0])
     bank=Bankcreation.objects.filter(user = request.user)
-
+    unit=Unit.objects.all()
+    sale=Sales.objects.all()
+    purchase=Purchase.objects.all()
+    accounts = Purchase.objects.all()
+    account_types_item = set(Purchase.objects.values_list('Account_type', flat=True))
+    account_item = Sales.objects.all()
+    account_type = set(Sales.objects.values_list('Account_type', flat=True))
     
     context = {
         'company' : company,
@@ -5684,8 +5703,14 @@ def edit_recurring_bills(request,id):
         'id': id,
         'vend_name' : " ".join(recur_bills.vendor_name.split(" ")[1:]),
         'cust_name' : " ".join(recur_bills.customer_name.split(" ")[2:]),
-        'bank':bank,
-        
+        'bank':bank, 
+        'unit':unit,
+        'sale':sale,
+        'purchase':purchase,
+        "account":account_item,
+        "account_type":account_type,
+        "accounts":accounts,
+        "account_types":account_types_item,
     }
 
     return render(request,'edit_recurring_bills.html',context)
@@ -6244,38 +6269,119 @@ def recurbills_item(request):    #updation
     company = company_details.objects.get(user = request.user)
 
     if request.method=='POST':
-        
-        type=request.POST.get('type')
-        name=request.POST.get('name')
-       
-        ut=request.POST.get('unit')
-        inter=request.POST.get('inter')
-        intra=request.POST.get('intra')
-        sell_price=request.POST.get('sell_price')
-        sell_acc=request.POST.get('sell_acc')
-        sell_desc=request.POST.get('sell_desc')
-        cost_price=request.POST.get('cost_price')
-        cost_acc=request.POST.get('cost_acc')      
-        cost_desc=request.POST.get('cost_desc')
-        hsn_number = request.POST.get('hsn_number')
+            radio=request.POST.get('radio')
         
         
-        units=Unit.objects.get(id=ut)
-        sel=Sales.objects.get(id=sell_acc)
-        cost=Purchase.objects.get(id=cost_acc)
+            if radio =='taxable':
+                print('tax section')
+                
 
-        history="Created by " + str(request.user)
+                
+                inter=request.POST['inter']
+                intra=request.POST['intra']
+                type=request.POST.get('type')
+                name=request.POST['name']
+                unit=request.POST['unit']
+                hsn=request.POST['hsn']
+                status=request.POST.get('status')
+                sel_price=request.POST.get('sel_price')
+                sel_acc=request.POST.get('sel_acc')
+                s_desc=request.POST.get('sel_desc')
+                cost_price=request.POST.get('cost_price')
+                cost_acc=request.POST.get('cost_acc')      
+                p_desc=request.POST.get('cost_desc')
+                min_stock=request.POST.get('minimum_stock')
+                tax=request.POST.get('radio')
+                u=request.user.id
+                us=request.user
+                history="Created by" + str(us)
+                user=User.objects.get(id=u)
+                unit=Unit.objects.get(id=unit)
+                sel=Sales.objects.get(id=sel_acc)
+                cost=Purchase.objects.get(id=cost_acc)
+                invacc=request.POST.get('invacc')
+                stock=request.POST.get('openstock')
+                stock_per_unit = request.POST.get('inventoryaccntperunit')
+            
+                print('satus')
+                
+                ad_item=AddItem(type=type,
+                                Name=name,
+                                p_desc=p_desc,
+                                s_desc=s_desc,
+                                minimum_stock=min_stock,
+                                s_price=sel_price,
+                                p_price=cost_price,
+                                tax=tax,
+                                hsn=hsn,
+                                unit=unit,
+                                sales=sel,
+                                purchase=cost,
+                                satus=status,
+                                user=user,
+                                creat=history,
+                                interstate=inter,
+                                intrastate=intra,
+                                invacc=invacc,
+                                stock=stock,
+                                rate=stock_per_unit
+                                )
+                ad_item.save()
+                
+            else:
+                print('nontaxsection')
+                                                    
+                type=request.POST.get('type')
+                name=request.POST['name']
+                unit=request.POST['unit']
+                hsn=request.POST['hsn']
+                sel_price=request.POST.get('sel_price')
+                sel_acc=request.POST.get('sel_acc')
+                s_desc=request.POST.get('sel_desc')
+                cost_price=request.POST.get('cost_price')
+                cost_acc=request.POST.get('cost_acc')      
+                p_desc=request.POST.get('cost_desc')
+                min_stock=request.POST.get('minimum_stock')
+                tax=request.POST.get('radio')
+                status=request.POST.get('status')
+                u=request.user.id
+                us=request.user
+                history="Created by" + str(us)
+                user=User.objects.get(id=u)
+                unit=Unit.objects.get(id=unit)
+                sel=Sales.objects.get(id=sel_acc)
+                cost=Purchase.objects.get(id=cost_acc)
+                istock = request.POST['openstock']
+                invacc=request.POST.get('invacc')
+                stock_per_unit = request.POST.get('inventoryaccntperunit')
 
-        u  = User.objects.get(id = request.user.id)
-
-        item=AddItem(type=type,Name=name,p_desc=cost_desc,s_desc=sell_desc,s_price=sell_price,p_price=cost_price,
-                     user=u ,creat=history,interstate=inter,intrastate=intra,unit = units,sales = sel, purchase = cost, hsn=hsn_number)
-
-        item.save()
-
-        return HttpResponse({"message": "success"})
+                ad_item=AddItem(type=type,
+                                Name=name,
+                                hsn=hsn,
+                                p_desc=p_desc,
+                                s_desc=s_desc,
+                                minimum_stock=min_stock,
+                                s_price=sel_price,
+                                p_price=cost_price,
+                                unit=unit,
+                                sales=sel,
+                                tax=tax,
+                                purchase=cost,
+                                satus = status,
+                                user=user,
+                                creat=history,
+                                interstate='none',
+                                intrastate='none',
+                                invacc=invacc,
+                                stock=istock,
+                                rate=stock_per_unit
+                            
+                                
+                                )
+                
+                ad_item.save()
     
-    return HttpResponse("Invalid request method.")
+    return HttpResponse({"message": "success"}) 
 
 
         
@@ -11264,8 +11370,30 @@ def get_vendor_data_bill(request):
     email = vendorobject.vendor_email
     sos = vendorobject.source_supply
     gst_treatment = vendorobject.gst_treatment
-    gst_number = vendorobject.gst_number  
-    return JsonResponse({"status": " not", 'email': email, 'sos': sos,'gst_number': gst_number,'gst_treatment': gst_treatment})
+    gst_number = vendorobject.gst_number 
+    att_ent_ion = vendorobject.battention 
+    cou_nt_ry = vendorobject.bcountry 
+    a_ddres_s = vendorobject.baddress 
+    c_it_y = vendorobject.bcity 
+    s_ta_te = vendorobject.bstate 
+    z_i_p = vendorobject.bzip 
+    ph_o_ne = vendorobject.bphone 
+    f_ax_bill = vendorobject.bfax 
+    print(f_ax_bill)
+    return JsonResponse({"status": " not", 
+                         'email': email, 
+                         'sos': sos,
+                         'gst_number': gst_number,
+                         'gst_treatment': gst_treatment,
+                         'att_ent_ion' : att_ent_ion,
+                         'cou_nt_ry' : cou_nt_ry,
+                         'a_ddres_s' : a_ddres_s,
+                         'c_it_y' : c_it_y,
+                         's_ta_te' : s_ta_te,
+                         'z_i_p' : z_i_p,
+                         'ph_o_ne' : ph_o_ne,
+                         'f_ax_bill_s' : f_ax_bill,
+                         })
 
 @login_required(login_url='login')
 def add_vendor_bills(request):
@@ -11897,7 +12025,16 @@ def edit_bill(request,bill_id):
         next_no = last_id+1
     else:
         next_no = 1
-    print(bill_items)
+    unit=Unit.objects.all()
+    sale=Sales.objects.all()
+    purchase=Purchase.objects.all()
+    accounts = Purchase.objects.all()
+    account_types_item = set(Purchase.objects.values_list('Account_type', flat=True))
+
+
+    account_item = Sales.objects.all()
+    account_type = set(Sales.objects.values_list('Account_type', flat=True))
+
     context = {
         'company': company,
         'bill': bill,
@@ -11912,7 +12049,14 @@ def edit_bill(request,bill_id):
         'p_acc': pur_acc,
         'units': units,
         'id': bill_id,
-        'bank':bank,
+        'bank':bank, 
+        'unit':unit,
+        'sale':sale,
+        'purchase':purchase,
+        "account":account_item,
+        "account_type":account_type,
+        "accounts":accounts,
+        "account_types":account_types_item,
         
     }
     return render(request, 'edit_bill.html', context)
