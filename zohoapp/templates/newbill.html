@@ -408,14 +408,14 @@ debugger
     </div>
     <div class="row mb-4  d-none " id="bill_phone_row">
       <div class="col-sm-2"><label for="bill_phone">Phone</label></div>
-      <div class="col-sm-10"><input type="text" id="bill_pho_ne" name="bill_pho_ne"
+      <div class="col-sm-10"><input type="tel" id="bill_pho_ne" name="bill_pho_ne"
               class="form-control bg-white text-dark" style="width: 50%;">
 
       </div>
   </div>
   <div class="row mb-4  d-none " id="bill_fax_row">
     <div class="col-sm-2"><label for="bill_fax">Fax</label></div>
-    <div class="col-sm-10"><input type="text" id="bill_fa_x" name="bill_fa_x"
+    <div class="col-sm-10"><input type="tel" id="bill_fa_x" name="bill_fa_x"
             class="form-control bg-white text-dark" style="width: 50%;">
 
     </div>
@@ -540,6 +540,62 @@ debugger
 
               </div>
           </div>
+          <div class="row mb-4  d-none " id="cust_bill_atten_tion_row">
+            <div class="col-sm-2"><label for="cust_bill_atten_tion">Attention</label></div>
+            <div class="col-sm-10"><input type="text" id="cust_bill_att_en_tion" name="cust_bill_att_en_tion"
+                    class="form-control bg-white text-dark" style="width: 50%;">
+
+            </div>
+          </div>
+          <div class="row mb-4  d-none " id="cust_bill_country_row">
+            <div class="col-sm-2"><label for="cust_bill_country">Country</label></div>
+            <div class="col-sm-10"><input type="text" id="cust_bill_co_untry" name="cust_bill_co_untry"
+                    class="form-control bg-white text-dark" style="width: 50%;">
+
+            </div>
+          </div>
+          <div class="row mb-4  d-none " id="cust_bill_address_row">
+            <div class="col-sm-2"><label for="cust_bill_address">Address</label></div>
+            <div class="col-sm-10"><textarea type="text" cols="30" rows="10" id="cust_bill_ad_dress" name="cust_bill_ad_dress"
+                    class="form-control bg-white text-dark" style="width: 50%;"> </textarea>
+
+            </div>
+        </div>
+        <div class="row mb-4  d-none " id="cust_bill_city_row">
+          <div class="col-sm-2"><label for="cust_bill_city">City</label></div>
+          <div class="col-sm-10"><input type="text" id="cust_b_ill_city" name="cust_b_ill_city"
+                  class="form-control bg-white text-dark" style="width: 50%;">
+
+          </div>
+      </div>
+      <div class="row mb-4  d-none " id="cust_bill_state_row">
+        <div class="col-sm-2"><label for="cust_bill_state">State</label></div>
+        <div class="col-sm-10"><input type="text" id="cust_bill_sta_te" name="cust_bill_sta_te"
+                class="form-control bg-white text-dark" style="width: 50%;">
+
+        </div>
+    </div>
+    <div class="row mb-4  d-none " id="cust_bill_zipcode_row">
+      <div class="col-sm-2"><label for="cust_bill_zipcode">Zipcode</label></div>
+      <div class="col-sm-10"><input type="number" id="cust_bill_zipco_de" name="cust_bill_zipco_de"
+              class="form-control bg-white text-dark" style="width: 50%;">
+
+      </div>
+  </div>
+  <div class="row mb-4  d-none " id="cust_bill_phone_row">
+    <div class="col-sm-2"><label for="cust_bill_phone">Phone</label></div>
+    <div class="col-sm-10"><input type="tel" id="cust_bill_pho_ne" name="cust_bill_pho_ne"
+            class="form-control bg-white text-dark" style="width: 50%;">
+
+    </div>
+</div>
+<div class="row mb-4  d-none " id="cust_bill_fax_row">
+  <div class="col-sm-2"><label for="cust_bill_fax">Fax</label></div>
+  <div class="col-sm-10"><input type="number" id="cust_bill_fa_x" name="cust_bill_fa_x"
+          class="form-control bg-white text-dark" style="width: 50%;">
+
+  </div>
+</div>
           <div class="row mb-4 pt-2">
             <div class="col-sm-2"><label for="paymentmethod">Payment Method</label></div>
             <div class="col-sm-10"><select name="paymentmethod" id="paymentmethod" class="form-control bg-white text-dark" style="width: 50%;">
@@ -2683,6 +2739,31 @@ debugger
                     $("#customer_email_row").addClass('d-flex');
                     $("#cgstin_row").removeClass('d-none');
                     $("#cgstin_row").addClass('d-flex');
+                    $("#cust_bill_atten_tion_row").removeClass('d-none');
+                    $("#cust_bill_atten_tion_row").addClass('d-flex');
+                    $("#cust_bill_country_row").removeClass('d-none');
+                    $("#cust_bill_country_row").addClass('d-flex');
+                    $("#cust_bill_address_row").removeClass('d-none');
+                    $("#cust_bill_address_row").addClass('d-flex');
+                    $("#cust_bill_city_row").removeClass('d-none');
+                    $("#cust_bill_city_row").addClass('d-flex');
+                    $("#cust_bill_state_row").removeClass('d-none');
+                    $("#cust_bill_state_row").addClass('d-flex');
+                    $("#cust_bill_zipcode_row").removeClass('d-none');
+                    $("#cust_bill_zipcode_row").addClass('d-flex');
+                    $("#cust_bill_phone_row").removeClass('d-none');
+                    $("#cust_bill_phone_row").addClass('d-flex');
+                    $("#cust_bill_fax_row").removeClass('d-none');
+                    $("#cust_bill_fax_row").addClass('d-flex');
+                    
+                    document.getElementById('cust_bill_att_en_tion').value = response.cust_Attenti_on
+                    document.getElementById('cust_bill_co_untry').value = response.cust_countr_y
+                    document.getElementById('cust_bill_ad_dress').value = response.cust_Addres_s1
+                    document.getElementById('cust_b_ill_city').value = response.cust_cit_y
+                    document.getElementById('cust_bill_sta_te').value = response.cust_stat_e
+                    document.getElementById('cust_bill_zipco_de').value = response.cust_zipcod_e
+                    document.getElementById('cust_bill_pho_ne').value = response.cust_phon_e1
+                    document.getElementById('cust_bill_fa_x').value = response.cust_fax_s
 
                     document.getElementById('customer_email').value = email
                     document.getElementById('pos').value = pos

@@ -404,7 +404,62 @@ else{
 
                 </div>
             </div>
-           
+            <div class="row mb-4  d-none " id="bill_atten_tion_row">
+              <div class="col-sm-2"><label for="bill_atten_tion">Attention</label></div>
+              <div class="col-sm-10"><input type="text" id="bill_att_en_tion" name="bill_att_en_tion"
+                      class="form-control bg-white text-dark" style="width: 50%;" value="{{bill.battention}}">
+
+              </div>
+            </div>
+            <div class="row mb-4  d-none " id="bill_country_row">
+              <div class="col-sm-2"><label for="bill_country">Country</label></div>
+              <div class="col-sm-10"><input type="text" id="bill_co_untry" name="bill_co_untry"
+                      class="form-control bg-white text-dark" style="width: 50%;" value="{{bill.bcountry}}">
+
+              </div>
+            </div>
+            <div class="row mb-4  d-none " id="bill_address_row">
+              <div class="col-sm-2"><label for="bill_address">Address</label></div>
+              <div class="col-sm-10"><textarea type="text" cols="30" rows="10" id="bill_ad_dress" name="bill_ad_dress"
+                      class="form-control bg-white text-dark" style="width: 50%;" value="{{bill.baddress}}"> </textarea>
+
+              </div>
+          </div>
+          <div class="row mb-4  d-none " id="bill_city_row">
+            <div class="col-sm-2"><label for="bill_city">City</label></div>
+            <div class="col-sm-10"><input type="text" id="b_ill_city" name="b_ill_city"
+                    class="form-control bg-white text-dark" style="width: 50%;" value="{{bill.bcity}}">
+
+            </div>
+        </div>
+        <div class="row mb-4  d-none " id="bill_state_row">
+          <div class="col-sm-2"><label for="bill_state">State</label></div>
+          <div class="col-sm-10"><input type="text" id="bill_sta_te" name="bill_sta_te"
+                  class="form-control bg-white text-dark" style="width: 50%;" value="{{bill.bstate}}">
+
+          </div>
+      </div>
+      <div class="row mb-4  d-none " id="bill_zipcode_row">
+        <div class="col-sm-2"><label for="bill_zipcode">Zipcode</label></div>
+        <div class="col-sm-10"><input type="number" id="bill_zipco_de" name="bill_zipco_de"
+                class="form-control bg-white text-dark" style="width: 50%;" value="{{bill.bzip}}">
+
+        </div>
+    </div>
+    <div class="row mb-4  d-none " id="bill_phone_row">
+      <div class="col-sm-2"><label for="bill_phone">Phone</label></div>
+      <div class="col-sm-10"><input type="tel" id="bill_pho_ne" name="bill_pho_ne"
+              class="form-control bg-white text-dark" style="width: 50%;" value="{{bill.bphone}}">
+
+      </div>
+  </div>
+  <div class="row mb-4  d-none " id="bill_fax_row">
+    <div class="col-sm-2"><label for="bill_fax">Fax</label></div>
+    <div class="col-sm-10"><input type="tel" id="bill_fa_x" name="bill_fa_x"
+            class="form-control bg-white text-dark" style="width: 50%;" value="{{bill.bfax}}">
+
+    </div>
+</div>
             <div class="row mb-4   pt-5">
                 <div class="col-sm-2"><label for="bill_number">Bill#*</label></div>
                 <div class="col-sm-4"><input type="text" id="bill_number" name="bill_number"
@@ -522,6 +577,62 @@ else{
           </div>
          
       </div>
+      <div class="row mb-4  d-none " id="cust_bill_atten_tion_row">
+        <div class="col-sm-2"><label for="cust_bill_atten_tion">Attention</label></div>
+        <div class="col-sm-10"><input type="text" id="cust_bill_att_en_tion" name="cust_bill_att_en_tion"
+                class="form-control bg-white text-dark" style="width: 50%;" value="{{bill.Attention}}">
+
+        </div>
+      </div>
+      <div class="row mb-4  d-none " id="cust_bill_country_row">
+        <div class="col-sm-2"><label for="cust_bill_country">Country</label></div>
+        <div class="col-sm-10"><input type="text" id="cust_bill_co_untry" name="cust_bill_co_untry"
+                class="form-control bg-white text-dark" style="width: 50%;" value="{{bill.country}}">
+
+        </div>
+      </div>
+      <div class="row mb-4  d-none " id="cust_bill_address_row">
+        <div class="col-sm-2"><label for="cust_bill_address">Address</label></div>
+        <div class="col-sm-10"><textarea type="text" cols="30" rows="10" id="cust_bill_ad_dress" name="cust_bill_ad_dress"
+                class="form-control bg-white text-dark" style="width: 50%;" value="{{bill.Address1}}"> </textarea>
+
+        </div>
+    </div>
+    <div class="row mb-4  d-none " id="cust_bill_city_row">
+      <div class="col-sm-2"><label for="cust_bill_city">City</label></div>
+      <div class="col-sm-10"><input type="text" id="cust_b_ill_city" name="cust_b_ill_city"
+              class="form-control bg-white text-dark" style="width: 50%;" value="{{bill.city}}">
+
+      </div>
+  </div>
+  <div class="row mb-4  d-none " id="cust_bill_state_row">
+    <div class="col-sm-2"><label for="cust_bill_state">State</label></div>
+    <div class="col-sm-10"><input type="text" id="cust_bill_sta_te" name="cust_bill_sta_te"
+            class="form-control bg-white text-dark" style="width: 50%;" value="{{bill.state}}">
+
+    </div>
+</div>
+<div class="row mb-4  d-none " id="cust_bill_zipcode_row">
+  <div class="col-sm-2"><label for="cust_bill_zipcode">Zipcode</label></div>
+  <div class="col-sm-10"><input type="number" id="cust_bill_zipco_de" name="cust_bill_zipco_de"
+          class="form-control bg-white text-dark" style="width: 50%;" value="{{bill.zipcode}}">
+
+  </div>
+</div>
+<div class="row mb-4  d-none " id="cust_bill_phone_row">
+<div class="col-sm-2"><label for="cust_bill_phone">Phone</label></div>
+<div class="col-sm-10"><input type="tel" id="cust_bill_pho_ne" name="cust_bill_pho_ne"
+        class="form-control bg-white text-dark" style="width: 50%;" value="{{bill.phone1}}">
+
+</div>
+</div>
+<div class="row mb-4  d-none " id="cust_bill_fax_row">
+<div class="col-sm-2"><label for="cust_bill_fax">Fax</label></div>
+<div class="col-sm-10"><input type="number" id="cust_bill_fa_x" name="cust_bill_fa_x"
+      class="form-control bg-white text-dark" style="width: 50%;" value="{{bill.fax}}">
+
+</div>
+</div>
       <div class="row mb-4 pt-4">
         <div class="col-sm-2"><label for="paymentmethod">Payment Method</label></div>
         <div class="col-sm-10"><select name="paymentmethod" id="paymentmethod" class="form-control bg-white text-dark" style="width: 53%;">
@@ -2676,6 +2787,31 @@ select = $('#customer_sel').val();
                     $("#customer_email_row").addClass('d-flex');
                     $("#cgstin_row").removeClass('d-none');
                     $("#cgstin_row").addClass('d-flex');
+                    $("#cust_bill_atten_tion_row").removeClass('d-none');
+                    $("#cust_bill_atten_tion_row").addClass('d-flex');
+                    $("#cust_bill_country_row").removeClass('d-none');
+                    $("#cust_bill_country_row").addClass('d-flex');
+                    $("#cust_bill_address_row").removeClass('d-none');
+                    $("#cust_bill_address_row").addClass('d-flex');
+                    $("#cust_bill_city_row").removeClass('d-none');
+                    $("#cust_bill_city_row").addClass('d-flex');
+                    $("#cust_bill_state_row").removeClass('d-none');
+                    $("#cust_bill_state_row").addClass('d-flex');
+                    $("#cust_bill_zipcode_row").removeClass('d-none');
+                    $("#cust_bill_zipcode_row").addClass('d-flex');
+                    $("#cust_bill_phone_row").removeClass('d-none');
+                    $("#cust_bill_phone_row").addClass('d-flex');
+                    $("#cust_bill_fax_row").removeClass('d-none');
+                    $("#cust_bill_fax_row").addClass('d-flex');
+                    
+                    document.getElementById('cust_bill_att_en_tion').value = response.cust_Attenti_on
+                    document.getElementById('cust_bill_co_untry').value = response.cust_countr_y
+                    document.getElementById('cust_bill_ad_dress').value = response.cust_Addres_s1
+                    document.getElementById('cust_b_ill_city').value = response.cust_cit_y
+                    document.getElementById('cust_bill_sta_te').value = response.cust_stat_e
+                    document.getElementById('cust_bill_zipco_de').value = response.cust_zipcod_e
+                    document.getElementById('cust_bill_pho_ne').value = response.cust_phon_e1
+                    document.getElementById('cust_bill_fa_x').value = response.cust_fax_s
 
                     document.getElementById('customer_email').value = email
                     document.getElementById('pos').value = pos
@@ -2762,6 +2898,31 @@ select = $('#customer_sel').val();
                     $("#customer_email").addClass('d-flex');
                     $("#cgstin_row").removeClass('d-none');
                     $("#cgstin_row").addClass('d-flex');
+                    $("#cust_bill_atten_tion_row").removeClass('d-none');
+                    $("#cust_bill_atten_tion_row").addClass('d-flex');
+                    $("#cust_bill_country_row").removeClass('d-none');
+                    $("#cust_bill_country_row").addClass('d-flex');
+                    $("#cust_bill_address_row").removeClass('d-none');
+                    $("#cust_bill_address_row").addClass('d-flex');
+                    $("#cust_bill_city_row").removeClass('d-none');
+                    $("#cust_bill_city_row").addClass('d-flex');
+                    $("#cust_bill_state_row").removeClass('d-none');
+                    $("#cust_bill_state_row").addClass('d-flex');
+                    $("#cust_bill_zipcode_row").removeClass('d-none');
+                    $("#cust_bill_zipcode_row").addClass('d-flex');
+                    $("#cust_bill_phone_row").removeClass('d-none');
+                    $("#cust_bill_phone_row").addClass('d-flex');
+                    $("#cust_bill_fax_row").removeClass('d-none');
+                    $("#cust_bill_fax_row").addClass('d-flex');
+                    
+                    document.getElementById('cust_bill_att_en_tion').value = response.cust_Attenti_on
+                    document.getElementById('cust_bill_co_untry').value = response.cust_countr_y
+                    document.getElementById('cust_bill_ad_dress').value = response.cust_Addres_s1
+                    document.getElementById('cust_b_ill_city').value = response.cust_cit_y
+                    document.getElementById('cust_bill_sta_te').value = response.cust_stat_e
+                    document.getElementById('cust_bill_zipco_de').value = response.cust_zipcod_e
+                    document.getElementById('cust_bill_pho_ne').value = response.cust_phon_e1
+                    document.getElementById('cust_bill_fa_x').value = response.cust_fax_s
 
                     document.getElementById('customer_email').value = email
                     document.getElementById('pos').value = pos
@@ -2857,7 +3018,31 @@ $(document).ready(function () {
                     $("#sos_row").addClass('d-flex');
                     $("#vendor_email_row").removeClass('d-none');
                     $("#vendor_email_row").addClass('d-flex');
+                    $("#bill_atten_tion_row").removeClass('d-none');
+                    $("#bill_atten_tion_row").addClass('d-flex');
+                    $("#bill_country_row").removeClass('d-none');
+                    $("#bill_country_row").addClass('d-flex');
+                    $("#bill_address_row").removeClass('d-none');
+                    $("#bill_address_row").addClass('d-flex');
+                    $("#bill_city_row").removeClass('d-none');
+                    $("#bill_city_row").addClass('d-flex');
+                    $("#bill_state_row").removeClass('d-none');
+                    $("#bill_state_row").addClass('d-flex');
+                    $("#bill_zipcode_row").removeClass('d-none');
+                    $("#bill_zipcode_row").addClass('d-flex');
+                    $("#bill_phone_row").removeClass('d-none');
+                    $("#bill_phone_row").addClass('d-flex');
+                    $("#bill_fax_row").removeClass('d-none');
+                    $("#bill_fax_row").addClass('d-flex');
 
+                    document.getElementById('bill_att_en_tion').value = response.att_ent_ion
+                    document.getElementById('bill_co_untry').value = response.cou_nt_ry
+                    document.getElementById('bill_ad_dress').value = response.a_ddres_s
+                    document.getElementById('b_ill_city').value = response.c_it_y
+                    document.getElementById('bill_sta_te').value = response.s_ta_te
+                    document.getElementById('bill_zipco_de').value = response.z_i_p
+                    document.getElementById('bill_pho_ne').value = response.ph_o_ne
+                    document.getElementById('bill_fa_x').value = response.f_ax_bill_s
 
                     document.getElementById('vendor_email').value = email
                     document.getElementById('sos').value = sos
@@ -2926,7 +3111,32 @@ $(document).ready(function () {
                     $("#vendor_email").removeClass('d-none');
                     $("#vendor_email").addClass('d-flex');
 
+                    $("#bill_atten_tion_row").removeClass('d-none');
+                    $("#bill_atten_tion_row").addClass('d-flex');
+                    $("#bill_country_row").removeClass('d-none');
+                    $("#bill_country_row").addClass('d-flex');
+                    $("#bill_address_row").removeClass('d-none');
+                    $("#bill_address_row").addClass('d-flex');
+                    $("#bill_city_row").removeClass('d-none');
+                    $("#bill_city_row").addClass('d-flex');
+                    $("#bill_state_row").removeClass('d-none');
+                    $("#bill_state_row").addClass('d-flex');
+                    $("#bill_zipcode_row").removeClass('d-none');
+                    $("#bill_zipcode_row").addClass('d-flex');
+                    $("#bill_phone_row").removeClass('d-none');
+                    $("#bill_phone_row").addClass('d-flex');
+                    $("#bill_fax_row").removeClass('d-none');
+                    $("#bill_fax_row").addClass('d-flex');
 
+                    document.getElementById('bill_att_en_tion').value = response.att_ent_ion
+                    document.getElementById('bill_co_untry').value = response.cou_nt_ry
+                    document.getElementById('bill_ad_dress').value = response.a_ddres_s
+                    document.getElementById('b_ill_city').value = response.c_it_y
+                    document.getElementById('bill_sta_te').value = response.s_ta_te
+                    document.getElementById('bill_zipco_de').value = response.z_i_p
+                    document.getElementById('bill_pho_ne').value = response.ph_o_ne
+                    document.getElementById('bill_fa_x').value = response.f_ax_bill_s
+                    
                     document.getElementById('vendor_email').value = email
                     document.getElementById('sos').value = sos
                     document.getElementById('gstin_inp').value = gst_number

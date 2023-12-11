@@ -11360,7 +11360,28 @@ def get_customer_data_bill(request):
     pos = custobject.placeofsupply 
     gst_treatment = custobject.GSTTreatment
     gst_number = custobject.GSTIN
-    return JsonResponse({"status": " not", 'email': email, 'pos': pos, 'gst_treatment' : gst_treatment, 'gst_number' : gst_number }) 
+    cust_Attenti_on = custobject.Attention
+    cust_countr_y = custobject.country
+    cust_Addres_s1 = custobject.Address1
+    cust_cit_y = custobject.city
+    cust_stat_e = custobject.state
+    cust_zipcod_e = custobject.zipcode
+    cust_phon_e1= custobject.phone1
+    cust_fax_s = custobject.fax
+    return JsonResponse({"status": " not",
+                          'email': email, 
+                          'pos': pos, 
+                          'gst_treatment' : gst_treatment,
+                          'gst_number' : gst_number, 
+                          'cust_Attenti_on': cust_Attenti_on,
+                          'cust_countr_y': cust_countr_y,
+                          'cust_Addres_s1': cust_Addres_s1,
+                          'cust_cit_y': cust_cit_y,
+                          'cust_stat_e': cust_stat_e,
+                          'cust_zipcod_e': cust_zipcod_e,
+                          'cust_phon_e1': cust_phon_e1,
+                          'cust_fax_s': cust_fax_s,
+                            }) 
 
 def get_vendor_data_bill(request):
     user = request.user
