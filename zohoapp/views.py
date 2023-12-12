@@ -6075,8 +6075,28 @@ def get_vendordet(request):
     gstnum = vdr.gst_number
     gsttr = vdr.gst_treatment
     source_supply = vdr.source_supply
+    att_ent_ion = vdr.battention
+    cou_nt_ry = vdr.bcountry
+    a_ddres_s = vdr.baddress
+    c_it_y = vdr.bcity
+    s_ta_te = vdr.bstate
+    z_i_p = vdr.bzip
+    ph_o_ne = vdr.bphone
+    f_ax_bill_s = vdr.bfax
 
-    return JsonResponse({'vendor_email' :vemail, 'gst_number' : gstnum,'gst_treatment':gsttr,'source_supply':source_supply},safe=False)
+    return JsonResponse({'vendor_email' :vemail, 
+                         'gst_number' : gstnum,
+                         'gst_treatment':gsttr,
+                         'source_supply':source_supply,
+                         'att_ent_ion' :att_ent_ion,
+                         'cou_nt_ry' :cou_nt_ry,
+                         'a_ddres_s' :a_ddres_s,
+                         'c_it_y' :c_it_y,
+                         's_ta_te' :s_ta_te,
+                         'z_i_p' :z_i_p,
+                         'ph_o_ne' :ph_o_ne,
+                         'f_ax_bill_s' :f_ax_bill_s
+                         },safe=False)
 
 
 @login_required(login_url='login')
@@ -6091,11 +6111,33 @@ def get_customerdet(request):
     gstin = cust.GSTIN
     gsttr = cust.GSTTreatment
     cstate = cust.placeofsupply.split("] ")[1:]
+    cust_Attenti_on = cust.Attention
+    cust_countr_y = cust.country
+    cust_Addres_s1 = cust.Address1
+    cust_cit_y = cust.city
+    cust_stat_e = cust.state
+    cust_zipcod_e = cust.zipcode
+    cust_phon_e1 = cust.phone1
+    cust_fax_s = cust.fax
     print(email)
     print(gstin)
     print(id)
     state = 'Not Specified' if cstate == "" else cstate
-    return JsonResponse({'customer_email' :email, 'gst_treatment':gsttr, 'gstin': gstin , 'state' : state,'cust_id':cust_id,'cust_place_supply':cust_place_supply},safe=False)
+    return JsonResponse({'customer_email' :email, 
+                         'gst_treatment':gsttr, 
+                         'gstin': gstin , 
+                         'state' : state,
+                         'cust_id':cust_id,
+                         'cust_place_supply':cust_place_supply,
+                         'cust_Attenti_on' :cust_Attenti_on,
+                         'cust_countr_y' :cust_countr_y,
+                         'cust_Addres_s1' :cust_Addres_s1,
+                         'cust_cit_y' :cust_cit_y,
+                         'cust_stat_e' :cust_stat_e,
+                         'cust_zipcod_e' :cust_zipcod_e,
+                         'cust_phon_e1' :cust_phon_e1,
+                         'cust_fax_s' :cust_fax_s
+                         },safe=False)
 
 
 @login_required(login_url='login')

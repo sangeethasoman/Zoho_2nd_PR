@@ -304,7 +304,70 @@
         </div>
       </div> 
       
-      
+      <div class="row mt-2 d-none" id="bill_atten_tion_row">
+        <div class="col-md-3">
+          <label for="bill_atten_tion">Attention</label>
+        </div>
+        <div class="col-md-6">
+          <input type="text" class="form-control text-dark bg-light" id="bill_att_en_tion" name="bill_att_en_tion" value="{{recur_bills.battention}}">
+        </div>
+      </div>
+      <div class="row mt-2 d-none" id="bill_country_row">
+        <div class="col-md-3">
+          <label for="bill_country">Country</label>
+        </div>
+        <div class="col-md-6">
+          <input type="text" class="form-control text-dark bg-light" id="bill_co_untry" name="bill_co_untry" value="{{recur_bills.bcountry}}">
+        </div>
+      </div>
+      <div class="row mt-2 d-none" id="bill_address_row">
+        <div class="col-md-3">
+          <label for="bill_address">Address</label>
+        </div>
+        <div class="col-md-6">
+          <textarea type="text" class="form-control text-dark bg-light" id="bill_ad_dress" name="bill_ad_dress" cols="30" rows="10" value="{{recur_bills.baddress}}"></textarea>
+        </div>
+      </div>
+      <div class="row mt-2 d-none" id="bill_city_row">
+        <div class="col-md-3">
+          <label for="bill_city">City</label>
+        </div>
+        <div class="col-md-6">
+          <input type="text" class="form-control text-dark bg-light" id="b_ill_city" name="b_ill_city" value="{{recur_bills.bcity}}">
+        </div>
+      </div>
+      <div class="row mt-2 d-none" id="bill_state_row">
+        <div class="col-md-3">
+          <label for="bill_state">State</label>
+        </div>
+        <div class="col-md-6">
+          <input type="text" class="form-control text-dark bg-light" id="bill_sta_te" name="bill_sta_te" value="{{recur_bills.bstate}}">
+        </div>
+      </div>
+      <div class="row mt-2 d-none" id="bill_zipcode_row">
+        <div class="col-md-3">
+          <label for="bill_zipcode">Zipcode</label>
+        </div>
+        <div class="col-md-6">
+          <input  class="form-control text-dark bg-light" type="number" id="bill_zipco_de" name="bill_zipco_de" value="{{recur_bills.bzip}}">
+        </div>
+      </div>
+      <div class="row mt-2 d-none" id="bill_phone_row">
+        <div class="col-md-3">
+          <label for="bill_phone">Phone</label>
+        </div>
+        <div class="col-md-6">
+          <input class="form-control text-dark bg-light" type="tel" id="bill_pho_ne" name="bill_pho_ne" value="{{recur_bills.bphone}}">
+        </div>
+      </div>
+      <div class="row mt-2 d-none" id="bill_fax_row">
+        <div class="col-md-3">
+          <label for="bill_fax">Fax</label>
+        </div>
+        <div class="col-md-6">
+          <input  class="form-control text-dark bg-light" type="tel" id="bill_fa_x" name="bill_fa_x" value="{{recur_bills.bfax}}">
+        </div>
+      </div>
 
       <div class="row mt-2">
         <div class="col-md-3">
@@ -366,10 +429,10 @@
         <div class="col-md-6">
           <input type="date" class="form-control text-dark bg-light"  id="date2" name="end_date" value="{{ recur_bills.end_date| date:'Y-m-d' }}">
         </div>
-        <div class="col-md-3">
+        <!-- <div class="col-md-3">
           <input type="checkbox" id="never-expire-checkbox" onchange="toggleDateInput()" />
           <label for="never-expire-checkbox" style="color: #909091;" name="neverExp">Never Expires</label>
-        </div>
+        </div> -->
       </div>
 
       <div class="row mt-2">
@@ -409,7 +472,7 @@
           </div>
       </div>  
 
-      <div class="row mb-5 mt-2">
+      <!-- <div class="row mb-5 mt-2">
         <div class="col-md-3">
           <label for="">Reverse Charge</label>
         </div>
@@ -417,7 +480,7 @@
           <input type="checkbox" id="rvsCharge" name="rvsCharge">
           <label for="rvsCharge" class="mx-3 mt-2">This transaction is applicable for Reverse Charge</label>
         </div>
-      </div>
+      </div> -->
 
       <div class="row mt-2">
         <div class="col-md-3">
@@ -481,7 +544,71 @@
           <input type="text" class="form-control text-dark bg-light" id="cgstin_inp" name="cgstin_inp">
         </div>
       </div>
-
+      
+      <div class="row mt-2 d-none" id="cust_bill_atten_tion_row">
+        <div class="col-md-3">
+          <label for="cust_bill_atten_tion">Attention</label>
+        </div>
+        <div class="col-md-6">
+          <input type="text" class="form-control text-dark bg-light"  id="cust_bill_att_en_tion" name="cust_bill_att_en_tion" value="{{recur_bills.Attention}}" >
+        </div>
+      </div>
+      <div class="row mt-2 d-none" id="cust_bill_country_row">
+        <div class="col-md-3">
+          <label for="cust_bill_country">Country</label>
+        </div>
+        <div class="col-md-6">
+          <input type="text" class="form-control text-dark bg-light"  id="cust_bill_co_untry" name="cust_bill_co_untry" value="{{recur_bills.country}}" >
+        </div>
+      </div>
+      <div class="row mt-2 d-none" id="cust_bill_address_row">
+        <div class="col-md-3">
+          <label for="cust_bill_address">Address</label>
+        </div>
+        <div class="col-md-6">
+          <textarea type="text" cols="30" rows="10" id="cust_bill_ad_dress" name="cust_bill_ad_dress" class="form-control text-dark bg-light" value="{{recur_bills.Address1}}"></textarea>
+        </div>
+      </div>
+      <div class="row mt-2 d-none" id="cust_bill_city_row">
+        <div class="col-md-3">
+          <label for="cust_bill_city">City</label>
+        </div>
+        <div class="col-md-6">
+          <input type="text" class="form-control text-dark bg-light"  id="cust_b_ill_city" name="cust_b_ill_city" value="{{recur_bills.city}}" >
+        </div>
+      </div>
+      <div class="row mt-2 d-none" id="cust_bill_state_row">
+        <div class="col-md-3">
+          <label for="cust_bill_state">State</label>
+        </div>
+        <div class="col-md-6">
+          <input type="text" class="form-control text-dark bg-light"  id="cust_bill_sta_te" name="cust_bill_sta_te" value="{{recur_bills.state}}" >
+        </div>
+      </div>
+      <div class="row mt-2 d-none" id="cust_bill_zipcode_row">
+        <div class="col-md-3">
+          <label for="cust_bill_zipcode">Zipcode</label>
+        </div>
+        <div class="col-md-6">
+          <input  class="form-control text-dark bg-light"  type="number" id="cust_bill_zipco_de" name="cust_bill_zipco_de" value="{{recur_bills.zipcode}}" >
+        </div>
+      </div>
+      <div class="row mt-2 d-none" id="cust_bill_phone_row">
+        <div class="col-md-3">
+          <label for="cust_bill_phone">Phone</label>
+        </div>
+        <div class="col-md-6">
+          <input  class="form-control text-dark bg-light"  type="tel" id="cust_bill_pho_ne" name="cust_bill_pho_ne" value="{{recur_bills.phone1}}" >
+        </div>
+      </div>
+      <div class="row mt-2 d-none" id="cust_bill_fax_row">
+        <div class="col-md-3">
+          <label for="cust_bill_fax">Fax</label>
+        </div>
+        <div class="col-md-6">
+          <input class="form-control text-dark bg-light"  type="number" id="cust_bill_fa_x" name="cust_bill_fa_x" value="{{recur_bills.fax}}" >
+        </div>
+      </div>
       <div class="row mt-2">
         <div class="col-md-12 table-responsive-md mt-3">
           <table class="table table-bordered table-hover mt-3" id="tab_logic">
@@ -2669,6 +2796,32 @@ $(document).ready(function() {
                 $("#gst_trt_row").removeClass('d-none');
                 $("#gst_trt_row").addClass('d-flex');
 
+                $("#bill_atten_tion_row").removeClass('d-none');
+                $("#bill_atten_tion_row").addClass('d-flex');
+                $("#bill_country_row").removeClass('d-none');
+                $("#bill_country_row").addClass('d-flex');
+                $("#bill_address_row").removeClass('d-none');
+                $("#bill_address_row").addClass('d-flex');
+                $("#bill_city_row").removeClass('d-none');
+                $("#bill_city_row").addClass('d-flex');
+                $("#bill_state_row").removeClass('d-none');
+                $("#bill_state_row").addClass('d-flex');
+                $("#bill_zipcode_row").removeClass('d-none');
+                $("#bill_zipcode_row").addClass('d-flex');
+                $("#bill_phone_row").removeClass('d-none');
+                $("#bill_phone_row").addClass('d-flex');
+                $("#bill_fax_row").removeClass('d-none');
+                $("#bill_fax_row").addClass('d-flex');
+
+                $('#bill_att_en_tion').val(data.att_ent_ion);
+                $('#bill_co_untry').val(data.cou_nt_ry);
+                $('#bill_ad_dress').val(data.a_ddres_s);
+                $('#b_ill_city').val(data.c_it_y);
+                $('#bill_sta_te').val(data.s_ta_te);
+                $('#bill_zipco_de').val(data.z_i_p);
+                $('#bill_pho_ne').val(data.ph_o_ne);
+                $('#bill_fa_x').val(data.f_ax_bill_s);
+
                 $('#email_inp').val(data.vendor_email);
                 $('#gstin_inp').val(data.gst_number);
                 $('#gst_trt_inp').val(data.gst_treatment);
@@ -2734,6 +2887,32 @@ $(document).ready(function() {
                 $("#gst_trt_row").removeClass('d-none');
                 $("#gst_trt_row").addClass('d-flex');
 
+                $("#bill_atten_tion_row").removeClass('d-none');
+                $("#bill_atten_tion_row").addClass('d-flex');
+                $("#bill_country_row").removeClass('d-none');
+                $("#bill_country_row").addClass('d-flex');
+                $("#bill_address_row").removeClass('d-none');
+                $("#bill_address_row").addClass('d-flex');
+                $("#bill_city_row").removeClass('d-none');
+                $("#bill_city_row").addClass('d-flex');
+                $("#bill_state_row").removeClass('d-none');
+                $("#bill_state_row").addClass('d-flex');
+                $("#bill_zipcode_row").removeClass('d-none');
+                $("#bill_zipcode_row").addClass('d-flex');
+                $("#bill_phone_row").removeClass('d-none');
+                $("#bill_phone_row").addClass('d-flex');
+                $("#bill_fax_row").removeClass('d-none');
+                $("#bill_fax_row").addClass('d-flex');
+
+                $('#bill_att_en_tion').val(data.att_ent_ion);
+                $('#bill_co_untry').val(data.cou_nt_ry);
+                $('#bill_ad_dress').val(data.a_ddres_s);
+                $('#b_ill_city').val(data.c_it_y);
+                $('#bill_sta_te').val(data.s_ta_te);
+                $('#bill_zipco_de').val(data.z_i_p);
+                $('#bill_pho_ne').val(data.ph_o_ne);
+                $('#bill_fa_x').val(data.f_ax_bill_s);
+
                 $('#email_inp').val(data.vendor_email);
                 $('#gstin_inp').val(data.gst_number);
                 $('#gst_trt_inp').val(data.gst_treatment);
@@ -2797,6 +2976,34 @@ $.ajax({
       
       $("#cgst_trt_row").removeClass('d-none');
       $("#cgst_trt_row").addClass('d-flex');
+
+      
+      $("#cust_bill_atten_tion_row").removeClass('d-none');
+      $("#cust_bill_atten_tion_row").addClass('d-flex');
+      $("#cust_bill_country_row").removeClass('d-none');
+      $("#cust_bill_country_row").addClass('d-flex');
+      $("#cust_bill_address_row").removeClass('d-none');
+      $("#cust_bill_address_row").addClass('d-flex');
+      $("#cust_bill_city_row").removeClass('d-none');
+      $("#cust_bill_city_row").addClass('d-flex');
+      $("#cust_bill_state_row").removeClass('d-none');
+      $("#cust_bill_state_row").addClass('d-flex');
+      $("#cust_bill_zipcode_row").removeClass('d-none');
+      $("#cust_bill_zipcode_row").addClass('d-flex');
+      $("#cust_bill_phone_row").removeClass('d-none');
+      $("#cust_bill_phone_row").addClass('d-flex');
+      $("#cust_bill_fax_row").removeClass('d-none');
+      $("#cust_bill_fax_row").addClass('d-flex');
+
+      $('#cust_bill_att_en_tion').val(data.cust_Attenti_on);
+      $('#cust_bill_co_untry').val(data.cust_countr_y);
+      $('#cust_bill_ad_dress').val(data.cust_Addres_s1);
+      $('#cust_b_ill_city').val(data.cust_cit_y);
+      $('#cust_bill_sta_te').val(data.cust_stat_e);
+      $('#cust_bill_zipco_de').val(data.cust_zipcod_e);
+      $('#cust_bill_pho_ne').val(data.cust_phon_e1);
+      $('#cust_bill_fa_x').val(data.cust_fax_s);
+
       $('#cemail_inp').val(data.customer_email);
       $('#srcofsupply').val(data.cust_place_supply);
       $('#cgst_trt_inp').val(data.gst_treatment);
@@ -3038,6 +3245,34 @@ debugger
               
               $("#cgst_trt_row").removeClass('d-none');
               $("#cgst_trt_row").addClass('d-flex');
+
+              
+              $("#cust_bill_atten_tion_row").removeClass('d-none');
+              $("#cust_bill_atten_tion_row").addClass('d-flex');
+              $("#cust_bill_country_row").removeClass('d-none');
+              $("#cust_bill_country_row").addClass('d-flex');
+              $("#cust_bill_address_row").removeClass('d-none');
+              $("#cust_bill_address_row").addClass('d-flex');
+              $("#cust_bill_city_row").removeClass('d-none');
+              $("#cust_bill_city_row").addClass('d-flex');
+              $("#cust_bill_state_row").removeClass('d-none');
+              $("#cust_bill_state_row").addClass('d-flex');
+              $("#cust_bill_zipcode_row").removeClass('d-none');
+              $("#cust_bill_zipcode_row").addClass('d-flex');
+              $("#cust_bill_phone_row").removeClass('d-none');
+              $("#cust_bill_phone_row").addClass('d-flex');
+              $("#cust_bill_fax_row").removeClass('d-none');
+              $("#cust_bill_fax_row").addClass('d-flex');
+
+              $('#cust_bill_att_en_tion').val(data.cust_Attenti_on);
+              $('#cust_bill_co_untry').val(data.cust_countr_y);
+              $('#cust_bill_ad_dress').val(data.cust_Addres_s1);
+              $('#cust_b_ill_city').val(data.cust_cit_y);
+              $('#cust_bill_sta_te').val(data.cust_stat_e);
+              $('#cust_bill_zipco_de').val(data.cust_zipcod_e);
+              $('#cust_bill_pho_ne').val(data.cust_phon_e1);
+              $('#cust_bill_fa_x').val(data.cust_fax_s);
+
               $('#cemail_inp').val(data.customer_email);
               $('#srcofsupply').val(data.cust_place_supply);
               $('#cgst_trt_inp').val(data.gst_treatment);
