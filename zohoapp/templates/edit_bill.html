@@ -402,7 +402,7 @@ else{
                 <div class="col-sm-10"><!-- <input type="text" id="sos" name="sos" class="form-control bg-white text-dark"
                         style="width: 50%;" value="{{bill.source_of_supply}}"> -->
                         <select id="sos" name="sos" class="form-control bg-white text-dark"
-                        style="width: 50%;">
+                        style="width: 50%;"> 
                           <option value="value" selected value="{{bill.source_of_supply}}"></option>
                         <option value="[AN]-Andaman And Nicobar Islands">[AN]-Andaman And Nicobar Islands</option> <option value="[AD]-Andhra Pradesh">[AD]-Andhra Pradesh</option>
                         <option value="[AR]-Arunachal Pradesh">[AR]-Arunachal Pradesh	</option> <option value="volvo">[AS]-Assam</option>
@@ -676,7 +676,7 @@ else{
 </div>
       <div class="row mb-4 pt-4">
         <div class="col-sm-2"><label for="paymentmethod">Payment Method</label></div>
-        <div class="col-sm-10"><select name="paymentmethod" id="paymentmethod" class="form-control bg-white text-dark" style="width: 53%;">
+        <div class="col-sm-10"><select name="paymentmethod" id="paymentmethod" class="form-control bg-white text-dark" style="width: 50%;">
           <option id="crt_paymt_method" value="{{bill.payment_method}}" selected>{{bill.payment_method}}</option>
           <option value="Cash">Cash</option>
           <option value="Cheque">Cheque</option>
@@ -788,10 +788,14 @@ else{
                 id="add-row">Add another line</button>
 
             <div class="row  pb-5">
-                <div class="col-sm-6 d-flex flex-column mt-auto">
+              <div class="col-sm-6 d-flex flex-column mt-4">
+                <label for="">Note</label>
+                <div class="form-row">
+                  <textarea class="form-control text-dark bg-light" name="note" rows="15" style="height: 200px;" value="{{bill.note}}">{{bill.note}}</textarea>
+                </div><br>
 
+              </div>
 
-                </div>
                 <div class="col-sm-6">
                     <table class=" table  text-black" style="background-color: rgba(250, 227, 198, 0.8);">
                         <tr>
@@ -2816,7 +2820,8 @@ select = $('#customer_sel').val();
                 success: function (response) {
                     // console.log(response)
                     email = response.email
-                    pos = response.pos
+                    //pos = response.pos
+                    pos = '{{bill.place_of_supply}}'
                     gst_treatment = response.gst_treatment
                     gst_number = response.gst_number
 
@@ -3047,7 +3052,9 @@ $(document).ready(function () {
                 },
                 success: function (response) { 
                     email = response.email
-                    sos = response.sos 
+                    //sos = response.sos 
+
+                    sos ='{{bill.source_of_supply}}'
                     gst_treatment = response.gst_treatment
                     gst_number = response.gst_number
  

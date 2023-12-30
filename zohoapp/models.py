@@ -646,6 +646,7 @@ class recurring_bills(models.Model):
     payment_method = models.CharField(max_length=100,null=True,blank=True)
     amt_paid = models.FloatField(null=True,blank=True)
     balance = models.FloatField(null=True,blank=True)
+    place_of_supply = models.CharField(max_length=100,null=True,blank=True)
 
     
 
@@ -1215,6 +1216,7 @@ class PurchaseBills(models.Model):
     amt_paid = models.FloatField(null=True,blank=True)
     balance = models.FloatField(null=True,blank=True)
     adjustment = models.FloatField(null=True,blank=True)
+    note = models.CharField(max_length=255,null=True,blank=True)
 
     
     

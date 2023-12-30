@@ -5598,13 +5598,15 @@ def create_recurring_bills(request):
         note=request.POST.get('note')
         balance = float(grand_total) - float(amt_paid)
         u = User.objects.get(id = request.user.id)
+        vsrcofsupply = request.POST['vsrcofsupply']
+
 
         bills = recurring_bills(vendor_name=vname,profile_name=prof,customer_name = cname,vendor_gst_number=v_gst_no,
                     source_supply=src_supply,repeat_every = repeat,start_date = start,end_date = end,
                     payment_terms =pay_term,sub_total=sub_total,sgst=sgst,cgst=cgst,igst=igst,
                     tax_amount=taxamount, shipping_charge = shipping_charge,
                     grand_total=grand_total,note=note,company=company,user = u,cname_recur_id=custo,bill_no = bill_no,status = status,payment_method=payment_method, amt_paid=amt_paid,
-                    adjustment = adjustment,balance = balance)
+                    adjustment = adjustment,balance = balance,place_of_supply = vsrcofsupply )
         bills.save()
 
         r_bill = recurring_bills.objects.get(id=bills.id)
@@ -5753,6 +5755,8 @@ def change_recurring_bills(request,id):
         grand_total = request.POST.get('grand_total')
         amt_paid = request.POST['amtPaid']
         r_bill.balance = float(grand_total) - float(amt_paid)
+        
+        r_bill.place_of_supply = request.POST['vsrcofsupply']
 
         r_bill.cname_recur_id = cust.id
 
@@ -11925,7 +11929,7 @@ def create_purchase_bill(request):
         payment_method = request.POST['paymentmethod']
         adjustment = request.POST['add_round_off']
         amt_paid = request.POST['amtPaid']
-        
+        note=request.POST['note']
 
         item = request.POST.getlist('item[]')
         # account = request.POST.getlist('account[]')
@@ -11954,7 +11958,7 @@ def create_purchase_bill(request):
                              vendor_email=vendor_email,vendor_gst_no=vendor_gst,source_of_supply=sos,bill_no=bill_number, order_number=order_number, bill_date=bill_date, 
                              due_date=due_date,payment_terms=terms, sub_total=sub_total,igst=igst,sgst=sgst,cgst=cgst,tax_amount=tax_amnt, 
                              shipping_charge=shipping,total=total, status=status,attachment=attachment,repeat_every=repeat_every,
-                             payment_method=payment_method,amt_paid=amt_paid,balance=balance,adjustment=adjustment)
+                             payment_method=payment_method,amt_paid=amt_paid,balance=balance,adjustment=adjustment,note= note)
         bill.save()
        
 
@@ -12014,12 +12018,13 @@ def create_purchase_bill1(request):
         attachment = request.FILES.get('file')
         status = 'Save'
         balance = float(total) - float(amt_paid)
+        note=request.POST['note']
        
         bill = PurchaseBills(user=user,cusname_id=custo, customer_name=cust_name,customer_email= cust_email,place_of_supply=pos,vendor_name=vendor_name,
                              vendor_email=vendor_email,vendor_gst_no=vendor_gst,source_of_supply=sos,bill_no=bill_number, order_number=order_number, bill_date=bill_date, 
                              due_date=due_date,payment_terms=terms, sub_total=sub_total,igst=igst,sgst=sgst,cgst=cgst,tax_amount=tax_amnt, 
                              shipping_charge=shipping,total=total, status=status,attachment=attachment,repeat_every=repeat_every,
-                             payment_method=payment_method,amt_paid=amt_paid,balance=balance,adjustment=adjustment)
+                             payment_method=payment_method,amt_paid=amt_paid,balance=balance,adjustment=adjustment,note=note)
         bill.save()
        
 
@@ -12161,6 +12166,8 @@ def update_bills(request,pk):
         total = request.POST['total']
         amt_paid = request.POST['amtPaid']
         bill.balance = float(total) - float(amt_paid)
+        bill.note=request.POST['note']
+        
         # cus=customer.objects.get(customerName=request.POST['customer_name']) 
         # bill.cusname = cus.id
         old=bill.attachment
@@ -12180,6 +12187,7 @@ def update_bills(request,pk):
         amount = request.POST.getlist('amount[]')
         hsn = request.POST.getlist('HSN[]')
         discount = request.POST.getlist('discount[]')
+        
        
         # print(item)
         # print(quantity)
@@ -19185,13 +19193,17 @@ def draft_recurring_bills(request):
         note=request.POST.get('note')
         balance = float(grand_total) - float(amt_paid)
 
+
         u = User.objects.get(id = request.user.id)
 
+        vsrcofsupply = request.POST['vsrcofsupply']
+
+        
         bills = recurring_bills(vendor_name=vname,profile_name=prof,customer_name = cname,vendor_gst_number=v_gst_no,
                     source_supply=src_supply,repeat_every = repeat,start_date = start,end_date = end,
                     payment_terms =pay_term,sub_total=sub_total,sgst=sgst,cgst=cgst,igst=igst,
                     tax_amount=taxamount, shipping_charge = shipping_charge,
-                    grand_total=grand_total,note=note,company=company,user = u,cname_recur_id=custo, bill_no = bill_no,status = status, payment_method=payment_method, amt_paid=amt_paid,  adjustment = adjustment,balance = balance )
+                    grand_total=grand_total,note=note,company=company,user = u,cname_recur_id=custo, bill_no = bill_no,status = status, payment_method=payment_method, amt_paid=amt_paid,  adjustment = adjustment,balance = balance,place_of_supply = vsrcofsupply  )
         bills.save()
 
         r_bill = recurring_bills.objects.get(id=bills.id)
@@ -19270,6 +19282,7 @@ def change_draft_recurring_bills(request,id):
         grand_total = request.POST.get('grand_total')
         amt_paid = request.POST['amtPaid']
         r_bill.balance = float(grand_total) - float(amt_paid)
+        r_bill.place_of_supply = request.POST['vsrcofsupply']
         r_bill.cname_recur_id = cust.id
 
         if len(request.FILES) != 0:
@@ -19371,6 +19384,7 @@ def update_bills_save(request,pk):
         bill.cgst = request.POST['cgst']
         bill.tax_amount = request.POST['total_taxamount']
         bill.shipping_charge = request.POST['shipping_charge']
+        bill.note=request.POST['note']
         
         bill.total = request.POST['total']
         bill.status = 'Save'
