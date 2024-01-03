@@ -5511,8 +5511,14 @@ def add_recurring_bills(request):
     sales_type = set(Sales.objects.values_list('Account_type', flat=True))
     purchase_type = set(Purchase.objects.values_list('Account_type', flat=True))
     bank=Bankcreation.objects.filter(user=request.user)
-    last_id = recurring_bills.objects.filter(user_id=request.user.id).order_by('-id').values('id').first()
+    last_id = recurring_bills.objects.filter(user_id=request.user.id,company_id=company.id).order_by('-id').values('id').first()
+    bill_no = recurring_bills.objects.filter(user_id=request.user.id,company_id=company.id).order_by('-bill_no').values('bill_no').first()
     print(last_id)
+    
+    bill_num = "None"
+    if bill_no !=  None:
+        bill_num = bill_no['bill_no'] 
+
     if last_id !=  None:
         if request.user.is_authenticated:
             last_id = last_id['id']
@@ -5551,6 +5557,7 @@ def add_recurring_bills(request):
         "account_type":account_type,
         "accounts":accounts,
         "account_types":account_types_item,
+        "bill_no": bill_num,
     }
 
     return render(request, 'add_recurring_bills.html', context)
@@ -5599,6 +5606,8 @@ def create_recurring_bills(request):
         balance = float(grand_total) - float(amt_paid)
         u = User.objects.get(id = request.user.id)
         vsrcofsupply = request.POST['vsrcofsupply']
+        reference_num = request.POST['reference_num']
+        order_num = request.POST['order_num']
 
 
         bills = recurring_bills(vendor_name=vname,profile_name=prof,customer_name = cname,vendor_gst_number=v_gst_no,
@@ -5606,7 +5615,7 @@ def create_recurring_bills(request):
                     payment_terms =pay_term,sub_total=sub_total,sgst=sgst,cgst=cgst,igst=igst,
                     tax_amount=taxamount, shipping_charge = shipping_charge,
                     grand_total=grand_total,note=note,company=company,user = u,cname_recur_id=custo,bill_no = bill_no,status = status,payment_method=payment_method, amt_paid=amt_paid,
-                    adjustment = adjustment,balance = balance,place_of_supply = vsrcofsupply )
+                    adjustment = adjustment,balance = balance,place_of_supply = vsrcofsupply, reference_numb = reference_num, order_numb= order_num)
         bills.save()
 
         r_bill = recurring_bills.objects.get(id=bills.id)
@@ -5757,6 +5766,8 @@ def change_recurring_bills(request,id):
         r_bill.balance = float(grand_total) - float(amt_paid)
         
         r_bill.place_of_supply = request.POST['vsrcofsupply']
+        r_bill.reference_numb = request.POST['reference_num']
+        r_bill.order_numb = request.POST['order_num']
 
         r_bill.cname_recur_id = cust.id
 
@@ -11359,7 +11370,13 @@ def new_bill(request):
     sales_acc = Sales.objects.all()
     pur_acc = Purchase.objects.all()
     bank=Bankcreation.objects.filter(user_id=user.id)
-    last_id = PurchaseBills.objects.filter(user_id=user.id).order_by('-id').values('id').first()
+    last_id = PurchaseBills.objects.filter(user_id=user.id,company_id=company.id).order_by('-id').values('id').first()
+    bill_no = PurchaseBills.objects.filter(user_id=request.user.id,company_id=company.id).order_by('-bill_no').values('bill_no').first()
+    print(bill_no)
+    bill_num = "None"
+    if bill_no !=  None:
+        bill_num = bill_no['bill_no'] 
+        
     if last_id:
         last_id = last_id['id']
         next_no = last_id+1
@@ -11393,6 +11410,7 @@ def new_bill(request):
                "account_type":account_type,
                "accounts":accounts,
                "account_types":account_types_item,
+               "bill_no": bill_num,
                }
 
     return render(request, 'newbill.html',context)
@@ -11908,6 +11926,7 @@ def itemdata_bills(request):
     return redirect('/')
 
 def create_purchase_bill(request):
+    company = company_details.objects.get(user = request.user)
     cur_user = request.user
     user = User.objects.get(id=cur_user.id)
     if request.method == 'POST':
@@ -11916,7 +11935,7 @@ def create_purchase_bill(request):
         vendor_gst = request.POST['gstin_inp']
         sos = request.POST['sos']
         cust_name = request.POST['customer_name']
-        cus=customer.objects.get(customerName=cust_name)   
+        cus=customer.objects.get(customerName=cust_name,user = request.user)   
         custo=cus.id 
         cust_email = request.POST['customer_email']
         pos = request.POST['pos']
@@ -11930,6 +11949,7 @@ def create_purchase_bill(request):
         adjustment = request.POST['add_round_off']
         amt_paid = request.POST['amtPaid']
         note=request.POST['note']
+        reference_number = request.POST['reference_number']
 
         item = request.POST.getlist('item[]')
         # account = request.POST.getlist('account[]')
@@ -11958,7 +11978,7 @@ def create_purchase_bill(request):
                              vendor_email=vendor_email,vendor_gst_no=vendor_gst,source_of_supply=sos,bill_no=bill_number, order_number=order_number, bill_date=bill_date, 
                              due_date=due_date,payment_terms=terms, sub_total=sub_total,igst=igst,sgst=sgst,cgst=cgst,tax_amount=tax_amnt, 
                              shipping_charge=shipping,total=total, status=status,attachment=attachment,repeat_every=repeat_every,
-                             payment_method=payment_method,amt_paid=amt_paid,balance=balance,adjustment=adjustment,note= note)
+                             payment_method=payment_method,amt_paid=amt_paid,balance=balance,adjustment=adjustment,note= note,reference_numbr = reference_number )
         bill.save()
        
 
@@ -11973,15 +11993,17 @@ def create_purchase_bill(request):
 
 
 def create_purchase_bill1(request):
+    company = company_details.objects.get(user = request.user)
     cur_user = request.user
     user = User.objects.get(id=cur_user.id)
+    #cust = customer.objects.get(id=request.POST.get('customer_name').split(" ")[0],user = request.user)
     if request.method == 'POST':
         vendor_name = request.POST['vendor_name']
         vendor_email = request.POST['vendor_email']
         vendor_gst = request.POST['gstin_inp']
         sos = request.POST['sos']
         cust_name = request.POST['customer_name']
-        cus=customer.objects.get(customerName=cust_name)   
+        cus=customer.objects.get(customerName=cust_name,user = request.user)   
         custo=cus.id 
         cust_email = request.POST['customer_email']
         pos = request.POST['pos']
@@ -12019,12 +12041,13 @@ def create_purchase_bill1(request):
         status = 'Save'
         balance = float(total) - float(amt_paid)
         note=request.POST['note']
+        reference_number = request.POST['reference_number']
        
         bill = PurchaseBills(user=user,cusname_id=custo, customer_name=cust_name,customer_email= cust_email,place_of_supply=pos,vendor_name=vendor_name,
                              vendor_email=vendor_email,vendor_gst_no=vendor_gst,source_of_supply=sos,bill_no=bill_number, order_number=order_number, bill_date=bill_date, 
                              due_date=due_date,payment_terms=terms, sub_total=sub_total,igst=igst,sgst=sgst,cgst=cgst,tax_amount=tax_amnt, 
                              shipping_charge=shipping,total=total, status=status,attachment=attachment,repeat_every=repeat_every,
-                             payment_method=payment_method,amt_paid=amt_paid,balance=balance,adjustment=adjustment,note=note)
+                             payment_method=payment_method,amt_paid=amt_paid,balance=balance,adjustment=adjustment,note=note,reference_numbr = reference_number)
         bill.save()
        
 
@@ -12131,6 +12154,7 @@ def edit_bill(request,bill_id):
 
 
 def update_bills(request,pk):
+    #company = company_details.objects.get(user = request.user)
     cur_user = request.user
     user = User.objects.get(id=cur_user.id)
 
@@ -12167,6 +12191,7 @@ def update_bills(request,pk):
         amt_paid = request.POST['amtPaid']
         bill.balance = float(total) - float(amt_paid)
         bill.note=request.POST['note']
+        bill.reference_numbr = request.POST['reference_number']
         
         # cus=customer.objects.get(customerName=request.POST['customer_name']) 
         # bill.cusname = cus.id
@@ -19197,13 +19222,16 @@ def draft_recurring_bills(request):
         u = User.objects.get(id = request.user.id)
 
         vsrcofsupply = request.POST['vsrcofsupply']
+        reference_num = request.POST['reference_num']
+        order_num = request.POST['order_num']
 
         
         bills = recurring_bills(vendor_name=vname,profile_name=prof,customer_name = cname,vendor_gst_number=v_gst_no,
                     source_supply=src_supply,repeat_every = repeat,start_date = start,end_date = end,
                     payment_terms =pay_term,sub_total=sub_total,sgst=sgst,cgst=cgst,igst=igst,
                     tax_amount=taxamount, shipping_charge = shipping_charge,
-                    grand_total=grand_total,note=note,company=company,user = u,cname_recur_id=custo, bill_no = bill_no,status = status, payment_method=payment_method, amt_paid=amt_paid,  adjustment = adjustment,balance = balance,place_of_supply = vsrcofsupply  )
+                    grand_total=grand_total,note=note,company=company,user = u,cname_recur_id=custo, bill_no = bill_no,status = status, payment_method=payment_method, amt_paid=amt_paid,  
+                    adjustment = adjustment,balance = balance,place_of_supply = vsrcofsupply,reference_numb = reference_num, order_numb= order_num  )
         bills.save()
 
         r_bill = recurring_bills.objects.get(id=bills.id)
@@ -19354,6 +19382,7 @@ def isNum(data):
 
 
 def update_bills_save(request,pk):
+    #company = company_details.objects.get(user = request.user)
     cur_user = request.user
     user = User.objects.get(id=cur_user.id)
 
@@ -19385,6 +19414,7 @@ def update_bills_save(request,pk):
         bill.tax_amount = request.POST['total_taxamount']
         bill.shipping_charge = request.POST['shipping_charge']
         bill.note=request.POST['note']
+        bill.reference_numbr = request.POST['reference_number']
         
         bill.total = request.POST['total']
         bill.status = 'Save'

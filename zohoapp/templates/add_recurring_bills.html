@@ -420,15 +420,37 @@
       </div>
       <br><br>
 
+      
+
       <div class="row mt-2" >
         <div class="col-md-3">
           <div class="col-sm-2"><label for="bills">Recurring Bill#*</label></div>
         </div>
        
           <div class="col-md-6"><input type="text" id="bills" name="bills"
-            class="form-control bg-white text-dark" value="REB-00{{b_no}}">
+            class="form-control bg-white text-dark" value="">
         </div>
     </div>
+
+    <div class="row mt-2" >
+      <div class="col-md-3">
+        <div class="col-sm-2"><label for="reference">Reference No:</label></div>
+      </div>
+     
+        <div class="col-md-6"><input type="text" id="reference_no" name="reference_num"
+          class="form-control bg-white text-dark" value="{{b_no}}">
+      </div>
+  </div>
+  
+    <div class="row mt-2" >
+      <div class="col-md-3">
+        <div class="col-sm-2"><label for="order">Order No:</label></div>
+      </div>
+     
+        <div class="col-md-6"><input type="text" id="order_no" name="order_num"
+          class="form-control bg-white text-dark" value="{{ recur_bills.bill_no}}">
+      </div>
+  </div>
       <div class="row mt-2" >
           <div class="col-md-3">
             <label for="date1">Starts On</label>
@@ -4655,6 +4677,15 @@ debugger
        alert("Paid amount should not be greater than grand total.")
     }
     else{
+      var bill_no = "{{bill_no}}"
+      if(bill_no != "None"){
+        var predict_bill_no = bill_no.replace(bill_no.match(/(\d+)/g)[0], '')+(parseFloat(bill_no.match(/\d+/)[0])+1)
+        let bills = $("#bills").val();
+
+        if(predict_bill_no != bills ){
+              alert("Bill No: is not continuous.")
+        }
+      } 
       var frm = document.getElementById("forms");
       frm.action = ("{% url 'draft_recurring_bills' %}")
     }
@@ -4668,8 +4699,18 @@ debugger
        alert("Paid amount should not be greater than grand total.")
     }
     else{
+      
+      var bill_no = "{{bill_no}}"
+      if(bill_no != "None"){
+        var predict_bill_no = bill_no.replace(bill_no.match(/(\d+)/g)[0], '')+(parseFloat(bill_no.match(/\d+/)[0])+1)
+        let bills = $("#bills").val();
+
+        if(predict_bill_no != bills ){
+              alert("Bill No: is not continuous.")
+        }
+      } 
       var frm = document.getElementById("forms");
-      frm.action = ("{% url 'create_recurring_bills' %}")
+      frm.action = ("{% url 'create_recurring_bills' %}")  
     }
       
   }

@@ -487,6 +487,18 @@ else{
 
                 </div>
             </div>
+
+            <div class="row mb-4">
+              <div class="col-sm-2"><label for="reference">Reference No:</label></div>
+              <div class="col-sm-4"> <input type="number" id="ref_number" name="reference_number"
+                      class="form-control bg-white text-dark" value="{{bill.reference_numbr}}"  style="width: 132%;"></div>
+          </div>
+
+          <div class="row mb-4">
+            <div class="col-sm-2"><label for="reference">Order Number</label></div>
+            <div class="col-sm-4"> <input type="number" id="order_number" name="order_number"
+                    class="form-control bg-white text-dark" value="{{bill.order_number}}" style="width: 132%;"></div>
+        </div>
             <div class="row mb-4">
               <div class="col-sm-2"><label for="repeats">Repeat Every*</label></div>
               <div class="col-sm-4"><select class="form-control bg-white text-dark" id="repeats"  name="repeats" style="width: 132%;"> 
@@ -503,16 +515,14 @@ else{
           </div>
               
           
-            <div class="row mb-4">
-                <div class="col-sm-2"><label for="reference">Order Number</label></div>
-                <div class="col-sm-4"> <input type="number" id="order_number" name="order_number"
-                        class="form-control bg-white text-dark" value="{{bill.order_number}}" style="width: 132%;"></div>
-            </div>
+           
             <div class="row mb-4">
                 <div class="col-sm-2"><label for="reference">Bill Date*</label></div>
                 <div class="col-sm-4"> <input type="date" id="bill_date" name="bill_date"
                         class="form-control bg-white text-dark" value="{{ bill.bill_date|date:'Y-m-d'}}" style="width: 132%;"></div>
             </div>
+
+           
             <div class="row ">
                 <div class="col-sm-2"><label for="reference">Due Date*</label></div>
                 <div class="col-sm-4"> <input type="date" id="due_date" name="due_date"

@@ -423,6 +423,8 @@
       </div>
       <br><br>
 
+      
+
       <div class="row mt-2" >
         <div class="col-md-3">
           <div class="col-sm-2"><label for="bills">Recurring Bill#*</label></div>
@@ -432,6 +434,26 @@
             class="form-control bg-white text-dark" value="{{ recur_bills.bill_no}}">
         </div>
     </div>
+
+    <div class="row mt-2" >
+      <div class="col-md-3">
+        <div class="col-sm-2"><label for="reference">Reference No:</label></div>
+      </div>
+     
+        <div class="col-md-6"><input type="text" id="reference_no" name="reference_num"
+          class="form-control bg-white text-dark" value="{{ recur_bills.reference_numb}}">
+      </div>
+  </div>
+
+  <div class="row mt-2" >
+    <div class="col-md-3">
+      <div class="col-sm-2"><label for="order">Order No:</label></div>
+    </div>
+   
+      <div class="col-md-6"><input type="text" id="order_no" name="order_num"
+        class="form-control bg-white text-dark" value="{{ recur_bills.bill_no}}">
+    </div>
+</div>
 
 
       <div class="row mt-2" >
