@@ -11377,11 +11377,14 @@ def new_bill(request):
     if bill_no !=  None:
         bill_num = bill_no['bill_no'] 
         
-    if last_id:
-        last_id = last_id['id']
-        next_no = last_id+1
+    if last_id !=  None:
+        if request.user.is_authenticated:
+            last_id = last_id['id']
+            next_no = last_id + 1
+        else:
+            next_no = 1
     else:
-        next_no = 1
+         next_no = 1
     unit=Unit.objects.all()
     sale=Sales.objects.all()
     purchase=Purchase.objects.all()
@@ -11978,7 +11981,7 @@ def create_purchase_bill(request):
                              vendor_email=vendor_email,vendor_gst_no=vendor_gst,source_of_supply=sos,bill_no=bill_number, order_number=order_number, bill_date=bill_date, 
                              due_date=due_date,payment_terms=terms, sub_total=sub_total,igst=igst,sgst=sgst,cgst=cgst,tax_amount=tax_amnt, 
                              shipping_charge=shipping,total=total, status=status,attachment=attachment,repeat_every=repeat_every,
-                             payment_method=payment_method,amt_paid=amt_paid,balance=balance,adjustment=adjustment,note= note,reference_numbr = reference_number )
+                             payment_method=payment_method,amt_paid=amt_paid,balance=balance,adjustment=adjustment,note= note,reference_numbr = reference_number,company=company )
         bill.save()
        
 
@@ -12047,7 +12050,7 @@ def create_purchase_bill1(request):
                              vendor_email=vendor_email,vendor_gst_no=vendor_gst,source_of_supply=sos,bill_no=bill_number, order_number=order_number, bill_date=bill_date, 
                              due_date=due_date,payment_terms=terms, sub_total=sub_total,igst=igst,sgst=sgst,cgst=cgst,tax_amount=tax_amnt, 
                              shipping_charge=shipping,total=total, status=status,attachment=attachment,repeat_every=repeat_every,
-                             payment_method=payment_method,amt_paid=amt_paid,balance=balance,adjustment=adjustment,note=note,reference_numbr = reference_number)
+                             payment_method=payment_method,amt_paid=amt_paid,balance=balance,adjustment=adjustment,note=note,reference_numbr = reference_number,company=company)
         bill.save()
        
 

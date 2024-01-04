@@ -650,13 +650,28 @@ debugger
               <option id="crt_paymt_method" selected></option>
               <option value="Cash">Cash</option>
               <option value="Cheque">Cheque</option>
+              <option value="UPI">UPI</option>
               {% for b in bank %}
                   <option value="{{b.name}}">{{b.name}}</option>
               {% endfor %}
           </select>
-
+            <div class="row mb-4   pl-4" id="chequeField">
+          <div class="col-sm-2"><label for="cheque_Field">Cheque Number</label></div>
+          <div class="col-sm-10"><input type="text" id="chequeId" name="cheque_Id"
+                  class="form-control bg-white text-dark" style="width: 50%;">
+        
+          </div>
+          
+          <div class="row mb-4   " id="upiField">
+            <div class="col-sm-2"><label for="upi_Field">UPI ID</label></div>
+            <div class="col-sm-10"><input type="text" id="upiNumber" name="upi_Number"
+                    class="form-control bg-white text-dark" style="width: 50%;">
+          
             </div>
+            </div>
+            
         </div>
+        
           <!-- <div class="form-check  pt-2 pb-5">
                 <input class="form-check-input" type="checkbox" value="" id="checkbox" onchange="updateTaxHeader()">
                 <label class="form-check-label" for="checkbox">
@@ -4797,7 +4812,7 @@ $('#due_date').prop('disabled', true);
         }
       } 
       var frm = document.getElementById("forms");
-      //frm.action = ("{% url 'create_purchase_bill1' %}")
+      frm.action = ("{% url 'create_purchase_bill1' %}")
     }
       
   }
