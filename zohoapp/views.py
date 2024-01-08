@@ -5608,6 +5608,10 @@ def create_recurring_bills(request):
         vsrcofsupply = request.POST['vsrcofsupply']
         reference_num = request.POST['reference_num']
         order_num = request.POST['order_num']
+        
+        cheque_id = request.POST.get('cheque_Id')
+        upi_number = request.POST.get('upiNumber')
+        bank_account = request.POST.get('bankAccount')
 
 
         bills = recurring_bills(vendor_name=vname,profile_name=prof,customer_name = cname,vendor_gst_number=v_gst_no,
@@ -5615,7 +5619,9 @@ def create_recurring_bills(request):
                     payment_terms =pay_term,sub_total=sub_total,sgst=sgst,cgst=cgst,igst=igst,
                     tax_amount=taxamount, shipping_charge = shipping_charge,
                     grand_total=grand_total,note=note,company=company,user = u,cname_recur_id=custo,bill_no = bill_no,status = status,payment_method=payment_method, amt_paid=amt_paid,
-                    adjustment = adjustment,balance = balance,place_of_supply = vsrcofsupply, reference_numb = reference_num, order_numb= order_num)
+                    adjustment = adjustment,balance = balance,place_of_supply = vsrcofsupply, reference_numb = reference_num, order_numb= order_num,cheque_id=cheque_id, 
+                    upi_number=upi_number,
+                    bank_account=bank_account)
         bills.save()
 
         r_bill = recurring_bills.objects.get(id=bills.id)
@@ -5768,6 +5774,10 @@ def change_recurring_bills(request,id):
         r_bill.place_of_supply = request.POST['vsrcofsupply']
         r_bill.reference_numb = request.POST['reference_num']
         r_bill.order_numb = request.POST['order_num']
+
+        r_bill.cheque_id = request.POST.get('cheque_Id')
+        r_bill.upi_number = request.POST.get('upiNumber')
+        r_bill.bank_account = request.POST.get('bankAccount')
 
         r_bill.cname_recur_id = cust.id
 
@@ -11953,6 +11963,9 @@ def create_purchase_bill(request):
         amt_paid = request.POST['amtPaid']
         note=request.POST['note']
         reference_number = request.POST['reference_number']
+        cheque_id = request.POST.get('cheque_Id')
+        upi_number = request.POST.get('upiNumber')
+        bank_account = request.POST.get('bankAccount')
 
         item = request.POST.getlist('item[]')
         # account = request.POST.getlist('account[]')
@@ -11981,7 +11994,9 @@ def create_purchase_bill(request):
                              vendor_email=vendor_email,vendor_gst_no=vendor_gst,source_of_supply=sos,bill_no=bill_number, order_number=order_number, bill_date=bill_date, 
                              due_date=due_date,payment_terms=terms, sub_total=sub_total,igst=igst,sgst=sgst,cgst=cgst,tax_amount=tax_amnt, 
                              shipping_charge=shipping,total=total, status=status,attachment=attachment,repeat_every=repeat_every,
-                             payment_method=payment_method,amt_paid=amt_paid,balance=balance,adjustment=adjustment,note= note,reference_numbr = reference_number,company=company )
+                             payment_method=payment_method,amt_paid=amt_paid,balance=balance,adjustment=adjustment,note= note,reference_numbr = reference_number,company=company,cheque_id=cheque_id, 
+                             upi_number=upi_number,
+                             bank_account=bank_account)
         bill.save()
        
 
@@ -12045,12 +12060,18 @@ def create_purchase_bill1(request):
         balance = float(total) - float(amt_paid)
         note=request.POST['note']
         reference_number = request.POST['reference_number']
+        cheque_id = request.POST.get('cheque_Id')
+        upi_number = request.POST.get('upiNumber')
+        bank_account = request.POST.get('bankAccount')
        
         bill = PurchaseBills(user=user,cusname_id=custo, customer_name=cust_name,customer_email= cust_email,place_of_supply=pos,vendor_name=vendor_name,
                              vendor_email=vendor_email,vendor_gst_no=vendor_gst,source_of_supply=sos,bill_no=bill_number, order_number=order_number, bill_date=bill_date, 
                              due_date=due_date,payment_terms=terms, sub_total=sub_total,igst=igst,sgst=sgst,cgst=cgst,tax_amount=tax_amnt, 
                              shipping_charge=shipping,total=total, status=status,attachment=attachment,repeat_every=repeat_every,
-                             payment_method=payment_method,amt_paid=amt_paid,balance=balance,adjustment=adjustment,note=note,reference_numbr = reference_number,company=company)
+                             payment_method=payment_method,amt_paid=amt_paid,balance=balance,adjustment=adjustment,note=note,reference_numbr = reference_number,company=company,
+                             cheque_id=cheque_id, 
+                             upi_number=upi_number,
+                             bank_account=bank_account)
         bill.save()
        
 
@@ -12195,6 +12216,9 @@ def update_bills(request,pk):
         bill.balance = float(total) - float(amt_paid)
         bill.note=request.POST['note']
         bill.reference_numbr = request.POST['reference_number']
+        bill.cheque_id = request.POST.get('cheque_Id')
+        bill.upi_number = request.POST.get('upiNumber')
+        bill.bank_account = request.POST.get('bankAccount')
         
         # cus=customer.objects.get(customerName=request.POST['customer_name']) 
         # bill.cusname = cus.id
@@ -19228,13 +19252,19 @@ def draft_recurring_bills(request):
         reference_num = request.POST['reference_num']
         order_num = request.POST['order_num']
 
+        cheque_id = request.POST.get('cheque_Id')
+        upi_number = request.POST.get('upiNumber')
+        bank_account = request.POST.get('bankAccount')
+
         
         bills = recurring_bills(vendor_name=vname,profile_name=prof,customer_name = cname,vendor_gst_number=v_gst_no,
                     source_supply=src_supply,repeat_every = repeat,start_date = start,end_date = end,
                     payment_terms =pay_term,sub_total=sub_total,sgst=sgst,cgst=cgst,igst=igst,
                     tax_amount=taxamount, shipping_charge = shipping_charge,
                     grand_total=grand_total,note=note,company=company,user = u,cname_recur_id=custo, bill_no = bill_no,status = status, payment_method=payment_method, amt_paid=amt_paid,  
-                    adjustment = adjustment,balance = balance,place_of_supply = vsrcofsupply,reference_numb = reference_num, order_numb= order_num  )
+                    adjustment = adjustment,balance = balance,place_of_supply = vsrcofsupply,reference_numb = reference_num, order_numb= order_num,cheque_id=cheque_id, 
+                    upi_number=upi_number,
+                    bank_account=bank_account)
         bills.save()
 
         r_bill = recurring_bills.objects.get(id=bills.id)
@@ -19418,6 +19448,10 @@ def update_bills_save(request,pk):
         bill.shipping_charge = request.POST['shipping_charge']
         bill.note=request.POST['note']
         bill.reference_numbr = request.POST['reference_number']
+        
+        bill.cheque_id = request.POST.get('cheque_Id')
+        bill.upi_number = request.POST.get('upiNumber')
+        bill.bank_account = request.POST.get('bankAccount')
         
         bill.total = request.POST['total']
         bill.status = 'Save'

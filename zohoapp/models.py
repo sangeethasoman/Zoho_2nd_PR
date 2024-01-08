@@ -649,6 +649,9 @@ class recurring_bills(models.Model):
     place_of_supply = models.CharField(max_length=100,null=True,blank=True)
     reference_numb = models.CharField(max_length=100,null=True,blank=True)
     order_numb = models.CharField(max_length=100,null=True,blank=True)
+    cheque_id = models.CharField(max_length=50, blank=True, null=True)
+    upi_number = models.CharField(max_length=50, blank=True, null=True)
+    bank_account = models.CharField(max_length=50, blank=True, null=True)
 
     
 
@@ -1221,6 +1224,9 @@ class PurchaseBills(models.Model):
     note = models.CharField(max_length=255,null=True,blank=True)
     reference_numbr = models.CharField(max_length=100,null=True,blank=True)
     company = models.ForeignKey(company_details,on_delete=models.CASCADE,null=True,blank=True)
+    cheque_id = models.CharField(max_length=50, blank=True, null=True)
+    upi_number = models.CharField(max_length=50, blank=True, null=True)
+    bank_account = models.CharField(max_length=50, blank=True, null=True)
 
     
     

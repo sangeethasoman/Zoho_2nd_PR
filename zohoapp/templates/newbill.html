@@ -655,22 +655,48 @@ debugger
                   <option value="{{b.name}}">{{b.name}}</option>
               {% endfor %}
           </select>
-            <div class="row mb-4   pl-4" id="chequeField">
-          <div class="col-sm-2"><label for="cheque_Field">Cheque Number</label></div>
-          <div class="col-sm-10"><input type="text" id="chequeId" name="cheque_Id"
-                  class="form-control bg-white text-dark" style="width: 50%;">
-        
           </div>
-          
-          <div class="row mb-4   " id="upiField">
-            <div class="col-sm-2"><label for="upi_Field">UPI ID</label></div>
-            <div class="col-sm-10"><input type="text" id="upiNumber" name="upi_Number"
-                    class="form-control bg-white text-dark" style="width: 50%;">
-          
-            </div>
-            </div>
             
         </div>
+        <div class="row mb-4 pt-2" id="chequeField" style="display: none">
+          <div class="col-sm-2"><label for="chequeId">Cheque Number</label></div>
+          <div class="col-sm-10">
+            <input
+            type="text"
+            name="cheque_Id"
+            id="cheque_Id"
+            class="form-control bg-white text-dark"
+            style="width: 50%;"
+          />
+        </div>
+          
+      </div>
+      <div class="row mb-4 pt-2" id="upiField" style="display: none">
+        <div class="col-sm-2"><label for="upiNumber">UPI ID</label></div>
+        <div class="col-sm-10">
+          <input
+          type="text"
+          name="upiNumber"
+          id="upiNumber"
+          class="form-control bg-white text-dark"
+          style="width: 50%;"
+        />
+      </div>
+        
+    </div>
+    <div class="row mb-4 pt-2" id="bankField" style="display: none">
+      <div class="col-sm-2"><label for="bankAccount">Bank Account</label></div>
+      <div class="col-sm-10">
+        <input
+        type="text"
+        name="bankAccount"
+        id="bankAccount"
+        class="form-control bg-white text-dark"
+        style="width: 50%;"
+      />
+    </div>
+      
+  </div>
         
           <!-- <div class="form-check  pt-2 pb-5">
                 <input class="form-check-input" type="checkbox" value="" id="checkbox" onchange="updateTaxHeader()">
@@ -5649,5 +5675,25 @@ function closeForm1() {
 
 </script>
 <!--END Add item-->
+
+<script>
+  var paidthroughSelect = document.getElementById("paymentmethod");
+  var chequeField = document.getElementById("chequeField");
+  var upiField = document.getElementById("upiField");
+  var bankField = document.getElementById("bankField");
+
+  paidthroughSelect.addEventListener("change", function () {
+    var selectedOption = paidthroughSelect.value;
+
+    chequeField.style.display = selectedOption === "Cheque" ? "flex" : "none";
+    upiField.style.display = selectedOption === "UPI" ? "flex" : "none";
+    bankField.style.display =
+      selectedOption !== "Cash" &&
+      selectedOption !== "Cheque" &&
+      selectedOption !== "UPI"
+        ? "flex"
+        : "none";
+  });
+</script> 
 
 {% endblock %}
