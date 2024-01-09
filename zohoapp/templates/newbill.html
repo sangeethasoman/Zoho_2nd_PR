@@ -705,27 +705,27 @@ debugger
                 </label>
             </div> -->
             <label for="">Price List</label><br>
-            <table class="table  text-black" id="item_table" style="background-color: rgba(250, 227, 198, 0.8);display: block;"
+            <table class="table  text-black" id="item_table" style="background-color: rgba(250, 227, 198, 0.8)"
                 onchange="calc()">
                 <thead>
-                    <tr>
+                    <tr> 
+                        <th class=" text-right">SlNo.</th>
                         <th style="width: 200px;">Item Details <a href="" data-toggle="modal" data-target="#create_item" style="text-decoration: none;">
                           <i class="fas fa-plus p-2 rounded text-right"style="color: white; background-color: rgb(210, 132, 30);"></i></a></th>
-                          <th class=" text-right">HSN </th>
-
-                        <!-- <th style="width: 250px;">Account<a href="" data-toggle="modal" data-target="#create_account" style="text-decoration: none;">
-                          <i class="fas fa-plus p-2 rounded"style="color: white; background-color: rgb(210, 132, 30);"></i></a></th> -->
-
+                        <th class=" text-right">HSN </th>
                         <th class="text-right" >Quantity</th>
                         <th class="text-right" >Rate</th>
                         <th class="text-right" id="tax_head" style="width: 200px;">Tax</th>
                         <th class="text-center">Discount</th>
                         <th class="text-right" >Amount</th>
+                        <th class="text-right" ></th>
+                        <th class="text-right" ></th>
                     </tr>
                 </thead>
                 <tbody>
 
                     <tr id='row1'>
+                        <td class='text-right'>1</td>
                         <td class='text-right'>
                             <div class='form-group'><select
                                     class='form-control bg-transparent text-black border-0 item_select itme itemlist'
@@ -3043,6 +3043,9 @@ debugger
             // console.log(RowCount);
             var newRow = $(`
             <tr id='row${RowCount}' >
+              <td class='text-right' style="width: 80px">
+                ${RowCount}
+              </td>
                 <td class='text-right'>
                     <div class='form-group'>
                         <select
@@ -3148,6 +3151,9 @@ debugger
 
             var newRow = $(`
             <tr id='row${RowCount}' >
+              <td class='text-right' style="width: 80px">
+                ${RowCount}
+              </td>
                 <td class='text-right'>
                     <div class='form-group'>
                         <select

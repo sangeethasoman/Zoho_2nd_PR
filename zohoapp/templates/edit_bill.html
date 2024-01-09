@@ -747,28 +747,30 @@ else{
                 </label>
             </div> -->
             <label for="">Price List</label><br>
-            <table class="table  text-black" id="item_table" style="background-color: rgba(250, 227, 198, 0.8);display: block;"
+            <table class="table  text-black" id="item_table" style="background-color: rgba(250, 227, 198, 0.8)"
                 onchange="calc()">
                 <thead>
                     <tr>
+                        <th class=" text-right">SlNo.</th>
                         <th style="width: 200px;">Item Details <a href="" data-toggle="modal" data-target="#create_item" style="text-decoration: none;">
                           <i class="fas fa-plus p-2 rounded"style="color: white; background-color: rgb(210, 132, 30);"></i></a></th>
                           <th class="text-right">HSN</th>
 
-                        <!-- <th style="width: 250px;">Account<a href="" data-toggle="modal" data-target="#create_account" style="text-decoration: none;">
-                          <i class="fas fa-plus p-2 rounded"style="color: white; background-color: rgb(210, 132, 30);"></i></a></th> -->
-
+                        
                         <th class="text-right">Quantity</th>
                         <th class="text-right">Rate</th>
                         <th class="text-right" id="tax_head" style="width: 200px;">Tax</th>
                         <th class="text-right">Discount</th>
                         <th class="text-right" style="width: 200px;">Amount</th>
+                        <th class="text-right" ></th>
+                        <th class="text-right" ></th>
                     </tr>
                 </thead>
                 <tbody>
 
                   {% for item in bill_items  %} 
                     <tr id='row{{ forloop.counter }}'>
+                      <td class='text-right'>{{ forloop.counter }}</td>
                         <td>
                             <div class='form-group'>
                               <select class='form-control bg-transparent text-black border-0 item_select itm itemlist'
@@ -3312,6 +3314,9 @@ $(document).ready(function () {
             // console.log(RowCount);
             var newRow = $(`
             <tr id='row${RowCount}' >
+              <td class='text-right' style="width: 80px">
+                ${RowCount}
+              </td>
                 <td>
                     <div class='form-group'>
                         <select
@@ -3413,6 +3418,9 @@ $(document).ready(function () {
 
             var newRow = $(`
             <tr id='row${RowCount}' >
+              <td class='text-right' style="width: 80px">
+                ${RowCount}
+              </td>
                 <td>
                     <div class='form-group'>
                         <select

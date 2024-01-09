@@ -11370,7 +11370,7 @@ def view_bills(request):
 def new_bill(request):
     user = request.user
     company = company_details.objects.get(user_id=user.id)
-    items = AddItem.objects.filter(user_id=user.id)
+    items = AddItem.objects.filter(user_id=user.id,satus = 'active')
     vendors = vendor_table.objects.filter(user_id=user.id,status = 'Active')
     customers = customer.objects.filter(user_id=user.id)
     terms = payment_terms.objects.exclude(Days__isnull=True).filter(user_id=user.id)
@@ -12123,7 +12123,7 @@ def edit_bill(request,bill_id):
     company = company_details.objects.get(user=user)
     customers = customer.objects.filter(user_id=user.id)
     vendors = vendor_table.objects.filter(user_id=user.id)
-    items = AddItem.objects.filter(user_id=user.id)
+    items = AddItem.objects.filter(user_id=user.id,satus='active')
     bill = PurchaseBills.objects.get(id=bill_id)
     bill_items = PurchaseBillItems.objects.filter(purchase_bill=bill)
     units = Unit.objects.all()
