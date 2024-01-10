@@ -727,7 +727,8 @@ debugger
                     <tr id='row1'>
                         <td class='text-right'>1</td>
                         <td class='text-right'>
-                            <div class='form-group'><select
+                            <div class='form-group'>
+                              <!-- <select
                                     class='form-control bg-transparent text-black border-0 item_select itme itemlist'
                                     name='item[]' id='item1'>
                                     <option class='text-dark'>Select Items</option>
@@ -735,7 +736,17 @@ debugger
                                     {% for i in items %}
                                     <option class="text-dark" value="{{i.Name}}">{{i.Name}}</option>
                                     {% endfor %}
-                                </select></div>
+                                </select> -->
+                                <select name='item[]' id="item1" class="form-control border-secondary text-black border-0 item_select itme itemlist select2 "  style="color: black; background-color: white;" onchange="changeprd(this.id,this.value)">
+                                  <option value="" selected hidden>Select </option>
+                                  {% for i in items %}
+                                     
+                                          <option value="{{ i.Name }}" >{{ i.Name  }} </option>
+                                   
+                                  {% endfor %}
+                              </select> &nbsp;&nbsp;&nbsp;
+
+                              </div>
                         </td>
                         <td class='text-right' style="width: 80px;">
                           <input type="text" value="0" name='HSN[]' id="HSN1"  placeholder='HSN' class='bg-transparent border-0 text-black text-right HSN' style="width: 52px;" />
@@ -3110,6 +3121,7 @@ debugger
             $('#item_table').append(newRow);
             debugger
             reloadItem(); 
+            $(`.itemlist${roinc}`).select2();
             var tax = 0;
             if(isGST()){ 
              $(`#tax${RowCount} optgroup[label="GST"]`).show();
@@ -3220,6 +3232,7 @@ debugger
             $('#item_table').append(newRow);
             calc_total();
             reloadItem();
+            $(`.itemlist${roinc}`).select2();
 
             var tax = $('#tax'+RowCount).val();
             if(isGST()){ 
@@ -5701,5 +5714,13 @@ function closeForm1() {
         : "none";
   });
 </script> 
+
+<script>
+  $(document).ready(function() {
+      
+      $('#item1').select2();
+  
+    });
+</script>
 
 {% endblock %}
