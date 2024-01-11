@@ -12,6 +12,8 @@
     integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
     crossorigin="anonymous"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<link href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css" rel="stylesheet" />
+<script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js" defer></script>
 <style>
     select:focus {
         outline: none !important;
@@ -200,6 +202,12 @@
   }
  
 
+</style>
+<style>
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    color: #444;
+    line-height: 10px !important;
+}
 </style>
 
 <script>
@@ -709,7 +717,7 @@ debugger
                 onchange="calc()">
                 <thead>
                     <tr> 
-                        <th class=" text-right">SlNo.</th>
+                        <th class=" text-right">Sl No.</th>
                         <th style="width: 200px;">Item Details <a href="" data-toggle="modal" data-target="#create_item" style="text-decoration: none;">
                           <i class="fas fa-plus p-2 rounded text-right"style="color: white; background-color: rgb(210, 132, 30);"></i></a></th>
                         <th class=" text-right">HSN </th>
@@ -727,25 +735,17 @@ debugger
                     <tr id='row1'>
                         <td class='text-right'>1</td>
                         <td class='text-right'>
-                            <div class='form-group'>
-                              <!-- <select
-                                    class='form-control bg-transparent text-black border-0 item_select itme itemlist'
-                                    name='item[]' id='item1'>
-                                    <option class='text-dark'>Select Items</option>
-                                    <option class='text-dark' id="items_nms" ></option>
-                                    {% for i in items %}
-                                    <option class="text-dark" value="{{i.Name}}">{{i.Name}}</option>
-                                    {% endfor %}
-                                </select> -->
-                                <select name='item[]' id="item1" class="form-control border-secondary text-black border-0 item_select itme itemlist select2 "  style="color: black; background-color: white;" onchange="changeprd(this.id,this.value)">
+                            <div>
+                              
+                                <select name='item[]' id='item1' class="form-control bg-transparent text-black border-0 item_select itme itemlist select2"  style="color: black; background-color: white;" onchange="itemchange(this.id,this.value,1)">
                                   <option value="" selected hidden>Select </option>
                                   {% for i in items %}
                                      
                                           <option value="{{ i.Name }}" >{{ i.Name  }} </option>
                                    
                                   {% endfor %}
-                              </select> &nbsp;&nbsp;&nbsp;
-
+                              </select>
+                                
                               </div>
                         </td>
                         <td class='text-right' style="width: 80px;">
@@ -3059,15 +3059,17 @@ debugger
               </td>
                 <td class='text-right'>
                     <div class='form-group'>
-                        <select
-                            class='form-control bg-transparent text-black border-0 item_select itemlist' name='item[]'
-                            id='item${RowCount}'>
-                            <option class='text-dark'>Select Items</option>
-                            <option class='text-dark' id='items_nms1' ></option>
-                            {% for i in items %}
-                            <option class="text-dark" value="{{i.Name}}">{{i.Name}}</option>
-                            {% endfor %}
-                        </select></div>
+                      <select name='item[]' id='item${RowCount}' class="form-control bg-transparent text-black border-0 item_select itme itemlist select2"  style="color: black; background-color: white;" onchange="itemchange(this.id,this.value,${RowCount})">
+                                  <option class='text-dark'>Select</option>
+                                  <option class='text-dark' id='items_nms1' ></option>
+                                  {% for i in items %}
+                                     
+                                          <option value="{{ i.Name }}" >{{ i.Name  }} </option>
+                                   
+                                  {% endfor %}
+                      </select>
+                                 
+                    </div>
                 </td>
                 <td class='text-right' style="width: 80px">
                   <input type='text' id='HSN${RowCount}'
@@ -3119,9 +3121,10 @@ debugger
                         style='width:20px'><i class='fa fa-times'></i></button></td>
             </tr>`);
             $('#item_table').append(newRow);
+            $(`#item${RowCount}`).select2();
             debugger
             reloadItem(); 
-            $(`.itemlist${roinc}`).select2();
+           
             var tax = 0;
             if(isGST()){ 
              $(`#tax${RowCount} optgroup[label="GST"]`).show();
@@ -3168,14 +3171,16 @@ debugger
               </td>
                 <td class='text-right'>
                     <div class='form-group'>
-                        <select
-                            class='form-control bg-transparent text-black border-0 item_select itemlist' name='item[]'
-                            id='item${RowCount}'>
-                            <option class='text-dark ' value='${currentItem}'>${currentItem}</option>
-                            {% for i in items %}
-                            <option class="text-dark" value="{{i.Name}}">{{i.Name}}</option>
-                            {% endfor %}
-                        </select></div>
+                      <select name='item[]' id='item${RowCount}' class="form-control bg-transparent text-black border-0 item_select itme itemlist select2"  style="color: black; background-color: white;" onchange="itemchange(this.id,this.value,${RowCount})">
+                                  <option class='text-dark ' value='${currentItem}'>${currentItem}</option>
+                                  {% for i in items %}
+                                     
+                                          <option value="{{ i.Name }}" >{{ i.Name  }} </option>
+                                   
+                                  {% endfor %}
+                      </select>
+  
+                        </div>
                 </td>
                 <td class='text-right' style="width: 80px;">
                   
@@ -3230,9 +3235,10 @@ debugger
             </tr>`);
 
             $('#item_table').append(newRow);
+            $(`#item${RowCount}`).select2();
             calc_total();
             reloadItem();
-            $(`.itemlist${roinc}`).select2();
+           
 
             var tax = $('#tax'+RowCount).val();
             if(isGST()){ 
@@ -5716,11 +5722,35 @@ function closeForm1() {
 </script> 
 
 <script>
-  $(document).ready(function() {
-      
-      $('#item1').select2();
-  
-    });
+ $(document).ready(function() {
+    $(".select2").select2();
+});
 </script>
+
+<script>
+function itemchange(id,value,index){
+debugger
+customer = $('#customer_sel').val(); 
+            $.ajax({
+                type: "GET",
+                url: "{% url 'itemdata_bills' %}",
+                data: {
+                    id: value,
+                    cust: customer
+                },
+                success: function (response) { debugger
+                    //console.log(response) 
+                    rate = response.rate
+
+                    document.getElementById('rate'+index).value = rate
+                    document.getElementById('HSN'+index).value = response.hsn 
+                    itemchangewithtax(1);
+                     
+                }
+            });
+          }
+</script>
+
+
 
 {% endblock %}

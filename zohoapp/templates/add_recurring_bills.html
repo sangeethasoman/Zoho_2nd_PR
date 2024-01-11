@@ -4,6 +4,9 @@
 {% load tz %}
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
+<link href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css" rel="stylesheet" />
+<script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js" defer></script>
+
 <style>
 
     /* input[type=text], select, textarea {
@@ -230,6 +233,12 @@
 
 </style>
 
+<style>
+  .select2-container--default .select2-selection--single .select2-selection__rendered {
+      color: #444;
+      line-height: 10px !important;
+  }
+  </style>
 <div class="container-fulid containerprof">  
   <div class="card radius-15 p-3">
     <div class="card-body">
@@ -734,12 +743,14 @@
                 <td  style="color: white;">1</td>
                 <td  style="width: 20%;">
                   <div class="d-flex">
-                    <select name='item[]' id="item0" class="form-control item text-dark bg-light" onchange = "showRate(this.id,this.value);">
-                      <option value=" " selected disabled>Select Item</option>
-                      {% for i in item %}
-                        <option value="{{i.id}}">{{i.Name}}</option>
-                      {% endfor %}
                     
+                    <select name='item[]' id='item0' class="form-control item text-black border-0  select2"  style="color: black; background-color: white;" onchange="showRate(this.id,this.value)">
+                      <option value="" selected hidden>Select </option>
+                      {% for i in item %}
+                         
+                              <option value="{{ i.id }}" >{{ i.Name  }} </option>
+                       
+                      {% endfor %}
                     </select>
                   </div>  
                 </td>
@@ -3041,11 +3052,15 @@ $(document).ready(function() {
           <td  style="color: white;">${roinc}</td>
           <td style="width: 20%;">
             <div class="d-flex">
-              <select name='item[]' id="item${roinc}" class="form-control item text-dark bg-light listAdditem" onchange = "showRate(this.id,this.value);">
-                <option value=" " selected disabled >Select Item</option>
-                {% for i in item %}
-                      <option value="{{i.id}}">{{i.Name}}</option>
-                {% endfor %}
+              
+              <select name='item[]' id='item${roinc}' class="form-control item text-black border-0 listAdditem  select2"  style="color: black; background-color: white;" onchange="showRate(this.id,this.value,${roinc})">
+                                  <option value=" " selected disabled class='text-dark'>Select</option>
+                                  
+                                  {% for i in item %}
+                                     
+                                          <option value="{{ i.id }}" >{{ i.Name  }} </option>
+                                   
+                                  {% endfor %}
               </select>
             </div>  
           </td>
@@ -3106,6 +3121,7 @@ $(document).ready(function() {
 
      
         );
+        $(`#item${roinc}`).select2();
       reloadItem();
     });
   });
@@ -5483,4 +5499,10 @@ function closeForm1() {
         : "none";
   });
 </script> 
+
+<script>
+  $(document).ready(function() {
+     $(".select2").select2();
+ });
+ </script>
 {% endblock %}

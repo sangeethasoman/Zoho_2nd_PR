@@ -12,6 +12,9 @@
     integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
     crossorigin="anonymous"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+<link href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css" rel="stylesheet" />
+<script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js" defer></script>
 <style>
     select:focus {
         outline: none !important;
@@ -200,7 +203,12 @@
  
 
 </style>
-
+<style>
+  .select2-container--default .select2-selection--single .select2-selection__rendered {
+      color: #444;
+      line-height: 10px !important;
+  }
+  </style>
 
 <script>
 
@@ -773,12 +781,21 @@ else{
                       <td class='text-right'>{{ forloop.counter }}</td>
                         <td>
                             <div class='form-group'>
-                              <select class='form-control bg-transparent text-black border-0 item_select itm itemlist'
+                              <!-- <select class='form-control bg-transparent text-black border-0 item_select itm itemlist'
                                     name='item[]' id='item{{ forloop.counter }}'>
                                     {% for i in items %}
                                     <option class="text-dark" value="{{i.Name}}" {% if i.Name == item.item_name %} selected="selected"{% endif %}>{{i.Name}}</option>
                                     {% endfor %}
-                                </select></div>
+                                </select> -->
+                                <select name='item[]' id='item{{ forloop.counter }}' class="form-control bg-transparent text-black border-0 item_select itme itemlist select2" style="color: black; background-color: white;" onchange="itemchange(this.id,this.value,{{ forloop.counter }})">
+                                  <option value="" selected hidden>Select </option>
+                                  {% for i in items %}
+                                     
+                                  <option class="text-dark" value="{{i.Name}}" {% if i.Name == item.item_name %} selected="selected"{% endif %}>{{i.Name}}</option>
+                                   
+                                  {% endfor %}
+                              </select>
+                              </div>
                         </td>
                        
                         <td class='text-right'><input  type="text" value="{{item.hsn}}"  name='HSN[]' id="HSN{{ forloop.counter }}" placeholder='HSN'  
@@ -3319,13 +3336,17 @@ $(document).ready(function () {
               </td>
                 <td>
                     <div class='form-group'>
-                        <select
-                            class='form-control bg-transparent text-black border-0 item_select itm itemlist listAdditem' name='item[]'
-                            id='item${RowCount}'> 
-                            {% for i in items %}
-                            <option class="text-dark" value="{{i.Name}}">{{i.Name}}</option>
-                            {% endfor %}
-                        </select></div>
+                        
+                        <select name='item[]' id='item${RowCount}' class="form-control bg-transparent text-black border-0 item_select itme itemlist select2 listAdditem"  style="color: black; background-color: white;" onchange="itemchange(this.id,this.value,${RowCount})">
+                                  <option class='text-dark'>Select</option>
+                                  
+                                  {% for i in items %}
+                                     
+                                          <option value="{{ i.Name }}" >{{ i.Name  }} </option>
+                                   
+                                  {% endfor %}
+                      </select>
+                        </div>
                 </td>
                 <td class='text-right'><input type='text' id='HSN${RowCount}'
                   class='bg-transparent border-0 text-black text-right HSN' name='HSN[]' style="width: 52px;" value='0' min="0"></td>
@@ -3376,6 +3397,7 @@ $(document).ready(function () {
                         style='width:20px'><i class='fa fa-times'></i></button></td>
             </tr>`);
             $('#item_table').append(newRow);
+            $(`#item${RowCount}`).select2();
             reloadItem(); 
             var tax = 0;
             if(isGST()){ 
@@ -3423,14 +3445,16 @@ $(document).ready(function () {
               </td>
                 <td>
                     <div class='form-group'>
-                        <select
-                            class='form-control bg-transparent text-black border-0 item_select itemlist listCopyitem' name='item[]'
-                            id='item${RowCount}'>
-                            <option class='text-dark ' value='${currentItem}'>${currentItem}</option>
-                            {% for i in items %}
-                            <option class="text-dark" value="{{i.Name}}">{{i.Name}}</option>
-                            {% endfor %}
-                        </select></div>
+                        
+                        <select name='item[]' id='item${RowCount}' class="form-control bg-transparent text-black border-0 item_select itme itemlist select2"  style="color: black; background-color: white;" onchange="itemchange(this.id,this.value,${RowCount})">
+                                  <option class='text-dark ' value='${currentItem}'>${currentItem}</option>
+                                  {% for i in items %}
+                                     
+                                          <option value="{{ i.Name }}" >{{ i.Name  }} </option>
+                                   
+                                  {% endfor %}
+                      </select>
+                        </div>
                 </td>
                 <td style="width: 50%;">
                         <input type='text' id='HSN${RowCount}' value="${currentHSN}" 
@@ -3483,6 +3507,7 @@ $(document).ready(function () {
             </tr>`);
 
             $('#item_table').append(newRow);
+            $(`#item${RowCount}`).select2();
             calc_total();
             reloadItem();
             var tax = $('#tax'+RowCount).val();
@@ -5815,4 +5840,34 @@ function closeForm1() {
         : "none";
   });
 </script> 
+
+<script>
+  $(document).ready(function() {
+     $(".select2").select2();
+ });
+ </script>
+ 
+ <script>
+ function itemchange(id,value,index){
+ debugger
+ customer = $('#customer_sel').val(); 
+             $.ajax({
+                 type: "GET",
+                 url: "{% url 'itemdata_bills' %}",
+                 data: {
+                     id: value,
+                     cust: customer
+                 },
+                 success: function (response) { debugger
+                     //console.log(response) 
+                     rate = response.rate
+ 
+                     document.getElementById('rate'+index).value = rate
+                     document.getElementById('HSN'+index).value = response.hsn 
+                     itemchangewithtax(1);
+                      
+                 }
+             });
+           }
+ </script>
 {% endblock %}
