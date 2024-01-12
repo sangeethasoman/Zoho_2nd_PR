@@ -741,6 +741,7 @@
           <table class="table table-bordered table-hover mt-3" id="tab_logic">
             <thead>
               <tr>
+                <th class="text-center text-uppercase">Sl.No. </th>
                 <th class="text-center text-uppercase">Item Details <br>
                   <a href="" data-toggle="modal" data-target="#newitem" class="text-capitalize">+ add item</a>
                 </th>
@@ -759,6 +760,7 @@
             <tbody id="items-table-body">
               {% for ri in recur_items %} 
               <tr id='addr{{forloop.counter|add:"-1"}}' class="addr">
+                <td  style="color: white;"><span id="slnum0{{forloop.counter|add:'-1'}}" class="slnum">1</span></td>
                 <td style="width: 20%;">
                   <div class="d-flex" >
                     <!-- <select name='item[]' id="item{{forloop.counter|add:'-1'}}" class="form-control item text-dark bg-light" onchange = "showRate(this.id,this.value);">
@@ -793,23 +795,23 @@
                   <input type="text" placeholder="Select TAX" class="form-control selecttax text-dark bg-light" id="selecttax0">
                   <select name="tax1[]" id="intra_tax{{forloop.counter|add:'-1'}}" class="form-control tax1 d-none mb-2 text-dark bg-light">
                     <option id="ta1" value="{{ ri.tax  }} " text="{{ cmp1.state }}" >{{ ri.tax }}% GST({{ ri.tax }}%)</option>
-                    <option value=28 text="{{ cmp1.state }}">28.0% GST(28%)</option>
-                    <option value=18 text="{{ cmp1.state }}">18.0% GST(18%)</option>
-                    <option value=12 text="{{ cmp1.state }}">12.0% GST(12%)</option>
-                    <option value=5 text="{{ cmp1.state }}">05.0% GST(05%)</option>
-                    <option value=3 text="{{ cmp1.state }}">03.0% GST(03%)</option>
-                    <option value=0 text="{{ cmp1.state }}">0.0% GST(0%)</option>
+                    <option value=28 text="{{ cmp1.state }}">28.0% GST</option>
+                    <option value=18 text="{{ cmp1.state }}">18.0% GST</option>
+                    <option value=12 text="{{ cmp1.state }}">12.0% GST</option>
+                    <option value=5 text="{{ cmp1.state }}">05.0% GST</option>
+                    <option value=3 text="{{ cmp1.state }}">03.0% GST</option>
+                    <option value=0 text="{{ cmp1.state }}">0.0% GST</option>
                   </select>
 
                   <select name="tax2[]" id="inter_tax{{forloop.counter|add:'-1'}}" class="form-control tax2 d-none mb-2 text-dark bg-light">
                     <option id="ta5" value="{{ ri.tax  }} " text="{{ cmp1.state }}">{{ ri.tax }}% IGST({{ ri.tax }}%) </option>                      
-                    <option value=28 text="{{ cmp1.state }}">28.0% IGST(28%)</option>
-                    <option value=28 text="{{ cmp1.state }}">28.0% IGST(28%)</option>
-                    <option value=18 text="{{ cmp1.state }}">18.0% IGST(18%)</option>
-                    <option value=12 text="{{ cmp1.state }}">12.0% IGST(12%)</option>
-                    <option value=5 text="{{ cmp1.state }}">05.0% IGST(05%)</option>
-                    <option value=3 text="{{ cmp1.state }}">03.0% IGST(03%)</option>
-                    <option value=0 text="{{ cmp1.state }}">0.0% IGST(0%)</option>
+                    <option value=28 text="{{ cmp1.state }}">28.0% IGST</option>
+                    <option value=28 text="{{ cmp1.state }}">28.0% IGST</option>
+                    <option value=18 text="{{ cmp1.state }}">18.0% IGST</option>
+                    <option value=12 text="{{ cmp1.state }}">12.0% IGST</option>
+                    <option value=5 text="{{ cmp1.state }}">05.0% IGST</option>
+                    <option value=3 text="{{ cmp1.state }}">03.0% IGST</option>
+                    <option value=0 text="{{ cmp1.state }}">0.0% IGST</option>
                   </select>
                 </td>
                 
@@ -3442,6 +3444,7 @@ debugger
       $('#items-table-body').append(
         
         `<tr id='addr${roinc}' class = 'addr'>
+          <td  style="color: white;"><span id="slnum${roinc}">${roinc+1}</span></td>
           <td style="width: 20%;">
             <div class="d-flex">
               
@@ -3471,22 +3474,22 @@ debugger
             <input type="text" placeholder="Select TAX" class="form-control selecttax text-dark bg-light" id="selecttax${roinc}"  style = "width:100px;">
             <select name="tax1[]" id="intra_tax${roinc}" class="form-control tax1 d-none mb-2 text-dark bg-light">
                 <option id="ta1" value=0 text=" ">Choose GST</option>
-                <option value=28 text="{{ cmp1.state }}">28.0% GST(28%)</option>
-                <option value=18 text="{{ cmp1.state }}">18.0% GST(18%)</option>
-                <option value=12 text="{{ cmp1.state }}">12.0% GST(12%)</option>
-                <option value=5 text="{{ cmp1.state }}">05.0% GST(05%)</option>
-                <option value=3 text="{{ cmp1.state }}">03.0% GST(03%)</option>
-                <option value=0 text="{{ cmp1.state }}">0.0% GST(0%)</option>
+                <option value=28 text="{{ cmp1.state }}">28.0% GST</option>
+                <option value=18 text="{{ cmp1.state }}">18.0% GST</option>
+                <option value=12 text="{{ cmp1.state }}">12.0% GST</option>
+                <option value=5 text="{{ cmp1.state }}">05.0% GST</option>
+                <option value=3 text="{{ cmp1.state }}">03.0% GST</option>
+                <option value=0 text="{{ cmp1.state }}">0.0% GST</option>
             </select>
 
             <select name="tax2[]" id="inter_tax${roinc}" class="form-control tax2 d-none mb-2 text-dark bg-light">
               <option id="ta5" value=0 text=" " >Choose IGST</option>
-              <option value=28 text="{{ cmp1.state }}">28.0% IGST(28%)</option>
-              <option value=18 text="{{ cmp1.state }}">18.0% IGST(18%)</option>
-              <option value=12 text="{{ cmp1.state }}">12.0% IGST(12%)</option>
-              <option value=5 text="{{ cmp1.state }}">05.0% IGST(05%)</option>
-              <option value=3 text="{{ cmp1.state }}">03.0% IGST(03%)</option>
-              <option value=0 text="{{ cmp1.state }}">0.0% IGST(0%)</option>
+              <option value=28 text="{{ cmp1.state }}">28.0% IGST</option>
+              <option value=18 text="{{ cmp1.state }}">18.0% IGST</option>
+              <option value=12 text="{{ cmp1.state }}">12.0% IGST</option>
+              <option value=5 text="{{ cmp1.state }}">05.0% IGST</option>
+              <option value=3 text="{{ cmp1.state }}">03.0% IGST</option>
+              <option value=0 text="{{ cmp1.state }}">0.0% IGST</option>
             </select>
           </td>
             
@@ -3536,6 +3539,7 @@ debugger
     var clone = row.find(".clone_row");
     var rm = row.find(".remove_row");
     var hsn = row.find(".HSN");
+    var slnum = row.find(".slnum");
 
     newRow.each(function(index) {
         var idPrefix = 'addr';
@@ -3612,6 +3616,14 @@ debugger
       var idPrefix = 'HSN';
       var newId = idPrefix + roinc ;
       newRow.find('.HSN').eq(index).val(value9).attr('id' , newId);
+    });
+
+    slnum.each(function(index) { debugger
+        var value10 = $(this).val();
+        var idPrefix = 'slnum';
+        var newId = idPrefix + roinc ;
+        newRow.find('.slnum').eq(index).val(value10).attr('id' , newId);
+        
     });
 
     var buttonCell = $('<td>').append(`
