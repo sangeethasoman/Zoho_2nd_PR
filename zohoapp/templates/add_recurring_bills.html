@@ -3148,6 +3148,7 @@ $(document).ready(function() {
     var rm = row.find(".remove_row");
     var hsn = row.find(".HSN");
     var slnum = row.find(".slnum");
+    var newItem = "";
 
     newRow.each(function(index) {
         var idPrefix = 'addr';
@@ -3167,12 +3168,13 @@ $(document).ready(function() {
         newRow.find('.remove_row').eq(index).attr('id' , newId);
         
     });
-    item.each(function(index) {
+    item.each(function(index) { debugger
         var value1 = $(this).val();
         var idPrefix = 'item';
         var newId = idPrefix + roinc ;
-        newRow.find('.item').eq(index).val(value1).attr('id' , newId);
-        
+        newRow.find('.item').eq(index).attr('id' , newId);
+        newRow.find('.select2-container').remove();
+        newItem = $(this).val();
     });
     qnty.each(function(index) {
         var value2 = $(this).val();
@@ -3247,8 +3249,14 @@ $(document).ready(function() {
             </button>
           `);
     newRow.find('td:last-child').replaceWith(buttonCell);
+ 
 
     row.after(newRow);
+    $(`#item${roinc}`).select2();
+    $(`#item${roinc}`).val(newItem);  
+    $(`#item${roinc}`).trigger('change');
+    $(".select2-container").width( 'auto' );
+    
 
     //recalculate after new row added
 
@@ -3292,12 +3300,20 @@ $(document).ready(function() {
         $("#grandtotal").val(amount_t+tax_tot)
       }
     }
+
+    $("#items-table-body").find('tr').each(function (i, el) { debugger
+           $(this).find('td').eq(0).text(i+1); 
+    });
   });
   
   $(document).on('click','.remove_row',function(){
     
     var row_id = $(this).attr("id");
-    $('#addr'+row_id+'').remove();
+    $('#addr'+row_id+'').remove(); 
+    
+    $("#items-table-body").find('tr').each(function (i, el) { debugger
+           $(this).find('td').eq(0).text(i+1); 
+    });
 
     $('tr[id^="addr"]').each(function(index) {
         var new_row_id = 'addr' + (index);
