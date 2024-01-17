@@ -760,7 +760,7 @@
             <tbody id="items-table-body">
               {% for ri in recur_items %} 
               <tr id='addr{{forloop.counter|add:"-1"}}' class="addr">
-                <td  style="color: white;"><span id="slnum0{{forloop.counter|add:'-1'}}" class="slnum">1</span></td>
+                <td  style="color: white;"><span id="slnum{{forloop.counter|add:'-1'}}" class="slnum">{{forloop.counter}}</span></td>
                 <td style="width: 20%;">
                   <div class="d-flex" >
                     <!-- <select name='item[]' id="item{{forloop.counter|add:'-1'}}" class="form-control item text-dark bg-light" onchange = "showRate(this.id,this.value);">
@@ -770,7 +770,7 @@
                       {% endfor %}
                     </select> -->
                     <select name='item[]' id="item{{forloop.counter|add:'-1'}}" class="form-control item text-black border-0  select2"  style="color: black; background-color: white;" onchange="showRate(this.id,this.value)">
-                      <option value="" selected hidden>Select </option>
+                      <option value="{{ri.item}}" selected >{{ri.item}}</option>
                       {% for i in item %}
                          
                               <option value="{{ i.id }}" >{{ i.Name  }} </option>
@@ -3198,6 +3198,13 @@ function srcofsupply(){ debugger
       }
      
   }
+  function taxautoselect(response,n){ debugger
+    var inter_id = parseInt(response.inter.match(/\d+/)[0], 10);
+    var intra_id = parseInt(response.intra.match(/\d+/)[0], 10);
+    $("#inter_tax"+n).val(inter_id).change();
+    $("#intra_tax"+n).val(intra_id).change();
+    $("#qty"+n).val(1); 
+  }
  function itemchange(){
   
   var row_count = $("#items-table-body tr").length;
@@ -3259,6 +3266,7 @@ function srcofsupply(){ debugger
            }
         tax = (amount*(tax1/100));
         tax_tot += tax;
+        $("#igst").val(tax_tot);
         $("#sgst").val(tax_tot/2);
         $("#cgst").val(tax_tot/2);
         $("#total_taxamount").val(tax_tot);
@@ -3540,6 +3548,7 @@ debugger
     var rm = row.find(".remove_row");
     var hsn = row.find(".HSN");
     var slnum = row.find(".slnum");
+    var newItem = "";
 
     newRow.each(function(index) {
         var idPrefix = 'addr';
@@ -3563,7 +3572,9 @@ debugger
         var value1 = $(this).val();
         var idPrefix = 'item';
         var newId = idPrefix + roinc ;
-        newRow.find('.item').eq(index).val(value1).attr('id' , newId);
+        newRow.find('.item').eq(index).attr('id' , newId);
+        newRow.find('.select2-container').remove();
+        newItem = $(this).val();
         
     });
     qnty.each(function(index) {
@@ -3619,11 +3630,7 @@ debugger
     });
 
     slnum.each(function(index) { debugger
-        var value10 = $(this).val();
-        var idPrefix = 'slnum';
-        var newId = idPrefix + roinc ;
-        newRow.find('.slnum').eq(index).val(value10).attr('id' , newId);
-        
+        newRow.find('.slnum').eq(index)[0].innerText = roinc+1 
     });
 
     var buttonCell = $('<td>').append(`
@@ -3639,6 +3646,10 @@ debugger
     newRow.find('td:last-child').replaceWith(buttonCell);
 
     row.after(newRow);
+    $(`#item${roinc}`).select2();
+    $(`#item${roinc}`).val(newItem);  
+    $(`#item${roinc}`).trigger('change');
+    $(".select2-container").width( 'auto' );
 
     //recalculate after new row added
 
@@ -3686,12 +3697,19 @@ debugger
         $("#grandtotal").val(amount_t+tax_tot)
       }
     }
+    $("#items-table-body").find('tr').each(function (i, el) { debugger
+           $(this).find('td').eq(0).text(i+1); 
+    });
 });
 
 $(document).on('click','.remove_row',function(){
 
   var row_id = $(this).attr("id");
   $('#addr'+row_id+'').remove();
+
+  $("#items-table-body").find('tr').each(function (i, el) { debugger
+           $(this).find('td').eq(0).text(i+1); 
+    });
 
   $('tr[id^="addr"]').each(function(index) {
       var new_row_id = 'addr' + (index);
@@ -3737,6 +3755,10 @@ $(document).on('click','.remove_row',function(){
         $(this).find('.remove_row').each(function(tdIndex) {
           var new_td_id = (index * 1 + tdIndex);
           $(this).attr('id', new_td_id);
+        });
+        $(this).find('.slnum').each(function(tdIndex) { debugger
+          var new_td_id = (index * 1 + tdIndex);
+          $(this).attr('id', new_td_id); 
         });
       // $(this).find('button').each(function(tdIndex) {
       //   var new_td_id = (index * 1 + tdIndex);
@@ -4359,6 +4381,7 @@ function reloadAccount() {
         $("#rate" +n).val(response.rate);
         $("#HSN" +n).val(response.hsn);
         srcofsupply();
+        taxautoselect(response,n);
         itemchange();
       },
     });

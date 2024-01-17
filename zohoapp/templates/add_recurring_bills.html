@@ -4053,6 +4053,7 @@ function reloadAccount() {
         $("#rate" +n).val(response.rate);
         $("#HSN" +n).val(response.hsn);
         srcofsupply();
+        taxautoselect(response,n);
         itemchange();
       },
     });
@@ -4096,7 +4097,16 @@ function reloadAccount() {
       }
      
   }
- function itemchange(){
+
+  function taxautoselect(response,n){ debugger
+    var inter_id = parseInt(response.inter.match(/\d+/)[0], 10);
+    var intra_id = parseInt(response.intra.match(/\d+/)[0], 10);
+    $("#inter_tax"+n).val(inter_id).change();
+    $("#intra_tax"+n).val(intra_id).change();
+    $("#qty"+n).val(1); 
+  }
+
+ function itemchange(){debugger
   
   var row_count = $("#items-table-body tr").length;
     var tax_tot = 0
@@ -4157,6 +4167,7 @@ function reloadAccount() {
            }
         tax = (amount*(tax1/100));
         tax_tot += tax;
+        $("#igst").val(tax_tot);
         $("#sgst").val(tax_tot/2);
         $("#cgst").val(tax_tot/2);
         $("#total_taxamount").val(tax_tot);

@@ -6507,8 +6507,9 @@ def get_rate(request):
          
         rate = 0 if item.p_price == "" else item.p_price
         hsn = 0 if item.hsn == "" else item.hsn
-
-        return JsonResponse({"rate": rate,"hsn":hsn},safe=False)
+        intra = 0 if item.intrastate == "" else item.intrastate
+        inter = 0 if item.interstate == "" else item.interstate
+        return JsonResponse({"rate": rate,"hsn":hsn,"intra":intra,"inter":inter},safe=False)
     
 
     
