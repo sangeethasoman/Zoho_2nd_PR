@@ -698,6 +698,7 @@ else{
           <option id="crt_paymt_method" value="{{bill.payment_method}}" selected>{{bill.payment_method}}</option>
           <option value="Cash">Cash</option>
           <option value="Cheque">Cheque</option>
+          <option value="UPI">UPI</option>
           {% for b in bank %}
               <option value="{{b.name}}">{{b.name}}</option>
           {% endfor %}
@@ -5865,9 +5866,26 @@ function closeForm1() {
                      document.getElementById('rate'+index).value = rate
                      document.getElementById('HSN'+index).value = response.hsn 
                      itemchangewithtax(1);
-                      
+                     taxautoselect(response,index)
                  }
              });
            }
+           function taxautoselect(response,selectId){ debugger
+            var inter_id = parseInt(response.inter.match(/\d+/)[0], 10);
+            var intra_id = parseInt(response.intra.match(/\d+/)[0], 10);
+            $("#qty"+selectId).val(1); 
+            if(isGST())
+            { 
+                $(`#tax${selectId} optgroup[label="GST"]`).show();
+                $(`#tax${selectId} optgroup[label="IGST"]`).hide(); 
+                $("#tax"+selectId).val(intra_id).change();
+            } 
+            else 
+            {
+                $(`#tax${selectId} optgroup[label="GST"]`).hide();
+                $(`#tax${selectId} optgroup[label="IGST"]`).show();  
+                $("#tax"+selectId).val(inter_id).change();   
+            }
+        }
  </script>
 {% endblock %}

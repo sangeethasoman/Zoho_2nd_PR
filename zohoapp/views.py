@@ -11936,7 +11936,10 @@ def itemdata_bills(request):
 
     rate = item.p_price
     hsn = item.hsn
-    return JsonResponse({"status": " not", 'rate': rate, 'hsn' : hsn})
+    intra = 0 if item.intrastate == "" else item.intrastate
+    inter = 0 if item.interstate == "" else item.interstate
+    stock =item.stock
+    return JsonResponse({"status": " not", 'rate': rate, 'hsn' : hsn,"intra":intra,"inter":inter,"stock":stock})
     return redirect('/')
 
 def create_purchase_bill(request):

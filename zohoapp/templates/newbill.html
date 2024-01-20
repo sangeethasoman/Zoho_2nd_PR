@@ -228,10 +228,12 @@ debugger
                 var rate = $(this).find('.rate').val();
                 var tax = $(this).find('.tax').val();
                 var dic = $(this).find('.discount').val();
+                var stock = $(this).find('.stock_data_hidden').val();
+                $(this).find('.stock_data')[0].innerHTML = parseInt(stock) + parseInt(qty);
                 console.log(qty);
                 console.log(rate);
                 console.log(tax);
-                 
+               
                var amount = rate*qty;
                var tax_amount = 0;
                if(dic){
@@ -659,6 +661,7 @@ debugger
               <option value="Cash">Cash</option>
               <option value="Cheque">Cheque</option>
               <option value="UPI">UPI</option>
+              
               {% for b in bank %}
                   <option value="{{b.name}}">{{b.name}}</option>
               {% endfor %}
@@ -754,6 +757,9 @@ debugger
           
                         <td class='text-right'><input type='number' id='qty1' style="width: 50px;"
                                 class='bg-transparent border-0 text-black text-right qty' name='quantity[]' value='0'>
+                                <br>
+                                <span class="text-warning">Available Stock : <span id="stock_data1" class="text-warning stock_data"></span></span>
+                                <input  type="text" hidden class="stock_data_hidden" name ="stock[]" id="stock_data_hidden1" value="0"/>
                         </td>
                         <td class='text-right'><input type='number' id='rate1'  style="width: 70px;"
                                 class='bg-transparent border-0 text-black text-right rate' name='rate[]' value='0.00'>
@@ -3078,6 +3084,9 @@ debugger
                 
                 <td class='text-right'><input type='number' id='qty${RowCount}' style="width: 50px;"
                         class='bg-transparent border-0 text-black text-right qty' name='quantity[]' value='0' >
+                        <br>
+                        <span class="text-warning">Available Stock : <span id="stock_data${RowCount}" class="text-warning stock_data"></span></span>
+                        <input  type="text" hidden class="stock_data_hidden" name ='stock[]' id="stock_data_hidden${RowCount}" value="0"/>
                 </td>
                 <td class='text-right'><input type='number' id='rate${RowCount}' style="width: 80px;"
                         class='bg-transparent border-0 text-black text-right rate' name='rate[]' value='0.00'
@@ -3156,6 +3165,7 @@ debugger
             var currentTaxAmount = $(this).closest('tr').find("input[name='taxamount[]']").val();
             var currentDiscount = $(this).closest('tr').find("input[name='discount[]']").val();
             var currentAmount = $(this).closest('tr').find("input[name='amount[]']").val();
+            var currentStock = $(this).closest('tr').find("input[name='stock[]']").val();
             // console.log(currentItem);
             
             // console.log(currentQuantity);
@@ -3190,6 +3200,9 @@ debugger
                
                 <td class='text-right'><input type='number' id='qty${RowCount}' value="${currentQuantity}" style="width: 50px;"
                         class='bg-transparent border-0 text-black text-right qty' name='quantity[]' value='0' >
+                        <br>
+                        <span class="text-warning">Available Stock : <span id="stock_data${RowCount}" class="text-warning stock_data"></span></span>
+                        <input  type="text" hidden class="stock_data_hidden" name ='stock[]'  id="stock_data_hidden${RowCount}" value="${currentStock}"/>
                 </td>
                 <td class='text-right'><input type='number' id='rate${RowCount}' value="${currentRate}"  style="width: 80px;"
                         class='bg-transparent border-0 text-black text-right rate' name='rate[]' value='0.00'
@@ -3236,9 +3249,10 @@ debugger
 
             $('#item_table').append(newRow);
             $(`#item${RowCount}`).select2();
+            calc();
             calc_total();
             reloadItem();
-           
+            
 
             var tax = $('#tax'+RowCount).val();
             if(isGST()){ 
@@ -4112,7 +4126,7 @@ $.ajax({
                     document.getElementById('rate1').value = rate
                     document.getElementById('HSN1').value = response.hsn 
                     itemchangewithtax(1);
-                     
+
                 }
             });
 
@@ -5744,11 +5758,31 @@ customer = $('#customer_sel').val();
 
                     document.getElementById('rate'+index).value = rate
                     document.getElementById('HSN'+index).value = response.hsn 
-                    itemchangewithtax(1);
-                     
+                    document.getElementById('stock_data_hidden'+index).value = response.stock
+                    document.getElementById('stock_data'+index).innerHTML = response.stock
+                    itemchangewithtax(index);
+                    taxautoselect(response,index)
                 }
             });
           }
+          function taxautoselect(response,selectId){ debugger
+            var inter_id = parseInt(response.inter.match(/\d+/)[0], 10);
+            var intra_id = parseInt(response.intra.match(/\d+/)[0], 10);
+            $("#qty"+selectId).val(1); 
+            if(isGST())
+            { 
+                $(`#tax${selectId} optgroup[label="GST"]`).show();
+                $(`#tax${selectId} optgroup[label="IGST"]`).hide(); 
+                $("#tax"+selectId).val(intra_id).change();
+            } 
+            else 
+            {
+                $(`#tax${selectId} optgroup[label="GST"]`).hide();
+                $(`#tax${selectId} optgroup[label="IGST"]`).show();  
+                $("#tax"+selectId).val(inter_id).change();   
+            }
+        }
+        
 </script>
 
 
