@@ -225,6 +225,8 @@
                 var rate = $(this).find('.rate').val();
                 var tax = $(this).find('.tax').val();
                 var dic = $(this).find('.discount').val();
+                var stock = $(this).find('.stock_data_hidden').val();
+                $(this).find('.stock_data')[0].innerHTML = parseInt(stock) + parseInt(qty);
                 console.log(qty);
                 console.log(rate);
                 console.log(tax);
@@ -805,6 +807,9 @@ else{
                       
                         <td class='text-right'><input type='number' id='qty{{ forloop.counter }}' style="width: 50px;"
                                 class='bg-transparent border-0 text-black text-right qty' name='quantity[]' value="{{item.quantity}}">
+                                <br>
+                                <span class="text-warning">Available Stock : <span id="stock_data{{ forloop.counter }}" class="text-warning stock_data"></span></span>
+                                <input  type="text" hidden class="stock_data_hidden" name ="stock[]" id="stock_data_hidden{{ forloop.counter }}" value="0"/>
                         </td>
                         <td class='text-right'><input type='number' id='rate{{ forloop.counter }}' style="width: 80px;"
                                 class='bg-transparent border-0 text-black text-right rate' name='rate[]' value="{{item.rate}}">
@@ -3354,6 +3359,9 @@ $(document).ready(function () {
                 
                 <td class='text-right'><input type='number' id='qty${RowCount}' style="width: 50px;"
                         class='bg-transparent border-0 text-black text-right qty' name='quantity[]' value='0' >
+                        <br>
+                        <span class="text-warning">Available Stock : <span id="stock_data${RowCount}" class="text-warning stock_data"></span></span>
+                        <input  type="text" hidden class="stock_data_hidden" name ='stock[]' id="stock_data_hidden${RowCount}" value="0"/>
                 </td>
                 <td class='text-right'><input type='number' id='rate${RowCount}' style="width: 80px;"
                         class='bg-transparent border-0 text-black text-right rate' name='rate[]' value='0.00'
@@ -3431,6 +3439,7 @@ $(document).ready(function () {
             var currentTaxAmount = $(this).closest('tr').find("input[name='taxamount[]']").val();
             var currentDiscount = $(this).closest('tr').find("input[name='discount[]']").val();
             var currentAmount = $(this).closest('tr').find("input[name='amount[]']").val();
+            var currentStock = $(this).closest('tr').find("input[name='stock[]']").val();
             // console.log(currentItem);
             
             // console.log(currentQuantity);
@@ -3464,6 +3473,9 @@ $(document).ready(function () {
                 
                 <td class='text-right'><input type='number' id='qty${RowCount}' value="${currentQuantity}" style="width: 50px;"
                         class='bg-transparent border-0 text-black text-right qty' name='quantity[]' value='0.00' >
+                        <br>
+                        <span class="text-warning">Available Stock : <span id="stock_data${RowCount}" class="text-warning stock_data"></span></span>
+                        <input  type="text" hidden class="stock_data_hidden" name ='stock[]'  id="stock_data_hidden${RowCount}" value="${currentStock}"/>
                 </td>
                 <td class='text-right'><input type='number' id='rate${RowCount}' value="${currentRate}" style="width: 80px;"
                         class='bg-transparent border-0 text-black text-right rate' name='rate[]' value='0.00'
@@ -5865,6 +5877,8 @@ function closeForm1() {
  
                      document.getElementById('rate'+index).value = rate
                      document.getElementById('HSN'+index).value = response.hsn 
+                     document.getElementById('stock_data_hidden'+index).value = response.stock
+                     document.getElementById('stock_data'+index).innerHTML = response.stock
                      itemchangewithtax(1);
                      taxautoselect(response,index)
                  }
