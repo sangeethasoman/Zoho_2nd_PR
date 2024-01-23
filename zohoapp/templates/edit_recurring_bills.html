@@ -786,7 +786,9 @@
 
                
                 <td style="width: 10%;">
-                  <input type="text" name='qty[]' placeholder='Qty' id="qty{{forloop.counter|add:'-1'}}" value="{{ri.quantity}}"  class="form-control qty text-dark bg-light" step=0 min=0/>
+                  <input type="text" name='qty[]' placeholder='Qty' id="qty{{forloop.counter|add:'-1'}}" value="{{ri.quantity}}"  class="form-control qty text-dark bg-light" step=0 min=0/> <br>
+                  <span class="text-warning">Available Stock : <span id="stock_data0" class="text-warning stock_data"></span></span>
+                  <input  type="text" hidden class="stock_data_hidden" name ="stock[]" id="stock_data_hidden0" value="0"/>
                 </td>
                 <td style="width: 10%;">
                   <input type="text" name='rate[]' id="rate{{forloop.counter|add:'-1'}}" placeholder='Rate' value="{{ ri.rate }}" class="form-control rate text-dark bg-light" step="0.00" min="0" />
@@ -937,6 +939,13 @@
             <div class="col-sm-5 mt-2"><label for="a" class="text-center" id="Paid">Paid</label></div>
             <div class="col-sm-2 mt-2"></div>
             <div class="col-sm-5 mt-2"><input type="number" name='amtPaid' id="amtPaid" placeholder="0" step="0.00" min="0"  value="{{recur_bills.amt_paid|floatformat:2}}"
+                class="form-control text-dark bg-light">
+            </div>
+          </div>
+          <div class="row container-fluid  p-2 m-0">
+            <div class="col-sm-5 mt-2"><label for="a" class="text-center" id="bal_ance">Balance</label></div>
+            <div class="col-sm-2 mt-2"></div>
+            <div class="col-sm-5 mt-2"><input type="number" name='balance_amt' id="balanceam_t" placeholder="0" step="0.00" min="0"  value="{{recur_bills.balance|floatformat:2}}"
                 class="form-control text-dark bg-light">
             </div>
           </div>
@@ -3474,7 +3483,10 @@ debugger
          
           <td style="width: 10%;">
             <input type="number" name='qty[]'  placeholder='Qty' id="qty${roinc}"  class="form-control qty text-dark bg-light" step=0 min=0/>
-          </td>
+            <br>
+            <span class="text-warning">Available Stock : <span id="stock_data${roinc}" class="text-warning stock_data"></span></span>
+            <input  type="text" hidden class="stock_data_hidden" name ='stock[]' id="stock_data_hidden${roinc}" value="0"/>
+            </td>
           <td style="width: 10%;">
             <input type="text" name='rate[]'  id="rate${roinc}" placeholder='Rate' class="form-control rate text-dark bg-light" style = "width:90px;" />
           </td>
@@ -4381,6 +4393,8 @@ function reloadAccount() {
       success: function(response) {
         $("#rate" +n).val(response.rate);
         $("#HSN" +n).val(response.hsn);
+        $("#stock_data_hidden" +n).val(response.stock);
+        $("#stock_data" +n)[0].innerHTML =response.stock; 
         srcofsupply();
         taxautoselect(response,n);
         itemchange();
@@ -4464,6 +4478,10 @@ for(var i=0; i<row_count;i++){
 
   var tax1 = $("#intra_tax" +i).val();
   var tax2 = $("#inter_tax" +i).val();
+
+  var stock = $("#stock_data_hidden" +i).val();
+
+  $("#stock_data" +i)[0].innerHTML = parseInt(stock) + parseInt(qnty);
 
   if (tax1 == 0){
     if(tax2 == 0){

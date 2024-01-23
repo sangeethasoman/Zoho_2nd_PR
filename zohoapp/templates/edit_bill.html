@@ -794,8 +794,7 @@ else{
                                   <option value="" selected hidden>Select </option>
                                   {% for i in items %}
                                      
-                                  <option class="text-dark" value="{{i.Name}}" {% if i.Name == item.item_name %} selected="selected"{% endif %}>{{i.Name}}</option>
-                                   
+                                  <option class="text-dark" value="{{i.Name}}" {% if i.Name == item.item_name %} selected="selected"{% endif %}>{{i.Name}}</option> 
                                   {% endfor %}
                               </select>
                               </div>
@@ -807,8 +806,13 @@ else{
                       
                         <td class='text-right'><input type='number' id='qty{{ forloop.counter }}' style="width: 50px;"
                                 class='bg-transparent border-0 text-black text-right qty' name='quantity[]' value="{{item.quantity}}">
-                                <br>
-                                <span class="text-warning">Available Stock : <span id="stock_data{{ forloop.counter }}" class="text-warning stock_data"></span></span>
+                                <br>                  
+                                <span class="text-warning">Available Stock : <span id="stock_data{{ forloop.counter }}" class="text-warning stock_data">
+                                  {% for i in items %}
+                                     
+                                  {% if i.Name == item.item_name %}{{ i.stock|add:item.quantity }} {% endif %}
+                                 {% endfor %}
+                                </span></span>
                                 <input  type="text" hidden class="stock_data_hidden" name ="stock[]" id="stock_data_hidden{{ forloop.counter }}" value="0"/>
                         </td>
                         <td class='text-right'><input type='number' id='rate{{ forloop.counter }}' style="width: 80px;"
@@ -933,6 +937,12 @@ else{
                           <td><strong>Paid ( &#x20B9; )</strong></td>
                           <th></th>
                           <th><input type="number" id="amtPaid" name="amtPaid" step="any" value="{{bill.amt_paid}}"
+                                  ></th>
+                        </tr>
+                        <tr>
+                          <td><strong>Balance ( &#x20B9; )</strong></td>
+                          <th></th>
+                          <th><input type="number" id="balanceam_t" name="balance_amt" step="any" value="{{bill.balance}}"
                                   ></th>
                         </tr>
                     </table>

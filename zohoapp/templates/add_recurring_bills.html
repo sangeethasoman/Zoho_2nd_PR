@@ -761,7 +761,9 @@
                 </td>
 
                 <td style="width: 10%;">
-                  <input type="number" name='qty[]' placeholder='Qty' id="qty0" style="width: 80px;"  class="form-control qty text-dark bg-light" step=0 min=0/>
+                  <input type="number" name='qty[]' placeholder='Qty' id="qty0" style="width: 80px;"  class="form-control qty text-dark bg-light" step=0 min=0/>  <br>
+                  <span class="text-warning">Available Stock : <span id="stock_data0" class="text-warning stock_data"></span></span>
+                  <input  type="text" hidden class="stock_data_hidden" name ="stock[]" id="stock_data_hidden0" value="0"/>
                 </td>
                 <td style="width: 10%;">
                   <input type="text" name='rate[]' id="rate0" placeholder='Rate' class="form-control rate text-dark bg-light" style="width: 80px;" />
@@ -905,6 +907,14 @@
             <div class="col-sm-5 mt-2"><label for="a" class="text-center" id="Paid">Paid</label></div>
             <div class="col-sm-2 mt-2"></div>
             <div class="col-sm-5 mt-2"><input type="number" name='amtPaid' value="0" id="amtPaid" placeholder="0" step="0.00" min="0"
+                class="form-control text-dark bg-light">
+            </div>
+          </div>
+
+          <div class="row container-fluid  p-2 m-0">
+            <div class="col-sm-5 mt-2"><label for="a" class="text-center" id="bal_ance">Balance</label></div>
+            <div class="col-sm-2 mt-2"></div>
+            <div class="col-sm-5 mt-2"><input type="number" name='balance_amt' value="0" id="balanceam_t" placeholder="0" step="0.00" min="0"
                 class="form-control text-dark bg-light">
             </div>
           </div>
@@ -3074,6 +3084,9 @@ $(document).ready(function() {
          
           <td style="width: 10%;">
             <input type="number" name='qty[]'  placeholder='Qty' id="qty${roinc}"  class="form-control qty text-dark bg-light" step=0 min=0/>
+            <br>
+            <span class="text-warning">Available Stock : <span id="stock_data${roinc}" class="text-warning stock_data"></span></span>
+            <input  type="text" hidden class="stock_data_hidden" name ='stock[]' id="stock_data_hidden${roinc}" value="0"/>
           </td>
           <td style="width: 10%;">
             <input type="text" name='rate[]' id="rate${roinc}" placeholder='Rate' class="form-control rate text-dark bg-light" />
@@ -4053,6 +4066,8 @@ function reloadAccount() {
       success: function(response) {
         $("#rate" +n).val(response.rate);
         $("#HSN" +n).val(response.hsn);
+        $("#stock_data_hidden" +n).val(response.stock);
+        $("#stock_data" +n)[0].innerHTML =response.stock; 
         srcofsupply();
         taxautoselect(response,n);
         itemchange();
@@ -4293,6 +4308,9 @@ debugger
 
       var tax1 = $("#intra_tax" +i).val();
       var tax2 = $("#inter_tax" +i).val();
+      var stock = $("#stock_data_hidden" +i).val();
+
+      $("#stock_data" +i)[0].innerHTML = parseInt(stock) + parseInt(qnty);
 
       if (tax1 == 0){
         if(tax2 == 0){
