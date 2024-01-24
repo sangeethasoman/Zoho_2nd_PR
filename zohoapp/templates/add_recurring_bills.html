@@ -3163,6 +3163,8 @@ $(document).ready(function() {
     var hsn = row.find(".HSN");
     var slnum = row.find(".slnum");
     var newItem = "";
+    var stock_data_hidden = row.find(".stock_data_hidden");
+    var stock_data = row.find(".stock_data");
 
     newRow.each(function(index) {
         var idPrefix = 'addr';
@@ -3195,7 +3197,6 @@ $(document).ready(function() {
         var idPrefix = 'qty';
         var newId = idPrefix + roinc ;
         newRow.find('.qty').eq(index).val(value2).attr('id' , newId);
-        
     });
     rt.each(function(index) {
         var value3 = $(this).val();
@@ -3250,6 +3251,18 @@ $(document).ready(function() {
 
     slnum.each(function(index) { debugger
         newRow.find('.slnum').eq(index)[0].innerText = roinc+1 
+    });
+    stock_data_hidden.each(function(index){  
+      var value10 = $(this).val();
+      var idPrefix = 'stock_data_hidden';
+      var newId = idPrefix + roinc ;
+      newRow.find('.stock_data_hidden').eq(index).val(value10).attr('id' , newId);
+    });
+    stock_data.each(function(index){  debugger
+      var value11 = $(this).val();
+      var idPrefix = 'stock_data';
+      var newId = idPrefix + roinc ;
+      newRow.find('.stock_data').eq(index).attr('id' , newId);
     });
 
     var buttonCell = $('<td>').append(`

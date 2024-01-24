@@ -787,8 +787,13 @@
                
                 <td style="width: 10%;">
                   <input type="text" name='qty[]' placeholder='Qty' id="qty{{forloop.counter|add:'-1'}}" value="{{ri.quantity}}"  class="form-control qty text-dark bg-light" step=0 min=0/> <br>
-                  <span class="text-warning">Available Stock : <span id="stock_data0" class="text-warning stock_data"></span></span>
-                  <input  type="text" hidden class="stock_data_hidden" name ="stock[]" id="stock_data_hidden0" value="0"/>
+                  <span class="text-warning">Available Stock : <span id="stock_data{{forloop.counter|add:'-1'}}" class="text-warning stock_data">
+                  {% for i in item %}      
+                  {% if i.Name == ri.item %}{{ i.stock|add:ri.quantity }} {% endif %}
+                  {% endfor %}
+                  </span>
+                  </span>
+                  <input  type="text" hidden class="stock_data_hidden" name ="stock[]" id="stock_data_hidden{{forloop.counter|add:'-1'}}" value="0"/>
                 </td>
                 <td style="width: 10%;">
                   <input type="text" name='rate[]' id="rate{{forloop.counter|add:'-1'}}" placeholder='Rate' value="{{ ri.rate }}" class="form-control rate text-dark bg-light" step="0.00" min="0" />
@@ -3562,6 +3567,8 @@ debugger
     var hsn = row.find(".HSN");
     var slnum = row.find(".slnum");
     var newItem = "";
+    var stock_data_hidden = row.find(".stock_data_hidden");
+    var stock_data = row.find(".stock_data");
 
     newRow.each(function(index) {
         var idPrefix = 'addr';
@@ -3644,6 +3651,13 @@ debugger
 
     slnum.each(function(index) { debugger
         newRow.find('.slnum').eq(index)[0].innerText = roinc+1 
+    });
+
+    stock_data.each(function(index){  debugger
+      var value11 = $(this).val();
+      var idPrefix = 'stock_data';
+      var newId = idPrefix + roinc ;
+      newRow.find('.stock_data').eq(index).attr('id' , newId);
     });
 
     var buttonCell = $('<td>').append(`
@@ -4390,7 +4404,7 @@ function reloadAccount() {
           csrfmiddlewaretoken: '{{ csrf_token }}'
         },
     
-      success: function(response) {
+      success: function(response) { debugger
         $("#rate" +n).val(response.rate);
         $("#HSN" +n).val(response.hsn);
         $("#stock_data_hidden" +n).val(response.stock);
