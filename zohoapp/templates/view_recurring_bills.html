@@ -404,7 +404,20 @@
                     </div>&nbsp;
                     <a href="{% url 'delete_recurring_bills' recur_bill.id %} " class="delete fa fa-trash btns px-2 py-2"
                     data-toggle="tooltip" title="DELETE" onclick="return confirm('Do you want to Delete this Recurring Bill?');"> </a>
-                    
+                    &nbsp;
+                    <div class="dropdown m-0 p-0">
+                        <a href=" " class="fas fa-share dropdown-toggle btns px-2 py-2"  
+                            data-bs-toggle="dropdown" id="shareDropdown" aria-haspopup="true" aria-expanded="false"> 
+                        </a>
+
+                        <div class="dropdown-menu" aria-labelledby="shareDropdown">
+                            <a class="dropdown-item" style="cursor: pointer;" data-toggle="modal"
+                                data-target="#emails"><i class="fas fa-envelope"></i>&nbsp; Email</a>
+                                <a class="dropdown-item" href="whatsapp://send?text=Check out this website: [Your URL]" data-action="share/whatsapp/share">
+                                <i class="fa-brands fa-whatsapp"></i>
+                                WhatsApp</a>
+                        </div>
+                    </div>
 
                 </div>
 
