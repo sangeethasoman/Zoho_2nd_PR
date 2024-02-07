@@ -371,6 +371,12 @@
                                     style="background-color: rgb(71, 70, 69);"
                                         aria-controls="home" aria-selected="false"><i class="fas fa-eye"></i> Overview</a>
                                 </li>
+
+                                <li class="nav-item active">
+                                    <a class=" btn  " id="slip-tab" data-toggle="tab" href="#slipview" role="tab"
+                                    style="background-color: rgb(71, 70, 69);"
+                                        aria-controls="slip" aria-selected="false"><i class="fas fa-file-alt"></i> Slip</a>
+                                </li>
                                 
                             </ul>
                         </div>
@@ -980,7 +986,141 @@
 
                             </div>
                         </div> -->
+                       <!--Slip-->
+
+                        <div class="tab-pane fade" id="slipview" role="tabpanel" aria-labelledby="slip-tab">
+                            <div class="p-5">
+                                <div class="my-5 page" size="A4">
+                                    <div class="row" id="printslip">
+                                     
+                                    <div class="col-md-12 ml-3">
+                                        <div class="card bg-white" style="border: 1px dotted black;">
+                                            <div class="mt-2" style="text-align: center;">
+                                                <div class="text-center" style="font-size: 3vh; color: black;">
+                                                    <b>{{company.company_name}} </b>
+                                                </div>
+                                                <div style="font-size: x-small; color: black;">{{ cmp1.address }} <br>
+                                                    {{company.city}}, 
+                                                    {{company.contact_number}}<br>{{ company.company_email }} 
+                                                </span>
+                                            </div>
+                                            <div class="ml-4 mt-2" style="font-size: small;color: black;">
+                                                <div class="row">
+                                                    <div class="col-md-6 text-left">BILL Number:</div>
+                                                    <div class="col-md-5 text-right">{{bill.bill_no}}</div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6 text-left">Order Date:</div>
+                                                    <div class="col-md-5 text-right">{{ bill.bill_date|date:'d/m/Y' }}</div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6 text-left">Vendor :</div>
+                                                    <div class="col-md-5 text-right">{{ bill.vendor_name  }}</div>
+                                                </div>                             
+                                            </div>
+                                            <div><br>
+                                                <table class="table mt-2" style="border-color: black;">
+                                    
+                                                    <thead class="bg-secondary text-white">
+                                                        <tr>
+                                                            <th style="text-align: left;color: black;width: 30rem;">#</th>
+                                                            <th style="text-align: left;width: 30rem;color: black;">Item</th>
+                                                            <th style="text-align: left;width: 30rem;color: black;">HSN</th>
+                                                            <th style="text-align: left;color: black;width: 30rem;">Quantity</th>
+                                                            <th style="text-align: left;color: black;width: 30rem;">Rate</th>
+                                                            <th style="text-align: left;color: black;width: 30rem;">Tax</th>
+                                                            <th style="width: 30rem;color: black;width: 30rem; text-align: left;">Discount</th>
+                                                            <th style="text-align: left;color: black;width: 30rem;">Amount</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        {% for item in items %}
+                                                        <tr>
+                                                            <td  style="text-align: left; width:  30rem;">{{ forloop.counter }}</td>
+                                                            <td  style="text-align: left; width:  30rem;">{{ item.item_name }}</td>
+                                                            <td style="text-align: left; width:  30rem;">{{ item.hsn }}</td>
+                                                            <td style="text-align: left; width:  30rem;">{{ item.quantity }}</td>
+                                                            <td style="text-align: left; width:  30rem;">{{ item.rate|floatformat:2 }}</td>
+                                                            <td style="text-align: left; width:  30rem;">{{ item.tax_percentage|floatformat:2 }}</td>
+                                                            <td style="text-align: left; width: 30rem;">{{ item.discount|floatformat:2}}</td>
+                                                            <td style="text-align: left; width:  30rem;">{{ item.amount|floatformat:2 }}</td>
+                                                        </tr>
+                                                        {% endfor %}
+                                                    </tbody>
+                                                </table>
+                                                <br>
                        
+                                                <div class="invoice-total" >
+                                                 <div class="row">
+                                                   <div class="col-md-7"></div>
+                                                   <div class="col-md-4">
+                                                     <table class="table border-0 ">
+                                                         <tr class="border-0" style="text-align: right;">
+                         
+                                                             <td class="text-right">Sub-Total:</td>
+                                                             <td class="text-right">{{ bill.sub_total|floatformat:2}}</td>
+                                                         </tr>
+                                                         {% if gst_or_igst == "GST" %}
+                                                         <tr style="text-align: right; border: 0px;">
+                                                             <td class="text-right">CGST:</td>
+                                                             <td class="text-right">{{ bill.cgst|floatformat:2}}</td>
+                                                         </tr>
+                                                         {% endif %}
+                                                         {% if gst_or_igst == "GST" %}
+                                                         <tr style="text-align: right;">
+                                                             <td class="text-right">SGST:</td>
+                                                             <td class="text-right">{{ bill.sgst|floatformat:2}}</td>
+                                                         </tr>
+                                                         {% endif %}
+                                                         {% if gst_or_igst != "GST" %}
+                                                         <tr style="text-align: right;">
+                         
+                                                             <td class="text-right">IGST:</td>
+                                                             <td class="text-right">{{ bill.igst|floatformat:2}}</td>
+                                                         </tr>
+                                                         {% endif %}
+                                                         {% if bill.tax_amount != 0 %}
+                                                         <tr style="text-align: right;">
+                         
+                                                             <td class="text-right">Tax Amount:</td>
+                                                             <td class="text-right">{{ bill.tax_amount|floatformat:2}}</td>
+                                                         </tr>
+                                                         {% endif %}
+                                                         {% if bill.shipping_charge != 0 %}
+                                                         <tr style="text-align: right;">
+                         
+                                                             <td class="text-right">Shipping Charge:</td>
+                                                             <td class="text-right">{{ bill.shipping_charge|floatformat:2}}</td>
+                                                         </tr>
+                                                         {% endif %}
+                                                         {% if bill.adjustment != 0 %}
+                                                         <tr style="text-align: right;">
+                         
+                                                             <td class="text-right">Adjustment:</td>
+                                                             <td class="text-right">{{ bill.adjustment|floatformat:2}}</td>
+                                                         </tr>
+                                                         {% endif %}
+                                                         
+                                                         <tr style="text-align: right;">
+                         
+                                                             <td class="text-right text-dark">Total:</td>
+                                                             <td class="text-right text-dark">{{ bill.total|floatformat:2}}</td>
+                                                         </tr>
+                                                      
+                         
+                                                     </table>
+                                                   </div>
+                         
+                                                 </div>
+                         
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1005,6 +1145,8 @@
 
 
 </div>
+
+
 
 <!-- Attach File Modal -->
 <div class="modal fade" id="attachModal" tabindex="-1" role="dialog" aria-labelledby="commentModalLabel" aria-hidden="true">
