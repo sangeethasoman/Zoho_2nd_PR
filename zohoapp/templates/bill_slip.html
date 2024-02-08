@@ -171,10 +171,14 @@
     $(document).ready(function ($) {
         console.log('print');
 
-        $(document).on('click', '.btn_print', function (event) {
+        $(document).on('click', '.btn_print', function (event) { debugger
             console.log('print1');
             event.preventDefault();
             var element = document.getElementById('whatToPrint');
+            if($("ul.nav-tabs li a.active")[0].id == "slip-tab")
+            {
+                element = document.getElementById("slipview").innerHTML;
+            }
             var opt =
             {
                 margin: 1,
@@ -361,18 +365,18 @@
                         <div class="jobs-tab tab-item ">
                             <ul class="nav nav-tabs " id="myTab" role="tablist">
                                 
-                                <li class="nav-item">
-                                    <a class=" btn  " id="profile-tab" data-toggle="tab" href="#template" role="tab"
+                                <li class="nav-item active">
+                                    <a class=" btn  active" id="profile-tab" data-toggle="tab" href="#template" role="tab"
                                     style="background-color: rgb(217, 156, 26);"
                                         aria-controls="profile" aria-selected="true"><i class="fas fa-file-alt"></i>  Template</a>
                                 </li>
-                                <li class="nav-item active">
+                                <li class="nav-item">
                                     <a class=" btn  " id="home-tab" data-toggle="tab" href="#overview" role="tab"
                                     style="background-color: rgb(71, 70, 69);"
                                         aria-controls="home" aria-selected="false"><i class="fas fa-eye"></i> Overview</a>
                                 </li>
 
-                                <li class="nav-item active">
+                                <li class="nav-item">
                                     <a class=" btn  " id="slip-tab" data-toggle="tab" href="#slipview" role="tab"
                                     style="background-color: rgb(71, 70, 69);"
                                         aria-controls="slip" aria-selected="false"><i class="fas fa-file-alt"></i> Slip</a>
@@ -656,6 +660,7 @@
                             
                         </div>
                         <div class="tab-pane fade  show active" id="template" role="tabpanel" aria-labelledby="profile-tab">
+                            <div id="whatToPrint" >
                             <label class="radio-inline">
                                 <input type="radio" name="optradio" value="template1" checked>Template 1
                               </label>&nbsp;
@@ -826,7 +831,8 @@
 
                        </div>
                                 </div> 
-                        </div>
+                            </div>
+                            </div>
                         <!-- <div class="tab-pane fade  show active" id="template" role="tabpanel" aria-labelledby="profile-tab">
                             <div class="slip m-3 p-5  bg-light" id="whatToPrint" 
                                 style="box-shadow: 5px 5px 10px rgb(45, 45, 45); size: A4;">
@@ -1331,8 +1337,12 @@ style="width: 750px; margin-left: 350px; justify-content: center; overflow: auto
         //   a.document.write('</body></html>'); 
         //   a.document.close(); 
         //   a.print(); 
-
+debugger
         var printContents = document.getElementById("whatToPrint").innerHTML;
+        if($("ul.nav-tabs li a.active")[0].id == "slip-tab")
+        {
+            printContents = document.getElementById("slipview").innerHTML;
+        }
         var originalContents = document.body.innerHTML;
         document.body.innerHTML = printContents;
         window.print();

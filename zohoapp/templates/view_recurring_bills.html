@@ -1644,17 +1644,22 @@
 $(document).ready(function () {
         console.log('print');
 
-        $(document).on('click', '.toPDF', function (event) {
+        $(document).on('click', '.toPDF', function (event) { debugger
             console.log('print1');
             event.preventDefault();
             var element = document.getElementById('Template');
             let overview = false;
-            if($('#Overview').css('display') == 'block')
-            {   overview = true;
-                document.getElementById('Overview').style.display = "none"; 
-                document.getElementById('Template').style.display = "block"; 
+            if($('#Slip').css('display') == 'block'){
+                element = document.getElementById('Slip');
             }
+            else{
             
+                    if($('#Overview').css('display') == 'block')
+                    {   overview = true;
+                        document.getElementById('Overview').style.display = "none"; 
+                        document.getElementById('Template').style.display = "block"; 
+                    }
+            }
             var opt =
             {
                 margin: 1,
