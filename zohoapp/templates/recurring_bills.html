@@ -126,7 +126,11 @@
     ::-webkit-scrollbar-thumb:hover {
         background: #555; 
     }
-    
+    .modal-backdrop {
+        background-color: rgba(0, 0, 0, 0.8);
+        z-index: 999;
+        /* Adjust the alpha value to control the opacity */
+    }
 </style>
 <div class="container-fluid containerprof" >
     
@@ -142,7 +146,8 @@
                             <div class="col-md-8 py-3"></div>
                             <div class="col-md-4 py-3">
                              <a  class="btn btn-outline-warning py-2" style="width: 120px;" href="#" onclick="exportToExcel()" >Export To Excel</a>
-                             <a  class="btn btn-outline-warning py-2" style="width: 120px;"  href="#" onclick="importExcelFile()">Import To Excel</a>
+                             <a  class="btn btn-outline-warning py-2" style="width: 120px;"  data-toggle="modal" data-target="#excelModal">Import To Excel</a>
+                              
                             </div>
                           </div>
                         <div class="col-md-2">
@@ -257,7 +262,38 @@
                 </div>
             </div>
         </div>
-    
+      
+</div>
+
+<div class="modal mt-5"  id="excelModal" tabindex="-1" role="dialog" aria-labelledby="excelModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="excelModalLabel">Upload File
+                <label for="" style="color: red; font-size: x-small;" >* Refer Downloaded Sheet For Format </label><br></h5>
+                <button type="button" class="btn close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" style="font-size: x-large;">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="excelForm" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="file" style="color: black;">Choose Excel File for Recurring Bill- </label> <br>
+                        <input type="file" class="form-control-file" id="creditfile" name="creditfile" accept=".xls, .xlsx"><br><br>
+                        
+
+                        <label for="file" style="color: black;">Choose Excel File for Recurring Bill Items- </label> <br>
+                        <input type="file" class="form-control-file" id="prdfile" name="prdfile" accept=".xls, .xlsx"><br>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="uploadFile()" data-dismiss="modal">Upload</button>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>

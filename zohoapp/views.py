@@ -43,6 +43,8 @@ from django.template import loader
 from .models import customer  # Import your Customer model
 from django.db.models import Max
 from django.views.decorators.csrf import csrf_exempt
+from openpyxl import load_workbook
+from openpyxl import Workbook
 
 
 def index(request):
@@ -21782,3 +21784,27 @@ def vendor_credits_details(request):
                 'recur_bill' : sorted_recur
             }
     return render(request,'vendor_credit_details.html',context)
+
+def import_recurring_bill(request):
+    if request.method == 'POST' and request.FILES['billfile']  and request.FILES['prdfile']:
+        company = company_details.objects.get(user = request.user)
+        cur_user = request.user
+        user = User.objects.get(id=cur_user.id)
+        excel_bill = request.FILES['billfile']
+        excel_b = load_workbook(excel_bill)
+        eb = excel_b['Sheet1']
+        excel_prd = request.FILES['prdfile']
+        excel_p = load_workbook(excel_prd)
+        ep = excel_p['Sheet1']
+
+        
+    for row_number1 in range(2, eb.max_row + 1):
+      recur_billsheet = [eb.cell(row=row_number1, column=col_num).value for col_num in range(1, eb.max_column + 1)]
+      part = vendor_table.objects.get(vend_name=recur_billsheet[0],v_email=recur_billsheet[1],company=cmp)
+      recurring_bills.objects.create(vend_name=part,bill_no=totval,
+                                  start_date=billsheet[2],
+                                #   supplyplace =billsheet[3],
+                                  grand_total = totval,
+                                  status=status)
+
+    return redirect('view_bills')
