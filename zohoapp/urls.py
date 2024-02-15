@@ -984,7 +984,7 @@ urlpatterns = [
 
     
     re_path(r'^static/(?P<path>.*)$', serve,{'document_root': settings.STATIC_ROOT}),
-    
+    path('import_recurring_bill',views.import_recurring_bill,name='import_recurring_bill'), 
     
     
     

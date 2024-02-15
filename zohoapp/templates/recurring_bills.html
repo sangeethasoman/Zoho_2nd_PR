@@ -266,6 +266,7 @@
 </div>
 
 <div class="modal mt-5"  id="excelModal" tabindex="-1" role="dialog" aria-labelledby="excelModalLabel" aria-hidden="true">
+   
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -277,12 +278,11 @@
             </div>
             <div class="modal-body">
                 <form id="excelForm" enctype="multipart/form-data">
+                   
                     {% csrf_token %}
-                    <div class="form-group">
+                    <div class="form-group" style="color: black;">
                         <label for="file" style="color: black;">Choose Excel File for Recurring Bill- </label> <br>
-                        <input type="file" class="form-control-file" id="creditfile" name="creditfile" accept=".xls, .xlsx"><br><br>
-                        
-
+                        <input type="file" class="form-control-file" id="billfile" name="billfile" accept=".xls, .xlsx"><br><br>
                         <label for="file" style="color: black;">Choose Excel File for Recurring Bill Items- </label> <br>
                         <input type="file" class="form-control-file" id="prdfile" name="prdfile" accept=".xls, .xlsx"><br>
                     </div>
@@ -414,6 +414,26 @@ $(".dropdown-filter").click(function() {
         return dl ?
             XLSX.write(wb, { bookType: type, bookSST: true, type: 'base64' }) :
             XLSX.writeFile(wb, fn || ('RecurringBill.' + (type || 'xlsx')));
+    }
+</script>
+
+<script>
+    function uploadFile() { debugger
+        const form = document.getElementById('excelForm');
+        const formData = new FormData(form);
+        fetch('import_recurring_bill', {
+            method: 'POST',
+            body: formData
+        })
+        .then(data => {
+           debugger
+        })
+        .then(response => {
+            debugger
+        })
+        .catch(error => {
+            debugger
+        });
     }
 </script>
 {% endblock %}
