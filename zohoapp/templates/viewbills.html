@@ -37,6 +37,11 @@ a{
      ::-webkit-scrollbar {
         width: 5px; 
     }
+    .modal-backdrop {
+        background-color: rgba(0, 0, 0, 0.8);
+        z-index: 999;
+        /* Adjust the alpha value to control the opacity */
+    }
 </style>
 <!-- <div class="fixed-top  " style="top: 7rem; margin-left: 20rem;"> -->
 
@@ -47,7 +52,7 @@ a{
   <div class="col-md-8 py-3"></div>
   <div class="col-md-4 py-3">
    <a  class="btn btn-outline-warning py-2" style="width: 120px;" href="#" onclick="exportToExcel()" >Export To Excel</a>
-   <a  class="btn btn-outline-warning py-2" style="width: 120px;"  href="#" onclick="importExcelFile()">Import To Excel</a>
+   <a  class="btn btn-outline-warning py-2" style="width: 120px;"  data-toggle="modal" data-target="#excelModal">Import To Excel</a>
   </div>
 </div>
   <div class="row ">
@@ -116,7 +121,34 @@ a{
 
 
 </div>
-
+<div class="modal mt-5"  id="excelModal" tabindex="-1" role="dialog" aria-labelledby="excelModalLabel" aria-hidden="true">
+   
+  <div class="modal-dialog" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="excelModalLabel">Upload File
+              <label for="" style="color: red; font-size: x-small;" >* Refer Downloaded Sheet For Format </label><br></h5>
+              <button type="button" class="btn close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true" style="font-size: x-large;">&times;</span>
+              </button>
+          </div>
+          <div class="modal-body">
+              <form id="excelForm" enctype="multipart/form-data">
+                 
+                  {% csrf_token %}
+                  <div class="form-group" style="color: black;">
+                      <label for="file" style="color: black;">Choose Excel File for Recurring Bill- </label> <br>
+                      <input type="file" class="form-control-file" id="billfile" name="billfile" accept=".xls, .xlsx"><br><br> 
+                  </div>
+              </form>
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary" onclick="uploadFile()" data-dismiss="modal">Upload</button>
+          </div>
+      </div>
+  </div>
+</div>
 
 <script>
   // Add click event listener to all rows with class "clickable-row"
@@ -271,5 +303,28 @@ function importExcelFile() {
     input.click();
 }
 
+</script>
+
+
+<script>
+  function uploadFile() { debugger
+      const form = document.getElementById('excelForm');
+      const formData = new FormData(form);
+      fetch('import_purchase_bills', {
+          method: 'POST',
+          body: formData
+      })
+      .then(data => {
+         alert("Uploaded sucessfully...!")
+      })
+      .then(response => {
+        setTimeout(function () {
+                location.reload();
+            }, 1250);
+      })
+      .catch(error => {
+          debugger
+      });
+  }
 </script>
 {% endblock %}

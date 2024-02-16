@@ -21785,25 +21785,78 @@ def vendor_credits_details(request):
             }
     return render(request,'vendor_credit_details.html',context)
 
-def import_recurring_bill(request):
+def import_purchase_bills(request):
     if request.method == 'POST':
         company = company_details.objects.get(user = request.user)
         cur_user = request.user
         user = User.objects.get(id=cur_user.id)
         excel_bill = request.FILES['billfile']
         excel_b = load_workbook(excel_bill)
-        eb = excel_b['Sheet1']
-        eb2 = excel_b['Sheet2']
-        # excel_prd = request.FILES['prdfile']
-        # excel_p = load_workbook(excel_prd)
-        # ep = excel_p['Sheet1']
+        eb = excel_b['Bills']
+        eb2 = excel_b['Items'] 
 
-    for row_number1 in range(2, eb2.max_row + 1):
-      recur_billsheet2 = [eb2.cell(row=row_number1, column=col_num).value for col_num in range(1, eb2.max_column + 1)]
-      party_name=recur_billsheet2[0]
+ 
         
     for row_number1 in range(2, eb.max_row + 1):
       recur_billsheet = [eb.cell(row=row_number1, column=col_num).value for col_num in range(1, eb.max_column + 1)]
-     
+      vendor_name = recur_billsheet[0]
+      vendor_email = recur_billsheet[1]
+      vendor_gst = recur_billsheet[2]
+      sos = recur_billsheet[3]
+      cust_name = recur_billsheet[4]
+      cus=customer.objects.get(customerName=cust_name,user = request.user)   
+      custo=cus.id 
+      cust_email = recur_billsheet[5]
+      pos = recur_billsheet[6]
+      bill_number = recur_billsheet[7]
+      order_number = recur_billsheet[8]
+      bill_date = recur_billsheet[9]
+      due_date = recur_billsheet[10]
+      terms = recur_billsheet[11]
+      repeat_every = recur_billsheet[12]
+      payment_method = recur_billsheet[13]
+      adjustment = recur_billsheet[14]
+      amt_paid = recur_billsheet[15]
+      sub_total = recur_billsheet[16]
+      igst = recur_billsheet[17]
+      sgst = recur_billsheet[18]
+      cgst = recur_billsheet[19]
+      tax_amnt = recur_billsheet[20]
+      shipping = recur_billsheet[21]
+      total = recur_billsheet[22] 
+      status = 'Save'
+      balance = float(total) - float(amt_paid)
+      note=recur_billsheet[23] 
+      reference_number = recur_billsheet[24] 
+      cheque_id = recur_billsheet[25] 
+      upi_number = recur_billsheet[26] 
+      bank_account = recur_billsheet[27] 
 
+      bill = PurchaseBills(user=user,cusname_id=custo, customer_name=cust_name,customer_email= cust_email,place_of_supply=pos,vendor_name=vendor_name,
+                             vendor_email=vendor_email,vendor_gst_no=vendor_gst,source_of_supply=sos,bill_no=bill_number, order_number=order_number, bill_date=bill_date, 
+                             due_date=due_date,payment_terms=terms, sub_total=sub_total,igst=igst,sgst=sgst,cgst=cgst,tax_amount=tax_amnt, 
+                             shipping_charge=shipping,total=total, status=status,repeat_every=repeat_every,
+                             payment_method=payment_method,amt_paid=amt_paid,balance=balance,adjustment=adjustment,note=note,reference_numbr = reference_number,company=company,
+                             cheque_id=cheque_id, 
+                             upi_number=upi_number,
+                             bank_account=bank_account)
+      bill.save()
+
+    for row_number2 in range(2, eb2.max_row + 1):
+      recur_billsheet2 = [eb2.cell(row=row_number2, column=col_num).value for col_num in range(1, eb2.max_column + 1)]
+      item = recur_billsheet2[0] 
+      quantity = recur_billsheet2[1]
+      rate = recur_billsheet2[2]
+      tax = recur_billsheet2[3]
+      amount = recur_billsheet2[4]
+      hsn = recur_billsheet2[5]
+      discount = recur_billsheet2[6]
+      created = PurchaseBillItems.objects.create(
+                purchase_bill=bill, item_name = item, quantity = quantity, rate = rate, tax_percentage = tax, amount = amount, hsn = hsn, discount = discount)
+    
     return redirect('view_bills')
+
+def import_recurring_bill(request):
+    if request.method == 'POST':
+       company = company_details.objects.get(user = request.user)  
+    return redirect('recurring_bill')
