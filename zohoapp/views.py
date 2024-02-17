@@ -21798,39 +21798,39 @@ def import_purchase_bills(request):
  
         
     for row_number1 in range(2, eb.max_row + 1):
-      recur_billsheet = [eb.cell(row=row_number1, column=col_num).value for col_num in range(1, eb.max_column + 1)]
-      vendor_name = recur_billsheet[0]
-      vendor_email = recur_billsheet[1]
-      vendor_gst = recur_billsheet[2]
-      sos = recur_billsheet[3]
-      cust_name = recur_billsheet[4]
+      pur_billsheet = [eb.cell(row=row_number1, column=col_num).value for col_num in range(1, eb.max_column + 1)]
+      vendor_name = pur_billsheet[0]
+      vendor_email = pur_billsheet[1]
+      vendor_gst = pur_billsheet[2]
+      sos = pur_billsheet[3]
+      cust_name = pur_billsheet[4]
       cus=customer.objects.get(customerName=cust_name,user = request.user)   
       custo=cus.id 
-      cust_email = recur_billsheet[5]
-      pos = recur_billsheet[6]
-      bill_number = recur_billsheet[7]
-      order_number = recur_billsheet[8]
-      bill_date = recur_billsheet[9]
-      due_date = recur_billsheet[10]
-      terms = recur_billsheet[11]
-      repeat_every = recur_billsheet[12]
-      payment_method = recur_billsheet[13]
-      adjustment = recur_billsheet[14]
-      amt_paid = recur_billsheet[15]
-      sub_total = recur_billsheet[16]
-      igst = recur_billsheet[17]
-      sgst = recur_billsheet[18]
-      cgst = recur_billsheet[19]
-      tax_amnt = recur_billsheet[20]
-      shipping = recur_billsheet[21]
-      total = recur_billsheet[22] 
+      cust_email = pur_billsheet[5]
+      pos = pur_billsheet[6]
+      bill_number = pur_billsheet[7]
+      order_number = pur_billsheet[8]
+      bill_date = pur_billsheet[9]
+      due_date = pur_billsheet[10]
+      terms = pur_billsheet[11]
+      repeat_every = pur_billsheet[12]
+      payment_method = pur_billsheet[13]
+      adjustment = pur_billsheet[14]
+      amt_paid = pur_billsheet[15]
+      sub_total = pur_billsheet[16]
+      igst = pur_billsheet[17]
+      sgst = pur_billsheet[18]
+      cgst = pur_billsheet[19]
+      tax_amnt = pur_billsheet[20]
+      shipping = pur_billsheet[21]
+      total = pur_billsheet[22] 
       status = 'Save'
       balance = float(total) - float(amt_paid)
-      note=recur_billsheet[23] 
-      reference_number = recur_billsheet[24] 
-      cheque_id = recur_billsheet[25] 
-      upi_number = recur_billsheet[26] 
-      bank_account = recur_billsheet[27] 
+      note=pur_billsheet[23] 
+      reference_number = pur_billsheet[24] 
+      cheque_id = pur_billsheet[25] 
+      upi_number = pur_billsheet[26] 
+      bank_account = pur_billsheet[27] 
 
       bill = PurchaseBills(user=user,cusname_id=custo, customer_name=cust_name,customer_email= cust_email,place_of_supply=pos,vendor_name=vendor_name,
                              vendor_email=vendor_email,vendor_gst_no=vendor_gst,source_of_supply=sos,bill_no=bill_number, order_number=order_number, bill_date=bill_date, 
@@ -21843,14 +21843,14 @@ def import_purchase_bills(request):
       bill.save()
 
     for row_number2 in range(2, eb2.max_row + 1):
-      recur_billsheet2 = [eb2.cell(row=row_number2, column=col_num).value for col_num in range(1, eb2.max_column + 1)]
-      item = recur_billsheet2[0] 
-      quantity = recur_billsheet2[1]
-      rate = recur_billsheet2[2]
-      tax = recur_billsheet2[3]
-      amount = recur_billsheet2[4]
-      hsn = recur_billsheet2[5]
-      discount = recur_billsheet2[6]
+      pur_billsheet2 = [eb2.cell(row=row_number2, column=col_num).value for col_num in range(1, eb2.max_column + 1)]
+      item = pur_billsheet2[0] 
+      quantity = pur_billsheet2[1]
+      rate = pur_billsheet2[2]
+      tax = pur_billsheet2[3]
+      amount = pur_billsheet2[4]
+      hsn = pur_billsheet2[5]
+      discount = pur_billsheet2[6]
       created = PurchaseBillItems.objects.create(
                 purchase_bill=bill, item_name = item, quantity = quantity, rate = rate, tax_percentage = tax, amount = amount, hsn = hsn, discount = discount)
     
