@@ -21858,5 +21858,70 @@ def import_purchase_bills(request):
 
 def import_recurring_bill(request):
     if request.method == 'POST':
-       company = company_details.objects.get(user = request.user)  
+        company = company_details.objects.get(user = request.user)
+        excel_bill = request.FILES['billfile']
+        excel_b = load_workbook(excel_bill)
+        eb = excel_b['Bills']
+        eb2 = excel_b['Items'] 
+         
+        for row_number1 in range(2, eb.max_row + 1):
+            rec_billsheet = [eb.cell(row=row_number1, column=col_num).value for col_num in range(1, eb.max_column + 1)]
+            vname = rec_billsheet[0]
+            cname = rec_billsheet[1] 
+            cust = customer.objects.get(id=rec_billsheet[1].split(" ")[0],user = request.user)  
+            custo=cust.id  
+            v_gst_no=rec_billsheet[2]  
+            src_supply = rec_billsheet[3] 
+            prof = rec_billsheet[4] 
+            repeat = rec_billsheet[5] 
+            start = rec_billsheet[6] 
+            end = rec_billsheet[7] 
+            pay_term = rec_billsheet[8]
+            payment_method = rec_billsheet[9]
+            amt_paid = rec_billsheet[10]
+            bill_no =  rec_billsheet[11]
+            sub_total = rec_billsheet[12]
+            adjustment = rec_billsheet[13]
+
+            sgst = rec_billsheet[14]
+            cgst = rec_billsheet[15]
+            igst = rec_billsheet[16]
+
+            status = 'Save'
+            taxamount = rec_billsheet[17]
+            shipping_charge = rec_billsheet[18]
+            grand_total = rec_billsheet[19]
+            note = rec_billsheet[20]
+            balance = float(grand_total) - float(amt_paid)
+            u = User.objects.get(id = request.user.id)
+            vsrcofsupply = rec_billsheet[21]
+            reference_num = rec_billsheet[22]
+            order_num = rec_billsheet[23]
+            
+            cheque_id = rec_billsheet[24]
+            upi_number = rec_billsheet[25]
+            bank_account = rec_billsheet[26]
+
+            bills = recurring_bills(vendor_name=vname,profile_name=prof,customer_name = cname,vendor_gst_number=v_gst_no,
+                    source_supply=src_supply,repeat_every = repeat,start_date = start,end_date = end,
+                    payment_terms =pay_term,sub_total=sub_total,sgst=sgst,cgst=cgst,igst=igst,
+                    tax_amount=taxamount, shipping_charge = shipping_charge,
+                    grand_total=grand_total,note=note,company=company,user = u,cname_recur_id=custo,bill_no = bill_no,status = status,payment_method=payment_method, amt_paid=amt_paid,
+                    adjustment = adjustment,balance = balance,place_of_supply = vsrcofsupply, reference_numb = reference_num, order_numb= order_num,cheque_id=cheque_id, 
+                    upi_number=upi_number,
+                    bank_account=bank_account)
+            bills.save()
+
+        for row_number2 in range(2, eb2.max_row + 1):
+           rec_billsheet2 = [eb2.cell(row=row_number2, column=col_num).value for col_num in range(1, eb2.max_column + 1)]
+           item = rec_billsheet2[0] 
+           quantity = rec_billsheet2[1]
+           rate = rec_billsheet2[2]
+           tax = rec_billsheet2[3]
+           amount = rec_billsheet2[4]
+           hsn = rec_billsheet2[5]
+           discount = rec_billsheet2[6]
+           created = recurring_bills_items.objects.create(
+                recur_bills = bills, item = item, quantity = quantity, rate = rate, tax = tax, amount = amount, hsn = hsn, discount = discount, user = u,company = company)
+
     return redirect('recurring_bill')

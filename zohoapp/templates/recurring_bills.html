@@ -424,10 +424,12 @@ $(".dropdown-filter").click(function() {
             body: formData
         })
         .then(data => {
-           debugger
+            alert("Uploaded sucessfully...!")
         })
         .then(response => {
-            debugger
+            setTimeout(function () {
+                location.reload();
+            }, 1250);
         })
         .catch(error => {
             debugger
