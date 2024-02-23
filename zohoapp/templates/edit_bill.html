@@ -352,20 +352,35 @@ else{
 </script>
 
 
+<div class="container-fulid containerprof" >
+
+  <div class="card " style="width: 100%;">
+    <div class="card-body">
+        <div class="card-title">
+          <h2 class="mb-0 text-uppercase text-right"> Edit Bill</h2>
+          {% for message in messages %}
+            <div class="alert alert-success">
+                <a class="close" href="#" data-dismiss="alert">x</a>
+                {{ message }}
+            </div>
+          {% endfor %}
+        </div>
+    </div>
+  </div>
+<div>
+
 <section>
     <!-- <div class="fixed-top  " style="top: 7rem; margin-left: 20rem;"> -->
 
 
     <div class="row  ml-2">
-        <div class="col-md-3 "><a class="text-white" style="font-size: 1.5rem;"><i class="fas fa-file-invoice"></i> Edit
-                Bill</a></div>
         <input type="hidden" id="state" value="{{ company.state }}">
     </div>
-
+    <div class="card  p-5" >
     <!-- <div style="height: 600px; overflow-y: scroll;"> -->
-        <form method="POST"  class="p-5" enctype="multipart/form-data" novalidate id="forms">
+        <form method="POST"  class="mt-2 mb-4" enctype="multipart/form-data" novalidate id="forms">
             {% csrf_token %}
-            <div class="row mb-4  pt-5">
+            <div class="row mb-4">
                 <div class="col-sm-2"><label for="customer_name">Vendor Name*</label></div>
                 <div class="col-sm-10 d-flex align-items-center">
                     <select class="form-control text-dark" id="vendor_sel" name="vendor_name"
@@ -758,7 +773,7 @@ else{
                 </label>
             </div> -->
             <label for="">Price List</label><br>
-            <table class="table  text-black" id="item_table" style="background-color: rgba(250, 227, 198, 0.8)"
+            <table class="table table-bordered table-responsive text-white" id="item_table"  
                 onchange="calc()">
                 <thead>
                     <tr>
@@ -773,8 +788,7 @@ else{
                         <th class="text-right" id="tax_head" style="width: 200px;">Tax</th>
                         <th class="text-right">Discount</th>
                         <th class="text-right" style="width: 200px;">Amount</th>
-                        <th class="text-right" ></th>
-                        <th class="text-right" ></th>
+                        <th class="text-right" ></th> 
                     </tr>
                 </thead>
                 <tbody>
@@ -801,11 +815,11 @@ else{
                         </td>
                        
                         <td class='text-right'><input  type="text" value="{{item.hsn}}"  name='HSN[]' id="HSN{{ forloop.counter }}" placeholder='HSN'  
-                          class='bg-transparent border-0 text-black text-right HSN' style="width: 52px;">
+                          class='bg-transparent border-0 text-white text-right HSN' style="width: 52px;">
                         </td>
                       
                         <td class='text-right'><input type='number' id='qty{{ forloop.counter }}' style="width: 50px;"
-                                class='bg-transparent border-0 text-black text-right qty' name='quantity[]' value="{{item.quantity}}">
+                                class='bg-transparent border-0 text-white text-right qty' name='quantity[]' value="{{item.quantity}}">
                                 <br>                  
                                 <span class="text-warning">Available Stock : <span id="stock_data{{ forloop.counter }}" class="text-warning stock_data">
                                   {% for i in items %}
@@ -816,16 +830,16 @@ else{
                                 <input  type="text" hidden class="stock_data_hidden" name ="stock[]" id="stock_data_hidden{{ forloop.counter }}" value="0"/>
                         </td>
                         <td class='text-right'><input type='number' id='rate{{ forloop.counter }}' style="width: 80px;"
-                                class='bg-transparent border-0 text-black text-right rate' name='rate[]' value="{{item.rate}}">
+                                class='bg-transparent border-0 text-white text-right rate' name='rate[]' value="{{item.rate}}">
                         </td>
                         
                         <td class='text-right'>
                           
                         <input type="text" value="{{item.tax_percentage}}" hidden id="taxType{{ forloop.counter }}">
                           <select name='tax[]' id='tax{{ forloop.counter }}' style="width: 80px;"
-                          class='bg-transparent border-0 text-black text-right tax'
+                          class='bg-transparent border-0 text-white text-right tax'
                           onclick='handleTaxChange({{ forloop.counter }})'> 
-                                <optgroup label="GST" style="display: none;">
+                                <optgroup label="GST" style="display: none;" class="text-black">
                                   <option value=0>0% GST</option>
                                   <option value=3>3% GST</option>
                                   <option value=5>5% GST</option>
@@ -833,7 +847,7 @@ else{
                                   <option value=18>18% GST</option>
                                   <option value=28>28% GST</option>
                               </optgroup>
-                              <optgroup label="IGST"  style="display: none;">
+                              <optgroup label="IGST"  style="display: none;"  class="text-black">
                                   <option value=0>0% IGST</option>
                                   <option value=3>3% IGST</option>
                                   <option value=5>5% IGST</option>
@@ -846,17 +860,17 @@ else{
                             <input type="number" name='taxamount[]' id="taxamount{{ forloop.counter }}" class="form-control taxamount" style="width: 50px;" />
                         </td>
                         <td class='text-right'><input type='number' id='discount{{ forloop.counter }}'
-                          class='bg-transparent border-0 text-black text-right discount' style="width: 50px;" name='discount[]' 
+                          class='bg-transparent border-0 text-white text-right discount' style="width: 50px;" name='discount[]' 
                           value="{{item.discount}}"></td>
                         <td class='text-right'><input type='number' id='amount{{ forloop.counter }}'
-                                class='bg-transparent border-0 text-black text-right amount' name='amount[]'
+                                class='bg-transparent border-0 text-white text-right amount' name='amount[]'
                                 value="{{item.amount}}" style="width: 80px;"></td>
                         <td class='text-center'><button type='button' id='copy_btn{{ forloop.counter }}'
                                 class='btn btn-transparent text-secondary btn-sm   copy_row' data-toggle='tooltip'
                                 data-placement='top' title='Clone' style='width:20px'><i
-                                    class="fas fa-copy"></i></button>
-                        </td>
-                        <td class='text-center'><button type='button' id='del_btn{{ forloop.counter }}'
+                                    class="fas fa-copy"></i></button> 
+                                    
+                                    <button type='button' id='del_btn{{ forloop.counter }}'
                                 class='btn btn-transparent text-danger btn-sm   delete-row' data-toggle='tooltip'
                                 data-placement='top' title='delete-row' style='width:20px'><i
                                     class='fa fa-times'></i></button></td>
@@ -878,36 +892,36 @@ else{
               </div>
 
                 <div class="col-sm-6">
-                    <table class=" table  text-black" style="background-color: rgba(250, 227, 198, 0.8);">
+                    <table class=" table  text-white" style="background-color: rgba(58, 57, 57, 0.8);">
                         <tr>
                             <td>Sub Total</td>
                             <td></td>
                             <td><input type="number" id="subtotal" name="subtotal" step="any" value="{{bill.sub_total}}"
-                                    class="bg-transparent border-0 text-right subtotal "></td>
+                                    class="bg-transparent border-0 text-right subtotal text-white"></td>
                         </tr>
                         <tr style="display: none;" id="tr_igst">
                             <td>IGST</td>
                             <td></td>
                             <td><input type="number" id='igst' name="igst" step="any" value="{{bill.igst}}"
-                                    class="form-control bg-transparent border-0 text-right igst text-dark"></td>
+                                    class="form-control bg-transparent border-0 text-right igst text-white"></td>
                         </tr>
                         <tr style="display: none;" id="tr_cgst">
                             <td>CGST</td>
                             <td></td>
                             <td><input type="number" id='cgst' name="cgst" step="any" value="{{bill.cgst}}"
-                                    class="form-control bg-transparent border-0 text-right cgst text-dark"></td>
+                                    class="form-control bg-transparent border-0 text-right cgst text-white"></td>
                         </tr>
                         <tr style="display: none;" id="tr_sgst">
                             <td>SGST</td>
                             <td></td>
                             <td><input type="number" id='sgst' name="sgst" step="any" value="{{bill.sgst}}"
-                                    class="form-control bg-transparent border-0 text-right sgst text-dark"></td>
+                                    class="form-control bg-transparent border-0 text-right sgst text-white"></td>
                         </tr>
                         <tr>
                             <td>Tax Amount</td>
                             <td></td>
                             <td><input type="number" id="total_taxamount" name="total_taxamount" step="any" value="{{bill.tax_amount}}"
-                                    class="total_taxamount form-control bg-transparent border-0 text-right text-dark">
+                                    class="total_taxamount form-control bg-transparent border-0 text-right text-white">
                             </td>
                         </tr>
                         <tr>
@@ -931,7 +945,7 @@ else{
                             <th>Total ( &#x20B9; )</th>
                             <th></th>
                             <th><input type="number" id="total" name="total" step="any" value="{{bill.total}}"
-                                    class="form-control bg-transparent border-0 text-right total text-dark"></th>
+                                    class="form-control bg-transparent border-0 text-right total text-white"></th>
                         </tr>
                         <tr>
                           <td><strong>Paid ( &#x20B9; )</strong></td>
@@ -951,8 +965,8 @@ else{
 
             <div class="row py-2 ">
 
-                <div class="col-md-6 py-2 text-center rounded" style="background-color: rgba(250, 227, 198, 0.8);">
-                    <label class="text-dark" for="">Attach File(s) to Purchase Bill</label><br>
+                <div class="col-md-6 py-2 text-center rounded" style="background-color: rgba(58, 57, 57, 0.8);">
+                    <label class="text-white" for="">Attach File(s) to Purchase Bill</label><br>
 
                     <label for="file-upload" class="btn text-white border-0"
                         style="background-color: rgb(210, 132, 30);">
@@ -2875,7 +2889,8 @@ else{
       </div>
     </div>  
   </div>  
-
+</div>
+</div>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
     integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
     crossorigin="anonymous"></script>
@@ -3365,22 +3380,22 @@ $(document).ready(function () {
                         </div>
                 </td>
                 <td class='text-right'><input type='text' id='HSN${RowCount}'
-                  class='bg-transparent border-0 text-black text-right HSN' name='HSN[]' style="width: 52px;" value='0' min="0"></td>
+                  class='bg-transparent border-0 text-white text-right HSN' name='HSN[]' style="width: 52px;" value='0' min="0"></td>
                 
                 <td class='text-right'><input type='number' id='qty${RowCount}' style="width: 50px;"
-                        class='bg-transparent border-0 text-black text-right qty' name='quantity[]' value='0' >
+                        class='bg-transparent border-0 text-white text-right qty' name='quantity[]' value='0' >
                         <br>
                         <span class="text-warning">Available Stock : <span id="stock_data${RowCount}" class="text-warning stock_data"></span></span>
                         <input  type="text" hidden class="stock_data_hidden" name ='stock[]' id="stock_data_hidden${RowCount}" value="0"/>
                 </td>
                 <td class='text-right'><input type='number' id='rate${RowCount}' style="width: 80px;"
-                        class='bg-transparent border-0 text-black text-right rate' name='rate[]' value='0.00'
+                        class='bg-transparent border-0 text-white text-right rate' name='rate[]' value='0.00'
                         ></td>
                
                 <td class='text-right'> <select name='tax[]' id='tax${RowCount}' style="width: 90px;"
-                        class="form-control bg-transparent text-black text-right border-0 tax"
+                        class="form-control bg-transparent text-white text-right border-0 tax"
                         onclick='handleTaxChange(${RowCount})'>
-                        <optgroup label="GST" >
+                        <optgroup label="GST" class="text-black">
                                 <option value=0>0% GST</option>
                                 <option value=3>3% GST</option>
                                 <option value=5>5% GST</option>
@@ -3388,7 +3403,7 @@ $(document).ready(function () {
                                 <option value=18>18% GST</option>
                                 <option value=28>28% GST</option>
                             </optgroup>
-                            <optgroup label="IGST" >
+                            <optgroup label="IGST" class="text-black">
                                 <option value=0>0% IGST</option>
                                 <option value=3>3% IGST</option>
                                 <option value=5>5% IGST</option>
@@ -3403,15 +3418,14 @@ $(document).ready(function () {
                             </td>
 
                     <td class='text-right'><input type='number' id='discount${RowCount}' style="width: 50px;"
-                      class='bg-transparent border-0 text-black text-right discount' name='discount[]' value='0.0' min="0"></td>
+                      class='bg-transparent border-0 text-white text-right discount' name='discount[]' value='0.0' min="0"></td>
                 <td class='text-right'><input type='number' id='amount${RowCount}' style="width: 80px;"
-                        class='bg-transparent border-0 text-black text-right amount' name='amount[]' value='0.00'></td>
+                        class='bg-transparent border-0 text-white text-right amount' name='amount[]' value='0.00'></td>
                 <td class='text-center'><button type='button' id='copy_btn${RowCount}'
                         class='btn btn-transparent text-secondary btn-sm   copy_row' data-toggle='tooltip'
                         data-placement='top' title='Clone' style='width:20px'><i
-                            class="fas fa-copy"></i></button>
-                </td>
-                <td class='text-center'><button type='button' id='del_btn${RowCount}'
+                            class="fas fa-copy"></i></button> 
+                            <button type='button' id='del_btn${RowCount}'
                         class='btn btn-transparent text-danger btn-sm  delete-row'
                         style='width:20px'><i class='fa fa-times'></i></button></td>
             </tr>`);
@@ -3478,23 +3492,23 @@ $(document).ready(function () {
                 </td>
                 <td style="width: 50%;">
                         <input type='text' id='HSN${RowCount}' value="${currentHSN}" 
-                        class='bg-transparent border-0 text-black text-right HSN' name='HSN[]' style="width: 52px;" value='0' min="0">
+                        class='bg-transparent border-0 text-white text-right HSN' name='HSN[]' style="width: 52px;" value='0' min="0">
                 </td>
                 
                 <td class='text-right'><input type='number' id='qty${RowCount}' value="${currentQuantity}" style="width: 50px;"
-                        class='bg-transparent border-0 text-black text-right qty' name='quantity[]' value='0.00' >
+                        class='bg-transparent border-0 text-white text-right qty' name='quantity[]' value='0.00' >
                         <br>
                         <span class="text-warning">Available Stock : <span id="stock_data${RowCount}" class="text-warning stock_data"></span></span>
                         <input  type="text" hidden class="stock_data_hidden" name ='stock[]'  id="stock_data_hidden${RowCount}" value="${currentStock}"/>
                 </td>
                 <td class='text-right'><input type='number' id='rate${RowCount}' value="${currentRate}" style="width: 80px;"
-                        class='bg-transparent border-0 text-black text-right rate' name='rate[]' value='0.00'
+                        class='bg-transparent border-0 text-white text-right rate' name='rate[]' value='0.00'
                         ></td>
                
                 <td class='text-right'> <select name='tax[]' id='tax${RowCount}' style="width: 80px;"
-                        class="form-control bg-transparent text-black text-right border-0 tax"
+                        class="form-control bg-transparent text-white text-right border-0 tax"
                         onclick='handleTaxChange(${RowCount})'> 
-                        <optgroup label="GST" >
+                        <optgroup label="GST" class="text-black">
                                 <option value=0>0% GST</option>
                                 <option value=3>3% GST</option>
                                 <option value=5>5% GST</option>
@@ -3502,7 +3516,7 @@ $(document).ready(function () {
                                 <option value=18>18% GST</option>
                                 <option value=28>28% GST</option>
                             </optgroup>
-                            <optgroup label="IGST" >
+                            <optgroup label="IGST" class="text-black">
                                 <option value=0>0% IGST</option>
                                 <option value=3>3% IGST</option>
                                 <option value=5>5% IGST</option>
@@ -3516,15 +3530,14 @@ $(document).ready(function () {
                     <input type="text" name='taxamount[]' id="taxamount${RowCount}" class="form-control taxamount" value="${currentTaxAmount}"/>
                             </td>
                             <td class='text-right'><input type='number' id='discount${RowCount}' value="${currentDiscount}"
-                              class='bg-transparent border-0 text-black text-right discount' name='discount[]' style="width: 50px;" value='0.0'></td>
+                              class='bg-transparent border-0 text-white text-right discount' name='discount[]' style="width: 50px;" value='0.0'></td>
                 <td class='text-right'><input type='number' id='amount${RowCount}' value="${currentAmount}"
-                        class='bg-transparent border-0 text-black text-right amount' name='amount[]'style="width: 80px;" value='0.00'></td>
+                        class='bg-transparent border-0 text-white text-right amount' name='amount[]'style="width: 80px;" value='0.00'></td>
                 <td class='text-center'><button type='button' id='copy_btn${RowCount}'
                         class='btn btn-transparent text-secondary btn-sm   copy_row' data-toggle='tooltip'
                         data-placement='top' title='Clone' style='width:20px'><i
-                            class="fas fa-copy"></i></button>
-                </td>
-                <td class='text-center'><button type='button' id='del_btn${RowCount}'
+                            class="fas fa-copy"></i></button> 
+                            <button type='button' id='del_btn${RowCount}'
                         class='btn btn-transparent text-danger btn-sm  delete-row'
                         style='width:20px'><i class='fa fa-times'></i></button></td>
             </tr>`);
