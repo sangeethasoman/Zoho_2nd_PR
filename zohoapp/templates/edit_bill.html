@@ -5925,4 +5925,11 @@ function closeForm1() {
             }
         }
  </script>
+
+<script>
+  $(document).on("change", "#amtPaid", function(){
+   var balance = parseFloat($("#total").val()) - parseFloat($("#amtPaid").val()) 
+   $("#balanceam_t").val(balance);
+ });  
+</script>
 {% endblock %}

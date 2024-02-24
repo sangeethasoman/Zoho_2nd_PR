@@ -737,9 +737,8 @@
   </div>
     
 </div>
-      <div class="row mt-2">
-        <div class="col-md-12 table-responsive-md mt-3">
-          <table class="table table-bordered table-hover mt-3" id="tab_logic">
+  
+          <table class="table table-bordered table-responsive text-white" id="tab_logic">
             <thead>
               <tr>
                 <th class="text-center text-uppercase">Sl.No. </th>
@@ -780,13 +779,13 @@
                     </select>
                   </div>  
                 </td>
-                <td  style="width: 11%;">
-                  <input type="text" value="{{ri.hsn}}" name='HSN[]' id="HSN{{forloop.counter|add:'-1'}}" placeholder='HSN' class="form-control HSN text-dark bg-light"  style="width: 82px; " />
+                <td>
+                  <input type="text" value="{{ri.hsn}}" name='HSN[]' id="HSN{{forloop.counter|add:'-1'}}" placeholder='HSN' class="bg-transparent border-0 text-white text-right HSN text-dark bg-light"  style="width: 82px; " />
                 </td>
 
                
-                <td style="width: 10%;">
-                  <input type="text" name='qty[]' placeholder='Qty' id="qty{{forloop.counter|add:'-1'}}" value="{{ri.quantity}}"  class="form-control qty text-dark bg-light" step=0 min=0/> <br>
+                <td>
+                  <input type="text" name='qty[]' placeholder='Qty' id="qty{{forloop.counter|add:'-1'}}" value="{{ri.quantity}}"  class="bg-transparent border-0 text-white text-right qty text-dark bg-light" step=0 min=0 style="width: 50px;"/> <br>
                   <span class="text-warning">Available Stock : <span id="stock_data{{forloop.counter|add:'-1'}}" class="text-warning stock_data">
                   {% for i in item %}      
                   {% if i.Name == ri.item %}{{ i.stock|add:ri.quantity }} {% endif %}
@@ -795,13 +794,13 @@
                   </span>
                   <input  type="text" hidden class="stock_data_hidden" name ="stock[]" id="stock_data_hidden{{forloop.counter|add:'-1'}}" value="0"/>
                 </td>
-                <td style="width: 10%;">
-                  <input type="text" name='rate[]' id="rate{{forloop.counter|add:'-1'}}" placeholder='Rate' value="{{ ri.rate }}" class="form-control rate text-dark bg-light" step="0.00" min="0" />
+                <td>
+                  <input type="text" name='rate[]' id="rate{{forloop.counter|add:'-1'}}" placeholder='Rate' value="{{ ri.rate }}" class="bg-transparent border-0 text-white text-right rate text-dark bg-light" step="0.00" min="0" style="width: 50px;"/>
                 </td>
-                <td style="width: 15%;">
+                <td>
                   <input type="hidden" id="tax_total{{forloop.counter|add:'-1'}}" class="form-control mb-2 d-none">
                   <input type="text" placeholder="Select TAX" class="form-control selecttax text-dark bg-light" id="selecttax0">
-                  <select name="tax1[]" id="intra_tax{{forloop.counter|add:'-1'}}" class="form-control tax1 d-none mb-2 text-dark bg-light">
+                  <select name="tax1[]" id="intra_tax{{forloop.counter|add:'-1'}}" class="form-control tax1 d-none mb-2 text-dark bg-light" style="width: 80px;">
                     <option id="ta1" value="{{ ri.tax  }} " text="{{ cmp1.state }}" >{{ ri.tax }}% GST({{ ri.tax }}%)</option>
                     <option value=28 text="{{ cmp1.state }}">28.0% GST</option>
                     <option value=18 text="{{ cmp1.state }}">18.0% GST</option>
@@ -811,7 +810,7 @@
                     <option value=0 text="{{ cmp1.state }}">0.0% GST</option>
                   </select>
 
-                  <select name="tax2[]" id="inter_tax{{forloop.counter|add:'-1'}}" class="form-control tax2 d-none mb-2 text-dark bg-light">
+                  <select name="tax2[]" id="inter_tax{{forloop.counter|add:'-1'}}" class="form-control tax2 d-none mb-2 text-dark bg-light" style="width: 80px;">
                     <option id="ta5" value="{{ ri.tax  }} " text="{{ cmp1.state }}">{{ ri.tax }}% IGST({{ ri.tax }}%) </option>                      
                     <option value=28 text="{{ cmp1.state }}">28.0% IGST</option>
                     <option value=28 text="{{ cmp1.state }}">28.0% IGST</option>
@@ -823,12 +822,12 @@
                   </select>
                 </td>
                 
-                <td style="width: 11%;">
-                  <input type="text" name='discount[]' id="disc{{forloop.counter|add:'-1'}}" value="{{ri.discount}}" placeholder='Discount' class="text-dark bg-light form-control disc" step="0.00" min="0"/>
+                <td>
+                  <input type="text" name='discount[]' id="disc{{forloop.counter|add:'-1'}}" value="{{ri.discount}}" placeholder='Discount' class="bg-transparent border-0 text-white text-right text-dark bg-light disc" step="0.00" min="0"  style="width: 60px;" />
                 </td>
 
-                <td style="width: 11%;">
-                  <input type="text" name='amount[]' id="amount{{forloop.counter|add:'-1'}}" value="{{ri.amount}}" placeholder='Amount' class=" text-dark bg-light form-control amount" step="0.00" min="0" />
+                <td>
+                  <input type="text" name='amount[]' id="amount{{forloop.counter|add:'-1'}}" value="{{ri.amount}}" placeholder='Amount' class="bg-transparent border-0 text-white text-right text-dark bg-light amount" step="0.00" min="0"  style="width: 60px;" />
                 </td>
                 <td>
                   <button type="button" id="0" class="btn btn-outline-primary clone_row text-center mb-1 p-1 " data-toggle= "tooltip" data-placement="bottom" tooltip="Clone"
@@ -851,9 +850,7 @@
                 <td style="border: none;"><a class="btn btn-outline-secondary ml-1 text-capitalize" role="button" id="add"  
                   title="Add Another Line">+</a></td>
             </tr>
-          </table>
-        </div>
-      </div>
+          </table> 
 
       
 
@@ -3468,7 +3465,7 @@ debugger
         
         `<tr id='addr${roinc}' class = 'addr'>
           <td  style="color: white;"><span id="slnum${roinc}">${roinc+1}</span></td>
-          <td style="width: 20%;">
+          <td>
             <div class="d-flex">
               
               <select name='item[]' id='item${roinc}' class="form-control item text-black border-0 listAdditem  select2"  style="color: black; background-color: white;" onchange="showRate(this.id,this.value,${roinc})">
@@ -3482,23 +3479,23 @@ debugger
               </select>
             </div>  
           </td>
-          <td style="width: 11%;">
-            <input type="text" name='HSN[]' id="HSN${roinc}" placeholder='HSN' class="form-control HSN text-dark bg-light" step="0.00" min="0" style = "width:82px;" />
+          <td >
+            <input type="text" name='HSN[]' id="HSN${roinc}"  value = "0" class="bg-transparent border-0 text-white text-right HSN text-dark bg-light" step="0.00" min="0" style="width: 50px;" />
           </td>
          
-          <td style="width: 10%;">
-            <input type="number" name='qty[]'  placeholder='Qty' id="qty${roinc}"  class="form-control qty text-dark bg-light" step=0 min=0/>
+          <td >
+            <input type="number" name='qty[]'  value = "0" id="qty${roinc}"  class="bg-transparent border-0 text-white text-right qty text-dark bg-light" step=0 min=0 style="width: 50px;"/>
             <br>
             <span class="text-warning">Available Stock : <span id="stock_data${roinc}" class="text-warning stock_data"></span></span>
             <input  type="text" hidden class="stock_data_hidden" name ='stock[]' id="stock_data_hidden${roinc}" value="0"/>
             </td>
-          <td style="width: 10%;">
-            <input type="text" name='rate[]'  id="rate${roinc}" placeholder='Rate' class="form-control rate text-dark bg-light" style = "width:90px;" />
+          <td >
+            <input type="text" name='rate[]' value = "0.00" id="rate${roinc}"   class="bg-transparent border-0 text-white text-right rate text-dark bg-light" style="width: 50px;" />
           </td>
-          <td style="width: 15%;">
+          <td >
             <input type="hidden" id="tax_total0" class="form-control mb-2 d-none">
-            <input type="text" placeholder="Select TAX" class="form-control selecttax text-dark bg-light" id="selecttax${roinc}"  style = "width:100px;">
-            <select name="tax1[]" id="intra_tax${roinc}" class="form-control tax1 d-none mb-2 text-dark bg-light">
+            <input type="text" placeholder="Select TAX" class="form-control selecttax text-dark bg-light" id="selecttax${roinc}"  style = "width:80px;">
+            <select name="tax1[]" id="intra_tax${roinc}" class="form-control tax1 d-none mb-2 text-dark bg-light" style="width: 80px;">
                 <option id="ta1" value=0 text=" ">Choose GST</option>
                 <option value=28 text="{{ cmp1.state }}">28.0% GST</option>
                 <option value=18 text="{{ cmp1.state }}">18.0% GST</option>
@@ -3508,7 +3505,7 @@ debugger
                 <option value=0 text="{{ cmp1.state }}">0.0% GST</option>
             </select>
 
-            <select name="tax2[]" id="inter_tax${roinc}" class="form-control tax2 d-none mb-2 text-dark bg-light">
+            <select name="tax2[]" id="inter_tax${roinc}" class="form-control tax2 d-none mb-2 text-dark bg-light" style="width: 80px;">
               <option id="ta5" value=0 text=" " >Choose IGST</option>
               <option value=28 text="{{ cmp1.state }}">28.0% IGST</option>
               <option value=18 text="{{ cmp1.state }}">18.0% IGST</option>
@@ -3519,11 +3516,11 @@ debugger
             </select>
           </td>
             
-          <td style="width: 11%;">
-            <input type="text" name='discount[]' style = "width:90px;" id="disc${roinc}" placeholder='Discount' class="form-control disc text-dark bg-light" value ="0" step="0.00" min="0"/>
+          <td>
+            <input type="text" name='discount[]'  style="width: 50px;" value='0.00' id="disc${roinc}"  class="bg-transparent border-0 text-white text-right disc text-dark bg-light" value ="0" step="0.00" min="0"/>
           </td>
-          <td style="width: 11%;">
-            <input type="text" name='amount[]' id="amount${roinc}" style = "width:90px;" placeholder='Amount' class="form-control amount text-dark bg-light" step="0.00" min="0"  />
+          <td >
+            <input type="text" name='amount[]' id="amount${roinc}"  style="width: 50px;" value='0.00'   class="bg-transparent border-0 text-white text-right amount text-dark bg-light" step="0.00" min="0"  />
           </td>
             
           <td>
@@ -5803,4 +5800,10 @@ function closeForm1() {
      $(".select2").select2();
  });
  </script>
+  <script>
+    $(document).on("change", "#amtPaid", function(){
+     var balance = parseFloat($("#grandtotal").val()) - parseFloat($("#amtPaid").val()) 
+     $("#balanceam_t").val(balance);
+   });  
+</script>
 {% endblock %}
